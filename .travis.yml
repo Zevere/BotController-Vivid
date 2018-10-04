@@ -11,26 +11,25 @@ notifications:
 services:
   - docker
 install:
-  # - docker pull microsoft/dotnet:2.1
   - cd scripts && npm install && cd ..
 
 script:
-  - docker build --tag vivid:debug --target solution-build .
+  - docker build --tag vivid:debug --target solution-build --no-cache .
   - docker build --tag botops-vivid --target final .
   # - docker build --target unit-tests .
   # - node scripts/build && node scripts/test
 
-# deploy:
-#   - provider: script
-#     skip_cleanup: true
-#     script: node scripts/deploy Staging
-#     on:
-#       branch: develop
-#   - provider: script
-#     skip_cleanup: true
-#     script: node scripts/deploy Production
-#     on:
-#       branch: master
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: node scripts/deploy Staging
+    on:
+      branch: master
+  # - provider: script
+  #   skip_cleanup: true
+  #   script: node scripts/deploy Production
+  #   on:
+  #     branch: master
 
 
 # Disable "Build pushed pull requests"

@@ -14,7 +14,7 @@ RUN dotnet build src/Vivid.Web/Vivid.Web.csproj --configuration ${configuration}
 
 FROM web-app-build AS publish
 WORKDIR /project/
-RUN dotnet build src/Vivid.Web/Vivid.Web.csproj --configuration Release --output /app/
+RUN dotnet publish src/Vivid.Web/Vivid.Web.csproj --configuration Release --output /app/
 
 
 FROM base AS final
