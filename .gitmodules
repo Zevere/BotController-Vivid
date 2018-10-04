@@ -1,0 +1,3 @@
+[submodule "deps/EnvJson"]
+	path = deps/EnvJson
+	url = https://github.com/poulad/EnvJson.git
