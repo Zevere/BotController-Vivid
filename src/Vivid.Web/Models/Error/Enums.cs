@@ -6,7 +6,7 @@ namespace Vivid.Web
     {
         public static class ErrorCodes
         {
-            public const string Validation = "e.req.validations";
+            public const string Validation = "err.req.validations";
         }
     }
 }

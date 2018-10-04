@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using Vivid.Data.Abstractions;
 using Vivid.Web.Models;
 using UserEntity = Vivid.Data.Abstractions.Entities.User;
@@ -31,13 +26,12 @@ namespace Vivid.Web.Controllers
         /// This operations retrieves the associations of an existing Zevere user to the Zevere chat bots.
         /// </remarks>
         /// <param name="username">ID of the Zevere user</param>
-        /// <returns></returns>
         /// <response code="200">User registrations found</response>
         /// <response code="400">User ID is invalid or does not exist</response>
         /// <response code="404">User has not registered with any of the Zevere chat bots</response>
         [HttpGet("{username}")]
         [Produces(Constants.JsonContentType)]
-        [ProducesResponseType(typeof(UserRegistration), 200)]
+        [ProducesResponseType(typeof(UserRegistrationsResponse), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 400)]
         [ProducesResponseType(typeof(ErrorResponse), 404)]
 //        [Authorize]
@@ -83,13 +77,24 @@ namespace Vivid.Web.Controllers
 //            return result;
         }
 
-//        [HttpPost]
-//        [Consumes(Constants.ZevereContentTypes.User.Creation)]
-//        [ProducesResponseType(typeof(UserFullDto), StatusCodes.Status201Created)]
-//        [ProducesResponseType(typeof(UserPrettyDto), StatusCodes.Status201Created)]
-//        [ProducesResponseType(typeof(EmptyContentDto), StatusCodes.Status204NoContent)]
-//        public async Task<IActionResult> Post([FromBody] UserCreationDto model)
-//        {
+        /// <summary>
+        /// Connect the account of a Zevere user to his chat account 
+        /// </summary>
+        /// <remarks>
+        /// A Zevere user can connect(register) his account to an account on any of the supported chat platforms.
+        /// This operations stores that association.
+        /// </remarks>
+        /// <param name="model">Arguments for the operation</param>
+        /// <response code="201">User registration is complete</response>
+        /// <response code="400">There are invalid fields or the username does not exist on Zevere</response>
+        [HttpPost]
+        [Consumes(Constants.JsonContentType)]
+        [ProducesResponseType(typeof(UserRegistration), 201)]
+        [ProducesResponseType(typeof(ErrorResponse), 400)]
+        public async Task<IActionResult> Post([FromBody] NewUserRegistration model)
+        {
+            throw new NotImplementedException();
+
 //            if (model is null || !TryValidateModel(model))
 //            {
 //                return StatusCode((int) HttpStatusCode.BadRequest);
@@ -111,7 +116,7 @@ namespace Vivid.Web.Controllers
 //                default:
 //                    return BadRequest();
 //            }
-//        }
+        }
 //
 //        [HttpPatch("{userName}")]
 //        [Authorize]

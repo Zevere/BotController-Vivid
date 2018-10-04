@@ -81,10 +81,10 @@ namespace Vivid.Web
 
             app.UseMvc();
 
-            app.UseSwagger(options => { options.RouteTemplate = "api/docs/{documentName}/swagger.json"; });
+            app.UseSwagger(options => { options.RouteTemplate = "api/docs/swagger/{documentName}/swagger.json"; });
             app.UseSwaggerUI(c =>
             {
-                c.RoutePrefix = "api/docs";
+                c.RoutePrefix = "api/docs/swagger";
                 c.SwaggerEndpoint("v1/swagger.json", "v1");
             });
 

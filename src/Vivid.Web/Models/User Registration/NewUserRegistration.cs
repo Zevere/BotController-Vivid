@@ -5,10 +5,10 @@ using Newtonsoft.Json.Serialization;
 namespace Vivid.Web.Models
 {
     /// <summary>
-    /// Contains a list of associations of a Zevere account with chat platforms
+    /// Contains arguments for associating a Zevere user to his account on a chat platform
     /// </summary>
     [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
-    public class UserRegistrationsResponse
+    public class NewUserRegistration
     {
         /// <summary>
         /// ID of the Zevere user account
@@ -17,9 +17,9 @@ namespace Vivid.Web.Models
         public string Username { get; set; }
 
         /// <summary>
-        /// List of user registrations
+        /// Unique identifier of the user on the chat platform
         /// </summary>
         [JsonProperty(Required = Required.Always)]
-        public UserRegistration[] Registrations { get; set; }
+        public string ChatUserId { get; set; }
     }
 }
