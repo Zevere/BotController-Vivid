@@ -18,7 +18,6 @@ namespace Vivid.Data.Abstractions.Entities
         public string Url { get; set; }
 
         [Required]
-        [StringLength(64, MinimumLength = 64)]
         public string Token { get; set; }
 
         [Required]

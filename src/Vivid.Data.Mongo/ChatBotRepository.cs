@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using MongoDB.Bson;
@@ -21,13 +20,13 @@ namespace Vivid.Data.Mongo
         }
 
         public async Task<ChatBot> AddAsync(
-            ChatBot entity,
+            ChatBot bot,
             CancellationToken cancellationToken = default
         )
         {
             try
             {
-                await _collection.InsertOneAsync(entity, cancellationToken: cancellationToken)
+                await _collection.InsertOneAsync(bot, cancellationToken: cancellationToken)
                     .ConfigureAwait(false);
             }
             catch (MongoWriteException e)
@@ -39,7 +38,7 @@ namespace Vivid.Data.Mongo
                 throw new DuplicateKeyException(nameof(ChatBot.Name));
             }
 
-            return entity;
+            return bot;
         }
 
         public async Task<ChatBot> GetByNameAsync(
@@ -50,25 +49,35 @@ namespace Vivid.Data.Mongo
             name = Regex.Escape(name);
             var filter = Filter.Regex(b => b.Name, new BsonRegularExpression($"^{name}$", "i"));
 
-            ChatBot entity = await _collection
+            ChatBot bot = await _collection
                 .Find(filter)
                 .SingleOrDefaultAsync(cancellationToken)
                 .ConfigureAwait(false);
 
-            if (entity is null)
+            if (bot is null)
             {
                 throw new EntityNotFoundException(nameof(ChatBot.Name), name);
             }
 
-            return entity;
+            return bot;
         }
 
-        public Task<ChatBot> GetByTokenAsync(
+        public async Task<ChatBot> GetByTokenAsync(
             string token,
             CancellationToken cancellationToken = default
         )
         {
-            throw new NotImplementedException();
+            var filter = Builders<ChatBot>.Filter.Eq(b => b.Token, token);
+            var bot = await _collection.Find(filter)
+                .SingleOrDefaultAsync(cancellationToken)
+                .ConfigureAwait(false);
+
+            if (bot is null)
+            {
+                throw new EntityNotFoundException(nameof(ChatBot.Token), token);
+            }
+
+            return bot;
         }
     }
 }

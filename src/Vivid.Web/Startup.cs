@@ -1,14 +1,10 @@
 ﻿using System;
 using Vivid.Web.Helpers;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Vivid.Web.Extensions;
 
@@ -34,22 +30,7 @@ namespace Vivid.Web
         {
             services.AddMongoDb(Configuration.GetSection("Data"));
 
-//            #region Auth
-//
-//            services.AddAuthentication("Basic")
-//                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("Basic", default);
-//
-//            services.AddAuthorization(options =>
-//            {
-//                options.DefaultPolicy = new AuthorizationPolicy(
-//                    new[]
-//                    {
-//                        new AssertionRequirement(authContext => authContext.User.FindFirstValue("token") != default)
-//                    },
-//                    new[] { "Basic" });
-//            });
-//
-//            #endregion
+            services.AddAuth();
 
             services.AddMvc();
 
@@ -76,10 +57,6 @@ namespace Vivid.Web
                 .SetPreflightMaxAge(TimeSpan.FromDays(7))
             );
 
-//            app.UseAuthentication();
-
-            app.UseMvc();
-
             app.UseSwagger(options => { options.RouteTemplate = "api/docs/swagger/{documentName}/swagger.json"; });
             app.UseSwaggerUI(c =>
             {
@@ -87,11 +64,9 @@ namespace Vivid.Web
                 c.SwaggerEndpoint("v1/swagger.json", "v1");
             });
 
-            app.Run(context =>
-            {
-                context.Response.Redirect("/api/docs/swagger");
-                return Task.CompletedTask;
-            });
+            app.UseAuthentication();
+
+            app.UseMvc();
         }
     }
 }

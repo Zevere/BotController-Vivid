@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vivid.Data.Abstractions;
 using Vivid.Web.Models;
@@ -7,11 +8,16 @@ using Vivid.Web.Models;
 // ReSharper disable once CheckNamespace
 namespace Vivid.Web.Controllers
 {
+    /// <summary>
+    /// MVC controller for handling user registrations
+    /// </summary>
     [Route("/api/v1/user-registrations")]
+    [Authorize]
     public class UserRegistrationsController : Controller
     {
         private readonly IChatBotRepository _botsRepo;
 
+        /// <inheritdoc />
         public UserRegistrationsController(IChatBotRepository botsRepo)
         {
             _botsRepo = botsRepo;
@@ -33,9 +39,9 @@ namespace Vivid.Web.Controllers
         [ProducesResponseType(typeof(UserRegistrationsResponse), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 400)]
         [ProducesResponseType(typeof(ErrorResponse), 404)]
-//        [Authorize]
         public async Task<IActionResult> Get([FromRoute] string username)
         {
+            var a = User.Identity.Name;
             throw new NotImplementedException();
 //            if (string.IsNullOrWhiteSpace(userName))
 //                return BadRequest(); // ToDo use an error response generator helper class

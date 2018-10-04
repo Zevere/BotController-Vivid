@@ -13,7 +13,7 @@ namespace Vivid.Web.Extensions
     internal static class MongoDbExtensions
     {
         /// <summary>
-        /// Adds MongoDB services to the app's service collections
+        /// Adds MongoDB services to the app's service collection
         /// </summary>
         public static IServiceCollection AddMongoDb(
             this IServiceCollection services,

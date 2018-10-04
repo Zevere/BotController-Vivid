@@ -4,9 +4,6 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="GraphQL" Version="2.1.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Vivid.Data.Abstractions\Vivid.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\Vivid.Data.Abstractions\Vivid.Data.Abstractions.csproj"/>
   </ItemGroup>
 </Project>

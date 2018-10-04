@@ -7,7 +7,7 @@ namespace Vivid.Data.Abstractions
     public interface IChatBotRepository
     {
         Task<ChatBot> AddAsync(
-            ChatBot entity,
+            ChatBot bot,
             CancellationToken cancellationToken = default
         );
 
