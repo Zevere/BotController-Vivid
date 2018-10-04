@@ -29,7 +29,7 @@ namespace Vivid.Data.Tests.Mongo
                 );
 
                 TaskListRepo = new TaskListRepository(
-                    Collection.Database.GetCollection<TaskListMongo>(MongoConstants.Collections.TaskLists.Name),
+                    Collection.Database.GetCollection<TaskListMongo>(MongoConstants.Collections.Registrations.Name),
                     userRepo
                 );
 

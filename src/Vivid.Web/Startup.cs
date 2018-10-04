@@ -1,5 +1,4 @@
 ﻿using System;
-using Vivid.Web.Data;
 using Vivid.Web.Helpers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -10,32 +9,31 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
+using Vivid.Web.Extensions;
 using Vivid.Web.Middlewares.BasicAuth;
 
 namespace Vivid.Web
 {
+    /// <summary>
+    /// Contains app's startup tasks
+    /// </summary>
     public class Startup
     {
         private IConfiguration Configuration { get; }
 
+        /// <inheritdoc />
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Configure app's IoC container
+        /// </summary>
         public void ConfigureServices(IServiceCollection services)
         {
-            #region Database
-
-            string dataStore = Configuration["data:use"];
-            if (dataStore == "mongo")
-            {
-                string connStr = Configuration["data:mongo:connection"];
-                services.AddMongo(connStr);
-            }
-
-            #endregion
+            services.AddMongoDb(Configuration.GetSection("Data"));
 
             #region Auth
 
@@ -49,7 +47,7 @@ namespace Vivid.Web
                     {
                         new AssertionRequirement(authContext => authContext.User.FindFirstValue("token") != default)
                     },
-                    new[] {"Basic"});
+                    new[] { "Basic" });
             });
 
             #endregion
@@ -61,13 +59,15 @@ namespace Vivid.Web
             services.AddCors();
         }
 
+        /// <summary>
+        /// Configure web app's request pipeline
+        /// </summary>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger<Startup> logger)
         {
-            logger.LogInformation($@"Using database ""{Configuration["data:use"]}"".");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-//                app.SeedData(Configuration.GetSection("data"));
+                app.SeedData();
             }
 
             app.UseCors(cors => cors
@@ -88,7 +88,11 @@ namespace Vivid.Web
                 c.SwaggerEndpoint("v1/swagger.json", "v1");
             });
 
-            app.Run(context => context.Response.WriteAsync("Hello, World! Welcome to Borzoo ;)"));
+            app.Run(context =>
+            {
+                context.Response.Redirect("/api/docs/swagger");
+                return Task.CompletedTask;
+            });
         }
     }
 }

@@ -83,7 +83,7 @@ namespace Vivid.Data.Mongo
             catch (MongoWriteException e)
                 when (e.WriteError.Category == ServerErrorCategory.DuplicateKey &&
                       e.WriteError.Message
-                          .Contains($" index: {MongoConstants.Collections.TaskLists.Indexes.OwnerListName} ")
+                          .Contains($" index: {MongoConstants.Collections.Registrations.Indexes.OwnerListName} ")
                 )
             {
                 throw new DuplicateKeyException(nameof(TaskList.OwnerId), nameof(TaskList.DisplayId));
