@@ -9,9 +9,6 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
     </ItemGroup>
     <ItemGroup>
-        <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
-    </ItemGroup>
-    <ItemGroup>
         <ProjectReference Include="..\..\deps\EnvJson\src\Extensions.Configuration.JsonEnvVar\Extensions.Configuration.JsonEnvVar.csproj" />
         <ProjectReference Include="..\Vivid.Ops\Vivid.Ops.csproj" />
         <ProjectReference Include="..\Vivid.Data.Mongo\Vivid.Data.Mongo.csproj" />

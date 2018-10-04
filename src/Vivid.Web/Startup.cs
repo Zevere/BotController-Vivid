@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
 using Vivid.Web.Extensions;
 
 namespace Vivid.Web
@@ -56,6 +55,9 @@ namespace Vivid.Web
                 .AllowAnyHeader()
                 .SetPreflightMaxAge(TimeSpan.FromDays(7))
             );
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseSwagger(options => { options.RouteTemplate = "api/docs/swagger/{documentName}/swagger.json"; });
             app.UseSwaggerUI(c =>
