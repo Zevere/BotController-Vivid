@@ -7,19 +7,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B6495E16-57C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivid.Data.Abstractions", "src\Vivid.Data.Abstractions\Vivid.Data.Abstractions.csproj", "{DC301BFC-D34A-44E8-8B1D-71EE52205CE9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borzoo.Data.Mongo", "src\Borzoo.Data.Mongo\Borzoo.Data.Mongo.csproj", "{ECAD558B-EB3B-4EFB-8D9E-4D8916FADE82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivid.Data.Mongo", "src\Vivid.Data.Mongo\Vivid.Data.Mongo.csproj", "{ECAD558B-EB3B-4EFB-8D9E-4D8916FADE82}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borzoo.GraphQL", "src\Borzoo.GraphQL\Borzoo.GraphQL.csproj", "{87D33427-1A66-450A-9D01-82A601C54D20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivid.Ops", "src\Vivid.Ops\Vivid.Ops.csproj", "{87D33427-1A66-450A-9D01-82A601C54D20}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borzoo.Web", "src\Borzoo.Web\Borzoo.Web.csproj", "{869E9A44-6733-4394-BB67-A647477186BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivid.Web", "src\Vivid.Web\Vivid.Web.csproj", "{869E9A44-6733-4394-BB67-A647477186BC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0CA3A753-4D80-4A14-9D97-F549DB0E2559}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borzoo.Tests.Framework", "test\Borzoo.Tests.Framework\Borzoo.Tests.Framework.csproj", "{F4EAAF80-B82E-48F6-A304-31FDF2796442}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivid.Tests.Framework", "test\Vivid.Tests.Framework\Vivid.Tests.Framework.csproj", "{F4EAAF80-B82E-48F6-A304-31FDF2796442}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borzoo.Data.Tests.Common", "test\Borzoo.Data.Tests.Common\Borzoo.Data.Tests.Common.csproj", "{6C0B27CB-3C9A-43AB-ADB2-AEDD1599BF72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivid.Data.Tests.Common", "test\Vivid.Data.Tests.Common\Vivid.Data.Tests.Common.csproj", "{6C0B27CB-3C9A-43AB-ADB2-AEDD1599BF72}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Borzoo.Data.Tests.Mongo", "test\Borzoo.Data.Tests.Mongo\Borzoo.Data.Tests.Mongo.csproj", "{4EF16CC3-109F-4A3C-BD46-74FDEB9DBAB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivid.Data.Tests.Mongo", "test\Vivid.Data.Tests.Mongo\Vivid.Data.Tests.Mongo.csproj", "{4EF16CC3-109F-4A3C-BD46-74FDEB9DBAB3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "test\UnitTests\UnitTests.csproj", "{AE6DA9C1-924F-4ED2-BC05-51026FA3B071}"
 EndProject

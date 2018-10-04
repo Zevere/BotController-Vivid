@@ -15,8 +15,8 @@
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Borzoo.Web\Borzoo.Web.csproj" />
-    <ProjectReference Include="..\Borzoo.Tests.Framework\Borzoo.Tests.Framework.csproj" />
+    <ProjectReference Include="..\..\src\Vivid.Web\Vivid.Web.csproj" />
+    <ProjectReference Include="..\Vivid.Tests.Framework\Vivid.Tests.Framework.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="appsettings.*">

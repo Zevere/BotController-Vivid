@@ -13,7 +13,7 @@
         <ProjectReference Include="..\..\deps\EnvJson\src\Extensions.Configuration.JsonEnvVar\Extensions.Configuration.JsonEnvVar.csproj" />
         <ProjectReference Include="..\..\deps\graphql-aspnetcore\GraphQl.AspNetCore\GraphQl.AspNetCore.csproj" />
         <ProjectReference Include="..\..\deps\graphql-aspnetcore\GraphQL.AspNetCore.Graphiql\GraphQL.AspNetCore.Graphiql.csproj" />
-        <ProjectReference Include="..\Borzoo.GraphQL\Borzoo.GraphQL.csproj" />
-        <ProjectReference Include="..\Borzoo.Data.Mongo\Borzoo.Data.Mongo.csproj" />
+        <ProjectReference Include="..\Vivid.Ops\Vivid.Ops.csproj" />
+        <ProjectReference Include="..\Vivid.Data.Mongo\Vivid.Data.Mongo.csproj" />
     </ItemGroup>
 </Project>
