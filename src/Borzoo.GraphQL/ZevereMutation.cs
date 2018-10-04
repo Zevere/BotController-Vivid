@@ -1,7 +1,7 @@
-﻿using Borzoo.GraphQL.Types;
-using GraphQL.Types;
+﻿using GraphQL.Types;
+using Vivid.GraphQL.Types;
 
-namespace Borzoo.GraphQL
+namespace Vivid.GraphQL
 {
     public class ZevereMutation : ObjectGraphType
     {

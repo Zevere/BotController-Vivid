@@ -2,13 +2,13 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Borzoo.Data.Abstractions;
-using Borzoo.Data.Abstractions.Entities;
-using Borzoo.GraphQL;
-using Borzoo.GraphQL.Models;
 using GraphQL.Types;
+using Vivid.Data.Abstractions;
+using Vivid.Data.Abstractions.Entities;
+using Vivid.GraphQL;
+using Vivid.GraphQL.Models;
 
-namespace Borzoo.Web.GraphQL
+namespace Vivid.Web.GraphQL
 {
     public class QueryResolver : IQueryResolver
     {

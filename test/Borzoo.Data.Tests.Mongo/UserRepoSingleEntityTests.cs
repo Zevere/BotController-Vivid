@@ -1,14 +1,14 @@
 using System.Threading.Tasks;
-using Borzoo.Data.Abstractions;
-using Borzoo.Data.Abstractions.Entities;
-using Borzoo.Data.Mongo;
-using Borzoo.Data.Tests.Common;
-using Borzoo.Data.Tests.Mongo.Framework;
-using Borzoo.Tests.Framework;
 using MongoDB.Bson;
+using Vivid.Data.Abstractions;
+using Vivid.Data.Abstractions.Entities;
+using Vivid.Data.Mongo;
+using Vivid.Data.Tests.Common;
+using Vivid.Data.Tests.Mongo.Framework;
+using Vivid.Tests.Framework;
 using Xunit;
 
-namespace Borzoo.Data.Tests.Mongo
+namespace Vivid.Data.Tests.Mongo
 {
     public class UserRepoSingleEntityTests : UserRepoSingleEntityTestsBase,
         IClassFixture<UserRepoSingleEntityTests.Fixture>

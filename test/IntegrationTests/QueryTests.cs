@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using Borzoo.Tests.Framework;
-using Borzoo.Web;
+using Vivid.Tests.Framework;
+using Vivid.Web;
 using IntegrationTests.Framework;
 using Newtonsoft.Json;
 using Xunit;

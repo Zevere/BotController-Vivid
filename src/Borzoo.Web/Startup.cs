@@ -1,7 +1,6 @@
 ﻿using System;
-using Borzoo.Web.Data;
-using Borzoo.Web.Helpers;
-using Borzoo.Web.Middlewares.BasicAuth;
+using Vivid.Web.Data;
+using Vivid.Web.Helpers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
@@ -12,8 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using Vivid.Web.Middlewares.BasicAuth;
 
-namespace Borzoo.Web
+namespace Vivid.Web
 {
     public class Startup
     {
@@ -29,13 +29,7 @@ namespace Borzoo.Web
             #region Database
 
             string dataStore = Configuration["data:use"];
-            if (dataStore == "sqlite")
-            {
-                string dbFile = Configuration["data:sqlite:db"];
-                if (string.IsNullOrWhiteSpace(dbFile)) dbFile = "borzoo.db";
-                services.AddSQLite(dbFile);
-            }
-            else if (dataStore == "mongo")
+            if (dataStore == "mongo")
             {
                 string connStr = Configuration["data:mongo:connection"];
                 services.AddMongo(connStr);

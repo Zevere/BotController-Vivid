@@ -5,7 +5,7 @@ using System.Reflection;
 using Xunit.Abstractions;
 using Xunit.Sdk;
 
-namespace Borzoo.Tests.Framework
+namespace Vivid.Tests.Framework
 {
     public class TestCaseOrderer : ITestCaseOrderer
     {

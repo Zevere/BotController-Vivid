@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Borzoo.Data.Abstractions.Entities;
-using Borzoo.GraphQL.Models;
 using GraphQL.Types;
+using Vivid.Data.Abstractions.Entities;
+using Vivid.GraphQL.Models;
 
-namespace Borzoo.GraphQL
+namespace Vivid.GraphQL
 {
     public interface IQueryResolver
     {

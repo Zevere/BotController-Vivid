@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Borzoo.Data.Abstractions;
-using Borzoo.Data.Abstractions.Entities;
 using GenFu;
 using GenFu.ValueGenerators.Lorem;
 using GenFu.ValueGenerators.People;
+using Vivid.Data.Abstractions;
+using Vivid.Data.Abstractions.Entities;
 
-namespace Borzoo.Data.Tests.Common
+namespace Vivid.Data.Tests.Common
 {
     public static class TestDataSeeder
     {

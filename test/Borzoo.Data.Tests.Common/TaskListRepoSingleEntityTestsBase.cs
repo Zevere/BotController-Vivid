@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
-using Borzoo.Data.Abstractions;
-using Borzoo.Data.Abstractions.Entities;
-using Borzoo.Tests.Framework;
+using Vivid.Data.Abstractions;
+using Vivid.Data.Abstractions.Entities;
+using Vivid.Tests.Framework;
 using Xunit;
 
-namespace Borzoo.Data.Tests.Common
+namespace Vivid.Data.Tests.Common
 {
     public abstract class TaskListRepoSingleEntityTestsBase
     {

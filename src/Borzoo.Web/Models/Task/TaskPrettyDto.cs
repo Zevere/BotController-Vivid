@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Borzoo.Data.Abstractions.Entities;
-using Borzoo.Web.Models.User;
+using Vivid.Web.Models.User;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Vivid.Data.Abstractions.Entities;
 
-namespace Borzoo.Web.Models.Task
+namespace Vivid.Web.Models.Task
 {
     [JsonObject(MemberSerialization.OptIn, NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
     public class TaskPrettyDto

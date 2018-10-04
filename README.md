@@ -1,6 +1,6 @@
-# Borzoo
+# Vivid
 
-A [Zevere GraphQL Web API] implementation in ASP.NET Core C#.
+Web API for chat bot operations(BotOps) in Zevere
 
 ## Getting Started
 
@@ -10,16 +10,16 @@ First, clone this repository and run the web app:
 
 ```sh
 # Clone the repository
-git clone https://github.com/Zevere/WebAPI-Borzoo.git
+git clone https://github.com/Zevere/BotOps-Vivid.git
 
-# Switch to the WebAPI-Borzoo directory
-cd WebAPI-Borzoo
+# Switch to the project directory
+cd BotOps-Vivid
 
 # Clone dependency projects
 git submodule update --init --recursive
 
 # Run the web project from CLI or an IDE
-dotnet run ./src/Borzoo.Web/Borzoo.Web.csproj
+dotnet run ./src/Vivid.Web/Vivid.Web.csproj
 ```
 
 After running the web app, hit [http://localhost:5000/zv/GraphiQL](http://localhost:5000/zv/GraphiQL) and execute a GraphQL query like:

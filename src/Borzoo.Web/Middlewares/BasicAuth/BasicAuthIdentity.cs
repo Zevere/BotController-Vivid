@@ -1,6 +1,6 @@
 ﻿using System.Security.Principal;
 
-namespace Borzoo.Web.Middlewares.BasicAuth
+namespace Vivid.Web.Middlewares.BasicAuth
 {
     public class BasicAuthIdentity : IIdentity
     {

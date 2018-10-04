@@ -1,7 +1,7 @@
-﻿using Borzoo.Data.Abstractions.Entities;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
+using Vivid.Data.Abstractions.Entities;
 
-namespace Borzoo.Data.Mongo.Entities
+namespace Vivid.Data.Mongo.Entities
 {
     public class TaskItemMongo : TaskItem
     {

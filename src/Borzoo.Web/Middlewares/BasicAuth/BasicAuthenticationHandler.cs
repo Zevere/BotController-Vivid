@@ -3,12 +3,12 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Borzoo.Data.Abstractions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Vivid.Data.Abstractions;
 
-namespace Borzoo.Web.Middlewares.BasicAuth
+namespace Vivid.Web.Middlewares.BasicAuth
 {
     class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {

@@ -1,6 +1,6 @@
 ﻿// ReSharper disable once CheckNamespace
 
-namespace Borzoo.Data.Abstractions
+namespace Vivid.Data.Abstractions
 {
     public class EntityNotFoundException : RepositoryException
     {

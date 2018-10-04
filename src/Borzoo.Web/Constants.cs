@@ -1,4 +1,4 @@
-﻿namespace Borzoo.Web
+﻿namespace Vivid.Web
 {
     public static class Constants
     {

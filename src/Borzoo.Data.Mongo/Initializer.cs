@@ -1,12 +1,12 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Borzoo.Data.Abstractions.Entities;
-using Borzoo.Data.Mongo.Entities;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Driver;
+using Vivid.Data.Abstractions.Entities;
+using Vivid.Data.Mongo.Entities;
 
-namespace Borzoo.Data.Mongo
+namespace Vivid.Data.Mongo
 {
     public static class Initializer
     {

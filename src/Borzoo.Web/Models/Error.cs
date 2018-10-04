@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Borzoo.Web.Models
+namespace Vivid.Web.Models
 {
     [JsonObject(
         MemberSerialization.OptOut,

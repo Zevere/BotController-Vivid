@@ -1,6 +1,6 @@
-using Borzoo.Data.Abstractions.Entities;
+using Vivid.Data.Abstractions.Entities;
 
-namespace Borzoo.Data.Tests.Common
+namespace Vivid.Data.Tests.Common
 {
     public interface IUserRepoSingleEntityFixture
     {

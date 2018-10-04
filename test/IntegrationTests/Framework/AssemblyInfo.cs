@@ -1,4 +1,4 @@
-﻿using Borzoo.Tests.Framework;
+﻿using Vivid.Tests.Framework;
 using Xunit;
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]

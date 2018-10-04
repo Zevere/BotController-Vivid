@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-namespace Borzoo.Web
+namespace Vivid.Web
 {
     public class Program
     {

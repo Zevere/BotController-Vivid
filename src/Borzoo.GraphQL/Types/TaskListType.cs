@@ -1,7 +1,7 @@
-﻿using Borzoo.Data.Abstractions.Entities;
-using GraphQL.Types;
+﻿using GraphQL.Types;
+using Vivid.Data.Abstractions.Entities;
 
-namespace Borzoo.GraphQL.Types
+namespace Vivid.GraphQL.Types
 {
     public class TaskListType : ObjectGraphType<TaskList>
     {

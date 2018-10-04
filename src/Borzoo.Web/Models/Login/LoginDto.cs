@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Borzoo.Web.Models.Login
+namespace Vivid.Web.Models.Login
 {
     [JsonObject(MemberSerialization.OptOut, NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
     public class LoginDto

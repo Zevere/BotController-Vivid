@@ -16,7 +16,7 @@
     <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Borzoo.Data.Abstractions\Borzoo.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\Vivid.Data.Abstractions\Vivid.Data.Abstractions.csproj" />
     <ProjectReference Include="..\Borzoo.Tests.Framework\Borzoo.Tests.Framework.csproj" />
   </ItemGroup>
 </Project>

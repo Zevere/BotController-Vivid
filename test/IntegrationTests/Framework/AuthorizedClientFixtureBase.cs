@@ -1,8 +1,8 @@
 ﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Borzoo.Web;
-using Borzoo.Web.Models.Login;
+using Vivid.Web;
+using Vivid.Web.Models.Login;
 using Newtonsoft.Json;
 
 namespace IntegrationTests.Framework

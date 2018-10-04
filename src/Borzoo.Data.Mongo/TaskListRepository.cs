@@ -3,13 +3,13 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Borzoo.Data.Abstractions;
-using Borzoo.Data.Abstractions.Entities;
-using Borzoo.Data.Mongo.Entities;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Vivid.Data.Abstractions;
+using Vivid.Data.Abstractions.Entities;
+using Vivid.Data.Mongo.Entities;
 
-namespace Borzoo.Data.Mongo
+namespace Vivid.Data.Mongo
 {
     public class TaskListRepository : ITaskListRepository
     {

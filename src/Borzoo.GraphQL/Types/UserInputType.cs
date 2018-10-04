@@ -1,7 +1,7 @@
-﻿using Borzoo.GraphQL.Models;
-using GraphQL.Types;
+﻿using GraphQL.Types;
+using Vivid.GraphQL.Models;
 
-namespace Borzoo.GraphQL.Types
+namespace Vivid.GraphQL.Types
 {
     public class UserInputType : InputObjectGraphType<UserCreationDto>
     {

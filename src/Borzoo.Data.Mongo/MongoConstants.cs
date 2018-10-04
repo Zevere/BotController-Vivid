@@ -1,4 +1,4 @@
-﻿namespace Borzoo.Data.Mongo
+﻿namespace Vivid.Data.Mongo
 {
     public static class MongoConstants
     {

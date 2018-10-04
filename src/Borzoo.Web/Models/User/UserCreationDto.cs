@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using UserEntity = Borzoo.Data.Abstractions.Entities.User;
+using UserEntity = Vivid.Data.Abstractions.Entities.User;
 
-namespace Borzoo.Web.Models.User
+namespace Vivid.Web.Models.User
 {
     [JsonObject(MemberSerialization.OptIn, NamingStrategyType = typeof(CamelCaseNamingStrategy))]
     public class UserCreationDto
@@ -31,10 +31,10 @@ namespace Borzoo.Web.Models.User
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string[] Members { get; set; }
 
-        public static explicit operator UserEntity(UserCreationDto dtoModel) =>
+        public static explicit operator Vivid.Data.Abstractions.Entities.User(UserCreationDto dtoModel) =>
             dtoModel is null
                 ? null
-                : new UserEntity
+                : new Vivid.Data.Abstractions.Entities.User
                 {
                     DisplayId = dtoModel.Name,
                     FirstName = dtoModel.FirstName,

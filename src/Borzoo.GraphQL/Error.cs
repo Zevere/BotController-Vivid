@@ -1,7 +1,7 @@
 ﻿using System;
 using GraphQL;
 
-namespace Borzoo.GraphQL
+namespace Vivid.GraphQL
 {
     public class Error : ExecutionError
     {

@@ -1,12 +1,13 @@
-﻿using Borzoo.Data.Abstractions;
-using Borzoo.Data.Mongo;
-using Borzoo.Data.Mongo.Entities;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Configuration;
-using UserEntity = Borzoo.Data.Abstractions.Entities.User;
+using Vivid.Data.Abstractions;
+using Vivid.Data.Abstractions.Entities;
+using Vivid.Data.Mongo;
+using Vivid.Data.Mongo.Entities;
+using UserEntity = Vivid.Data.Abstractions.Entities.User;
 
-namespace Borzoo.Web.Helpers
+namespace Vivid.Web.Helpers
 {
     internal static class MongoExtensions
     {
@@ -16,9 +17,9 @@ namespace Borzoo.Web.Helpers
             services.AddSingleton<IMongoClient, MongoClient>(_ => new MongoClient(connectionString));
             services.AddTransient<IMongoDatabase>(_ => _.GetRequiredService<IMongoClient>().GetDatabase(dbName));
 
-            services.AddTransient<IMongoCollection<UserEntity>>(_ =>
+            services.AddTransient<IMongoCollection<User>>(_ =>
                 _.GetRequiredService<IMongoDatabase>()
-                    .GetCollection<UserEntity>(MongoConstants.Collections.Users.Name)
+                    .GetCollection<User>(MongoConstants.Collections.Users.Name)
             );
             services.AddTransient<IMongoCollection<TaskListMongo>>(_ =>
                 _.GetRequiredService<IMongoDatabase>()

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using Borzoo.GraphQL.Models;
-using Borzoo.Tests.Framework;
-using Borzoo.Web;
+using Vivid.GraphQL.Models;
+using Vivid.Tests.Framework;
+using Vivid.Web;
 using IntegrationTests.Framework;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

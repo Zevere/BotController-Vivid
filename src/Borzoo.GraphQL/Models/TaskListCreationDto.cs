@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Borzoo.Data.Abstractions.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Vivid.Data.Abstractions.Entities;
 
-namespace Borzoo.GraphQL.Models
+namespace Vivid.GraphQL.Models
 {
     [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
     public class TaskListCreationDto

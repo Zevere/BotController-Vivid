@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Borzoo.Data.Mongo;
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Configuration;
+using Vivid.Data.Mongo;
 
-namespace Borzoo.Data.Tests.Mongo.Framework
+namespace Vivid.Data.Tests.Mongo.Framework
 {
     public static class Helpers
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Borzoo.Tests.Framework
+namespace Vivid.Tests.Framework
 {
     public class NullableDateTimeEqualityComparer : IEqualityComparer<DateTime?>
     {

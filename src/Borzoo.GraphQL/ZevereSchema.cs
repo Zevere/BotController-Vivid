@@ -1,7 +1,7 @@
 ﻿using GraphQL;
 using GraphQL.Types;
 
-namespace Borzoo.GraphQL
+namespace Vivid.GraphQL
 {
     public class ZevereSchema : Schema
     {

@@ -1,4 +1,4 @@
-﻿namespace Borzoo.Data.Abstractions.Entities
+﻿namespace Vivid.Data.Abstractions.Entities
 {
     public enum CommentStatus
     {

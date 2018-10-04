@@ -1,12 +1,12 @@
-﻿using Borzoo.GraphQL;
-using Borzoo.GraphQL.Types;
-using Borzoo.Web.GraphQL;
-using GraphQL;
+﻿using GraphQL;
 using GraphQL.Http;
 using GraphQL.Types;
 using Microsoft.Extensions.DependencyInjection;
+using Vivid.GraphQL;
+using Vivid.GraphQL.Types;
+using Vivid.Web.GraphQL;
 
-namespace Borzoo.Web.Helpers
+namespace Vivid.Web.Helpers
 {
     public static class GraphQLExtensions
     {

@@ -1,4 +1,4 @@
-﻿namespace Borzoo.Tests.Framework
+﻿namespace Vivid.Tests.Framework
 {
     public static class TestFrameworkConstants
     {

@@ -1,4 +1,4 @@
-﻿namespace Borzoo.Web.Models
+﻿namespace Vivid.Web.Models
 {
     public class EmptyContentDto
     {

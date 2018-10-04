@@ -1,7 +1,7 @@
 using System;
-using Borzoo.Data.Abstractions.Entities;
-using Borzoo.Tests.Framework;
-using Borzoo.Web.Models.Task;
+using Vivid.Data.Abstractions.Entities;
+using Vivid.Tests.Framework;
+using Vivid.Web.Models.Task;
 using Xunit;
 
 namespace UnitTests

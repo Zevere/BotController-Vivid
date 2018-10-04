@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Borzoo.Data.Abstractions.Entities;
-using Borzoo.Data.Mongo;
 using MongoDB.Driver;
+using Vivid.Data.Abstractions.Entities;
+using Vivid.Data.Mongo;
 
-namespace Borzoo.Data.Tests.Mongo.Framework
+namespace Vivid.Data.Tests.Mongo.Framework
 {
     public abstract class FixtureBase<TEntity>
     {

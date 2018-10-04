@@ -2,12 +2,12 @@
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Borzoo.Data.Abstractions;
-using Borzoo.Data.Abstractions.Entities;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Vivid.Data.Abstractions;
+using Vivid.Data.Abstractions.Entities;
 
-namespace Borzoo.Data.Mongo
+namespace Vivid.Data.Mongo
 {
     public class UserRepository : IUserRepository
     {

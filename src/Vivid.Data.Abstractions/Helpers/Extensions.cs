@@ -1,6 +1,6 @@
-﻿using Borzoo.Data.Abstractions.Entities;
+﻿using Vivid.Data.Abstractions.Entities;
 
-namespace Borzoo.Data.Abstractions
+namespace Vivid.Data.Abstractions
 {
     public static class Extensions
     {

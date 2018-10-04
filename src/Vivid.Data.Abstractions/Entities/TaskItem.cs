@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Borzoo.Data.Abstractions.Entities
+namespace Vivid.Data.Abstractions.Entities
 {
     public class TaskItem : EntityBase
     {
