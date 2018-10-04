@@ -11,7 +11,6 @@ using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Vivid.Web.Extensions;
-using Vivid.Web.Middlewares.BasicAuth;
 
 namespace Vivid.Web
 {
@@ -35,22 +34,22 @@ namespace Vivid.Web
         {
             services.AddMongoDb(Configuration.GetSection("Data"));
 
-            #region Auth
-
-            services.AddAuthentication("Basic")
-                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("Basic", default);
-
-            services.AddAuthorization(options =>
-            {
-                options.DefaultPolicy = new AuthorizationPolicy(
-                    new[]
-                    {
-                        new AssertionRequirement(authContext => authContext.User.FindFirstValue("token") != default)
-                    },
-                    new[] { "Basic" });
-            });
-
-            #endregion
+//            #region Auth
+//
+//            services.AddAuthentication("Basic")
+//                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("Basic", default);
+//
+//            services.AddAuthorization(options =>
+//            {
+//                options.DefaultPolicy = new AuthorizationPolicy(
+//                    new[]
+//                    {
+//                        new AssertionRequirement(authContext => authContext.User.FindFirstValue("token") != default)
+//                    },
+//                    new[] { "Basic" });
+//            });
+//
+//            #endregion
 
             services.AddMvc();
 

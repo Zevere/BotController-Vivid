@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Vivid.Data.Abstractions;
 using Vivid.Web.Models;
-using UserEntity = Vivid.Data.Abstractions.Entities.User;
 
 // ReSharper disable once CheckNamespace
 namespace Vivid.Web.Controllers
@@ -11,11 +10,11 @@ namespace Vivid.Web.Controllers
     [Route("/api/v1/user-registrations")]
     public class UserRegistrationsController : Controller
     {
-        private readonly IUserRegistrationRepository _userRegRepo;
+        private readonly IChatBotRepository _botsRepo;
 
-        public UserRegistrationsController(IUserRegistrationRepository userRegRepo = null)
+        public UserRegistrationsController(IChatBotRepository botsRepo)
         {
-            _userRegRepo = userRegRepo;
+            _botsRepo = botsRepo;
         }
 
         /// <summary>
@@ -78,7 +77,7 @@ namespace Vivid.Web.Controllers
         }
 
         /// <summary>
-        /// Connect the account of a Zevere user to his chat account 
+        /// Connect the account of a Zevere user to his chat account
         /// </summary>
         /// <remarks>
         /// A Zevere user can connect(register) his account to an account on any of the supported chat platforms.

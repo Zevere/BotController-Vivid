@@ -36,7 +36,7 @@ namespace Vivid.Data.Mongo
                     e.WriteError.Message.Contains($" index: {MongoConstants.Collections.Bots.Indexes.BotId} ")
                 )
             {
-                throw new DuplicateKeyException(nameof(User.DisplayId));
+                throw new DuplicateKeyException(nameof(ChatBot.Name));
             }
 
             return entity;
