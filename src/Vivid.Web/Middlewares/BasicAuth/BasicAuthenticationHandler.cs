@@ -14,10 +14,10 @@ namespace Vivid.Web.Middlewares.BasicAuth
     {
         private new const string Scheme = "Basic";
 
-        private readonly IUserRepository _userRepo;
+        private readonly IUserRegistrationRepository _userRegistrationRepo;
 
         public BasicAuthenticationHandler(
-            IUserRepository userRepo,
+            IUserRegistrationRepository userRegistrationRepo,
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
@@ -25,7 +25,7 @@ namespace Vivid.Web.Middlewares.BasicAuth
         )
             : base(options, logger, encoder, clock)
         {
-            _userRepo = userRepo;
+            _userRegistrationRepo = userRegistrationRepo;
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -53,7 +53,7 @@ namespace Vivid.Web.Middlewares.BasicAuth
 
             try
             {
-                var user = await _userRepo.GetByTokenAsync(token);
+                var user = await _userRegistrationRepo.GetByTokenAsync(token);
 
                 var ticket = new AuthenticationTicket(
                     new ClaimsPrincipal(new[]

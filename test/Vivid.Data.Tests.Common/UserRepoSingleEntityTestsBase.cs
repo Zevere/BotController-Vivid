@@ -12,10 +12,10 @@ namespace Vivid.Data.Tests.Common
     {
         protected readonly IUserRepoSingleEntityFixture ClassFixture;
 
-        protected Func<IUserRepository> CreateUserRepository { get; }
+        protected Func<IUserRegistrationRepository> CreateUserRepository { get; }
 
         protected UserRepoSingleEntityTestsBase(IUserRepoSingleEntityFixture classFixture,
-            Func<IUserRepository> repoResolver)
+            Func<IUserRegistrationRepository> repoResolver)
         {
             ClassFixture = classFixture;
             CreateUserRepository = repoResolver;
@@ -86,7 +86,7 @@ namespace Vivid.Data.Tests.Common
         {
             string username = ClassFixture.NewUser.DisplayId.ToUpper();
 
-            IUserRepository sut = CreateUserRepository();
+            IUserRegistrationRepository sut = CreateUserRepository();
             User entity = await sut.GetByNameAsync(username);
 
             Assert.Equal(ClassFixture.NewUser.Id, entity.Id);
@@ -170,7 +170,7 @@ namespace Vivid.Data.Tests.Common
         {
             const string token = "api_token";
 
-            IUserRepository sut = CreateUserRepository();
+            IUserRegistrationRepository sut = CreateUserRepository();
 
             await sut.SetTokenForUserAsync(ClassFixture.NewUser.Id, token);
 
@@ -180,7 +180,7 @@ namespace Vivid.Data.Tests.Common
         [OrderedFact]
         public async Task Should_Get_User_By_Token()
         {
-            IUserRepository sut = CreateUserRepository();
+            IUserRegistrationRepository sut = CreateUserRepository();
 
             User entity = await sut.GetByTokenAsync(ClassFixture.NewUser.Token);
 
@@ -201,7 +201,7 @@ namespace Vivid.Data.Tests.Common
         [OrderedFact]
         public async Task Should_Throw_Getting_User_By_Invalid_Token()
         {
-            IUserRepository sut = CreateUserRepository();
+            IUserRegistrationRepository sut = CreateUserRepository();
 
             var exception = await Assert.ThrowsAsync<EntityNotFoundException>(() =>
                 sut.GetByTokenAsync("invalid_token")

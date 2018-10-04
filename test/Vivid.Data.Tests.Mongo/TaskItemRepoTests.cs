@@ -24,7 +24,7 @@ namespace Vivid.Data.Tests.Mongo
             public Fixture()
                 : base(MongoConstants.Collections.TaskItems.Name)
             {
-                var userRepo = new UserRepository(
+                var userRepo = new UserRegistrationRepository(
                     Collection.Database.GetCollection<User>(MongoConstants.Collections.Users.Name)
                 );
 

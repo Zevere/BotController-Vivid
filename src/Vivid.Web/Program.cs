@@ -11,7 +11,7 @@ namespace Vivid.Web
                 .ConfigureAppConfiguration((hostBuilder, configBuilder) => configBuilder
                     .AddJsonFile("appsettings.json")
                     .AddJsonFile($"appsettings.{hostBuilder.HostingEnvironment.EnvironmentName}.json", true)
-                    .AddJsonEnvVar("BORZOO_SETTINGS", true)
+                    .AddJsonEnvVar("VIVID_SETTINGS", true)
                 )
                 .UseStartup<Startup>()
                 .Build()

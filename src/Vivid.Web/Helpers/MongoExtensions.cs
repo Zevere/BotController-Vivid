@@ -29,7 +29,7 @@ namespace Vivid.Web.Helpers
                 _.GetRequiredService<IMongoDatabase>()
                     .GetCollection<TaskItemMongo>(MongoConstants.Collections.TaskItems.Name)
             );
-            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUserRegistrationRepository, UserRegistrationRepository>();
             services.AddTransient<ITaskListRepository, TaskListRepository>();
             services.AddTransient<ITaskItemRepository, TaskItemRepository>();
             

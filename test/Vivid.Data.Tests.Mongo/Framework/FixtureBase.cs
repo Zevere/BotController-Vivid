@@ -39,7 +39,7 @@ namespace Vivid.Data.Tests.Mongo.Framework
             };
 
             var usersCollection = Database.GetCollection<User>(MongoConstants.Collections.Users.Name);
-            var userRepo = new UserRepository(usersCollection);
+            var userRepo = new UserRegistrationRepository(usersCollection);
             foreach (var user in testUsers)
                 await userRepo.AddAsync(user);
         }

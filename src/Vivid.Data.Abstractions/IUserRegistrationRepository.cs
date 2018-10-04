@@ -4,7 +4,7 @@ using Vivid.Data.Abstractions.Entities;
 
 namespace Vivid.Data.Abstractions
 {
-    public interface IUserRepository : IEntityRepository<User>
+    public interface IUserRegistrationRepository : IEntityRepository<User>
     {
         Task<User> GetByNameAsync(string name, bool includeDeletedRecords = false,
             CancellationToken cancellationToken = default);

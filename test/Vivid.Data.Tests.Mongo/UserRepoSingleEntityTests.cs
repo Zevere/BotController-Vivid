@@ -14,14 +14,14 @@ namespace Vivid.Data.Tests.Mongo
         IClassFixture<UserRepoSingleEntityTests.Fixture>
     {
         public UserRepoSingleEntityTests(Fixture classFixture)
-            : base(classFixture, () => new UserRepository(classFixture.Collection))
+            : base(classFixture, () => new UserRegistrationRepository(classFixture.Collection))
         {
         }
 
         [OrderedFact]
         public async Task Should_Add_User_Mongo()
         {
-            IUserRepository repo = CreateUserRepository();
+            IUserRegistrationRepository repo = CreateUserRepository();
 
             User user = new User
             {

@@ -27,7 +27,7 @@ namespace Vivid.Web.Data
                         logger.LogInformation("Mongo database is initialized.");
                 }
 
-                var userRepo = _.ServiceProvider.GetRequiredService<IUserRepository>();
+                var userRepo = _.ServiceProvider.GetRequiredService<IUserRegistrationRepository>();
                 bool seeded = SeedData(userRepo).GetAwaiter().GetResult();
                 logger.LogInformation($"Database is{(seeded ? "" : " NOT")} seeded.");
             }
@@ -35,9 +35,9 @@ namespace Vivid.Web.Data
             return app;
         }
 
-        private static async Task<bool> SeedData(IUserRepository userRepo)
+        private static async Task<bool> SeedData(IUserRegistrationRepository userRegistrationRepo)
         {
-            if (await IsAlreadySeeded(userRepo))
+            if (await IsAlreadySeeded(userRegistrationRepo))
             {
                 return false;
             }
@@ -61,18 +61,18 @@ namespace Vivid.Web.Data
 
             foreach (var user in testUsers)
             {
-                await userRepo.AddAsync(user);
+                await userRegistrationRepo.AddAsync(user);
             }
 
             return true;
         }
 
-        private static async Task<bool> IsAlreadySeeded(IUserRepository userRepo)
+        private static async Task<bool> IsAlreadySeeded(IUserRegistrationRepository userRegistrationRepo)
         {
             bool userExists;
             try
             {
-                await userRepo.GetByNameAsync("alICE0");
+                await userRegistrationRepo.GetByNameAsync("alICE0");
                 userExists = true;
             }
             catch (EntityNotFoundException)

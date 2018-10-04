@@ -23,7 +23,7 @@ namespace Vivid.Data.Tests.Common
                 .Fill(_ => _.Title, Names.Title);
         }
 
-        public static async Task<User[]> SeedUsersAsync(IUserRepository userRepo)
+        public static async Task<User[]> SeedUsersAsync(IUserRegistrationRepository userRegistrationRepo)
         {
             var testUsers = GenerateTestUsers();
 
@@ -31,7 +31,7 @@ namespace Vivid.Data.Tests.Common
             {
                 try
                 {
-                    await userRepo.AddAsync(user);
+                    await userRegistrationRepo.AddAsync(user);
                 }
                 catch (DuplicateKeyException)
                 {

@@ -9,13 +9,13 @@ using Vivid.Data.Abstractions.Entities;
 
 namespace Vivid.Data.Mongo
 {
-    public class UserRepository : IUserRepository
+    public class UserRegistrationRepository : IUserRegistrationRepository
     {
         private readonly IMongoCollection<User> _collection;
 
         private FilterDefinitionBuilder<User> Filter => Builders<User>.Filter;
 
-        public UserRepository(IMongoCollection<User> collection)
+        public UserRegistrationRepository(IMongoCollection<User> collection)
         {
             _collection = collection;
         }

@@ -54,7 +54,9 @@ namespace Vivid.Web
 
             #endregion
 
-            services.AddGraphQL();
+            services.AddMvc();
+
+            services.AddOpenAPIDocs();
 
             services.AddCors();
         }
@@ -65,7 +67,7 @@ namespace Vivid.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.SeedData(Configuration.GetSection("data"));
+//                app.SeedData(Configuration.GetSection("data"));
             }
 
             app.UseCors(cors => cors
@@ -75,10 +77,16 @@ namespace Vivid.Web
                 .SetPreflightMaxAge(TimeSpan.FromDays(7))
             );
 
-            app.UseAuthentication();
+//            app.UseAuthentication();
 
-            app.UseGraphQl("/zv/GraphQL");
-            app.UseGraphiql("/zv/GraphiQL", opts => { opts.GraphQlEndpoint = "/zv/GraphQL"; });
+            app.UseMvc();
+
+            app.UseSwagger(options => { options.RouteTemplate = "api/docs/{documentName}/swagger.json"; });
+            app.UseSwaggerUI(c =>
+            {
+                c.RoutePrefix = "api/docs";
+                c.SwaggerEndpoint("v1/swagger.json", "v1");
+            });
 
             app.Run(context => context.Response.WriteAsync("Hello, World! Welcome to Borzoo ;)"));
         }

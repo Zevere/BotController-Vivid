@@ -12,16 +12,16 @@ namespace Vivid.Web.GraphQL
 {
     public class QueryResolver : IQueryResolver
     {
-        private readonly IUserRepository _userRepo;
+        private readonly IUserRegistrationRepository _userRegistrationRepo;
 
         private readonly ITaskListRepository _taskListRepo;
 
         private readonly ITaskItemRepository _taskItemRepo;
 
-        public QueryResolver(IUserRepository userRepo, ITaskListRepository taskListRepo,
+        public QueryResolver(IUserRegistrationRepository userRegistrationRepo, ITaskListRepository taskListRepo,
             ITaskItemRepository taskItemRepo)
         {
-            _userRepo = userRepo;
+            _userRegistrationRepo = userRegistrationRepo;
             _taskListRepo = taskListRepo;
             _taskItemRepo = taskItemRepo;
         }
@@ -33,11 +33,11 @@ namespace Vivid.Web.GraphQL
             var entity = (User) dto;
             try
             {
-                await _userRepo.AddAsync(entity, context.CancellationToken)
+                await _userRegistrationRepo.AddAsync(entity, context.CancellationToken)
                     .ConfigureAwait(false);
 
                 string token = GenerateAlphaNumericString(100);
-                await _userRepo.SetTokenForUserAsync(entity.Id, token, context.CancellationToken)
+                await _userRegistrationRepo.SetTokenForUserAsync(entity.Id, token, context.CancellationToken)
                     .ConfigureAwait(false);
                 string encodedToken = Convert.ToBase64String(Encoding.UTF8.GetBytes(token));
                 entity.Token = encodedToken;
@@ -61,7 +61,7 @@ namespace Vivid.Web.GraphQL
             User entity;
             try
             {
-                entity = await _userRepo.GetByNameAsync(username, cancellationToken: context.CancellationToken)
+                entity = await _userRegistrationRepo.GetByNameAsync(username, cancellationToken: context.CancellationToken)
                     .ConfigureAwait(false);
             }
             catch (EntityNotFoundException)
@@ -149,7 +149,7 @@ namespace Vivid.Web.GraphQL
         public async Task<TaskItemDto[]> GetTaskItemsForListAsync(ResolveFieldContext<TaskList> context)
         {
             string tasklistName = context.Source.DisplayId;
-            string userName = (await _userRepo
+            string userName = (await _userRegistrationRepo
                     .GetByIdAsync(context.Source.OwnerId, cancellationToken: context.CancellationToken)
                     .ConfigureAwait(false)
                 ).DisplayId;

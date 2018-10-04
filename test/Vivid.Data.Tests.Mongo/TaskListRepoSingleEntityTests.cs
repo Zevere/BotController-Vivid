@@ -15,19 +15,19 @@ namespace Vivid.Data.Tests.Mongo
         private readonly Fixture _fixture;
 
         public TaskListRepoSingleEntityTests(Fixture fixture)
-            : base(() => new TaskListRepository(fixture.Collection, fixture.UserRepo))
+            : base(() => new TaskListRepository(fixture.Collection, fixture.UserRegistrationRepo))
         {
             _fixture = fixture;
         }
 
         public class Fixture : FixtureBase<TaskListMongo>
         {
-            public IUserRepository UserRepo { get; }
+            public IUserRegistrationRepository UserRegistrationRepo { get; }
 
             public Fixture()
                 : base(MongoConstants.Collections.TaskLists.Name)
             {
-                UserRepo = new UserRepository(
+                UserRegistrationRepo = new UserRegistrationRepository(
                     Collection.Database.GetCollection<User>(MongoConstants.Collections.Users.Name)
                 );
                 

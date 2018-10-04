@@ -1,63 +1,49 @@
-﻿//using System;
-//using System.Linq;
-//using System.Net;
-//using System.Threading.Tasks;
-//using Borzoo.Data.Abstractions;
-//using Borzoo.Web.Models;
-//using Borzoo.Web.Models.User;
-//using Microsoft.AspNetCore.Authorization;
-//using Microsoft.AspNetCore.Http;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.Extensions.Primitives;
-//using Newtonsoft.Json.Linq;
-//using UserEntity = Borzoo.Data.Abstractions.Entities.User;
-//
-//namespace Borzoo.Web.Controllers
-//{
-//    [Route("/zv/[controller]")]
-//    public class UsersController : Controller
-//    {
-//        private readonly IUserRepository _userRepo;
-//
-//        public UsersController(IUserRepository userRepo)
-//        {
-//            _userRepo = userRepo;
-//        }
-//
-//        [HttpHead("{userName}")]
-//        [ProducesResponseType(StatusCodes.Status204NoContent)]
-//        [ProducesResponseType(StatusCodes.Status404NotFound)]
-//        public async Task<IActionResult> Head(string userName)
-//        {
-//            IActionResult result;
-//            if (string.IsNullOrWhiteSpace(userName))
-//            {
-//                result = BadRequest(); // ToDo use an error response generator helper class 
-//            }
-//            else
-//            {
-//                try
-//                {
-//                    await _userRepo.GetByNameAsync(userName);
-//                    result = NoContent();
-//                }
-//                catch (EntityNotFoundException)
-//                {
-//                    result = NotFound(); // ToDo use error class
-//                }
-//            }
-//
-//            return result;
-//        }
-//
-//        [Produces(
-//            Constants.ZevereContentTypes.User.Full,
-//            Constants.ZevereContentTypes.User.Pretty
-//        )]
-//        [HttpGet("{userName}")]
+﻿using System;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using Vivid.Data.Abstractions;
+using Vivid.Web.Models;
+using UserEntity = Vivid.Data.Abstractions.Entities.User;
+
+// ReSharper disable once CheckNamespace
+namespace Vivid.Web.Controllers
+{
+    [Route("/api/v1/user-registrations")]
+    public class UserRegistrationsController : Controller
+    {
+        private readonly IUserRegistrationRepository _userRegRepo;
+
+        public UserRegistrationsController(IUserRegistrationRepository userRegRepo = null)
+        {
+            _userRegRepo = userRegRepo;
+        }
+
+        /// <summary>
+        /// Get registrations for an user with Zevere chat bots
+        /// </summary>
+        /// <remarks>
+        /// A Zevere user can connect(register) his account to an account on any of the supported chat platforms.
+        /// This operations retrieves the associations of an existing Zevere user to the Zevere chat bots.
+        /// </remarks>
+        /// <param name="username">ID of the Zevere user</param>
+        /// <returns></returns>
+        /// <response code="200">User registrations found</response>
+        /// <response code="400">User ID is invalid or does not exist</response>
+        /// <response code="404">User has not registered with any of the Zevere chat bots</response>
+        [HttpGet("{username}")]
+        [Produces(Constants.JsonContentType)]
+        [ProducesResponseType(typeof(UserRegistration), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 400)]
+        [ProducesResponseType(typeof(ErrorResponse), 404)]
 //        [Authorize]
-//        public async Task<IActionResult> Get(string userName)
-//        {
+        public async Task<IActionResult> Get([FromRoute] string username)
+        {
+            throw new NotImplementedException();
 //            if (string.IsNullOrWhiteSpace(userName))
 //                return BadRequest(); // ToDo use an error response generator helper class
 //            if (!User.Identity.Name.Equals(userName, StringComparison.OrdinalIgnoreCase))
@@ -67,7 +53,7 @@
 //            UserEntity user;
 //            try
 //            {
-//                user = await _userRepo.GetByNameAsync(userName);
+//                user = await _userRegRepo.GetByNameAsync(userName);
 //            }
 //            catch (EntityNotFoundException)
 //            {
@@ -95,8 +81,8 @@
 //            }
 //
 //            return result;
-//        }
-//
+        }
+
 //        [HttpPost]
 //        [Consumes(Constants.ZevereContentTypes.User.Creation)]
 //        [ProducesResponseType(typeof(UserFullDto), StatusCodes.Status201Created)]
@@ -111,7 +97,7 @@
 //
 //            var user = (UserEntity) model;
 //
-//            await _userRepo.AddAsync(user);
+//            await _userRegRepo.AddAsync(user);
 //
 //            string contentType = HttpContext.Request.Headers["Accept"].SingleOrDefault()?.ToLowerInvariant();
 //            switch (contentType)
@@ -153,10 +139,10 @@
 //            if (new[] {fName, lName}.All(string.IsNullOrWhiteSpace))
 //                return BadRequest();
 //
-//            var user = await _userRepo.GetByNameAsync(userName);
+//            var user = await _userRegRepo.GetByNameAsync(userName);
 //            user.FirstName = string.IsNullOrWhiteSpace(fName) ? user.FirstName : fName;
 //            user.LastName = string.IsNullOrWhiteSpace(lName) ? user.LastName : lName;
-//            await _userRepo.UpdateAsync(user);
+//            await _userRegRepo.UpdateAsync(user);
 //
 //            string contentType = HttpContext.Request.Headers["Accept"].SingleOrDefault()?.ToLowerInvariant();
 //            switch (contentType)
@@ -171,7 +157,7 @@
 //                    return BadRequest();
 //            }
 //        }
-//
+
 //        [HttpDelete("{userName}")]
 //        [Authorize]
 //        [ProducesResponseType((int) HttpStatusCode.NoContent)]
@@ -182,9 +168,9 @@
 //            if (!User.Identity.Name.Equals(userName, StringComparison.OrdinalIgnoreCase))
 //                return Forbid();
 //
-//            var user = await _userRepo.GetByNameAsync(userName);
-//            await _userRepo.DeleteAsync(user.Id);
+//            var user = await _userRegRepo.GetByNameAsync(userName);
+//            await _userRegRepo.DeleteAsync(user.Id);
 //            return NoContent();
 //        }
-//    }
-//}
+    }
+}

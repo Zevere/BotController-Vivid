@@ -21,17 +21,17 @@ namespace Vivid.Data.Mongo
 
         private readonly IMongoCollection<TaskListMongo> _collection;
 
-        private readonly IUserRepository _userRepo;
+        private readonly IUserRegistrationRepository _userRegistrationRepo;
 
-        public TaskListRepository(IMongoCollection<TaskListMongo> collection, IUserRepository userRepo)
+        public TaskListRepository(IMongoCollection<TaskListMongo> collection, IUserRegistrationRepository userRegistrationRepo)
         {
             _collection = collection;
-            _userRepo = userRepo;
+            _userRegistrationRepo = userRegistrationRepo;
         }
 
         public async Task SetUsernameAsync(string username, CancellationToken cancellationToken = default)
         {
-            var user = await _userRepo.GetByNameAsync(username, cancellationToken: cancellationToken)
+            var user = await _userRegistrationRepo.GetByNameAsync(username, cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
 
             UserName = user.DisplayId;
