@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -20,6 +21,8 @@ namespace Vivid.Web.Models
         /// List of user registrations
         /// </summary>
         [JsonProperty(Required = Required.Always)]
+        [MinLength(1)]
+        [System.ComponentModel.DataAnnotations.Key]
         public UserRegistration[] Registrations { get; set; }
     }
 }

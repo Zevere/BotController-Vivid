@@ -177,5 +177,25 @@ namespace Vivid.Web.Controllers
 //            await _userRegRepo.DeleteAsync(user.Id);
 //            return NoContent();
 //        }
+
+        /// <summary>
+        /// Remove the registration of a current user with the current bot
+        /// </summary>
+        /// <remarks>
+        /// A Zevere user can connect(register) his account to an account on any of the supported chat platforms.
+        /// This operations retrieves the associations of an existing Zevere user to the Zevere chat bots.
+        /// </remarks>
+        /// <param name="username">ID of the Zevere user</param>
+        /// <response code="204">Registration is removed</response>
+        /// <response code="400">User ID is invalid or does not exist</response>
+        /// <response code="404">User has not registered with any of the Zevere chat bots</response>
+        [HttpDelete("{username}")]
+        [ProducesResponseType(typeof(ErrorResponse), 400)]
+        [ProducesResponseType(typeof(ErrorResponse), 404)]
+//        [Authorize]
+        public async Task<IActionResult> Delete([FromRoute] string username)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
