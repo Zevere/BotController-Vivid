@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -14,19 +15,25 @@ namespace Vivid.Web.Models
         /// <summary>
         /// Name of the chat platform
         /// </summary>
-        [JsonProperty(Required = Required.Always)]
+        [Required]
         public string Platform { get; set; }
+
+        /// <summary>
+        /// Name of the Zevere user account
+        /// </summary>
+        [Required]
+        public string Username { get; set; }
 
         /// <summary>
         /// Unique identifier of the bot that registered that user
         /// </summary>
-        [JsonProperty(Required = Required.Always)]
+        [Required]
         public string BotId { get; set; }
 
         /// <summary>
         /// Unique identifier of the user on that chat platform
         /// </summary>
-        [JsonProperty(Required = Required.Always)]
+        [Required]
         public string ChatUserId { get; set; }
     }
 }

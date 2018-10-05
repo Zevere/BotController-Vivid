@@ -1,5 +1,4 @@
 ﻿using System;
-using Vivid.Web.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +27,8 @@ namespace Vivid.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMongoDb(Configuration.GetSection("Data"));
+
+            services.AddOperationServices();
 
             services.AddAuth();
 

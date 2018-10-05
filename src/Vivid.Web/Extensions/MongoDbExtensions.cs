@@ -6,6 +6,7 @@ using MongoDB.Driver.Core.Configuration;
 using Vivid.Data.Abstractions;
 using Vivid.Data.Abstractions.Entities;
 using Vivid.Data.Mongo;
+using Vivid.Data.Mongo.Entities;
 using Vivid.Web.Options;
 
 namespace Vivid.Web.Extensions
@@ -15,7 +16,7 @@ namespace Vivid.Web.Extensions
         /// <summary>
         /// Adds MongoDB services to the app's service collection
         /// </summary>
-        public static IServiceCollection AddMongoDb(
+        public static void AddMongoDb(
             this IServiceCollection services,
             IConfigurationSection dataSection
         )
@@ -39,17 +40,15 @@ namespace Vivid.Web.Extensions
                     .GetCollection<ChatBot>(MongoConstants.Collections.Bots.Name)
             );
 
-            services.AddTransient<IMongoCollection<Registration>>(provider =>
+            services.AddTransient<IMongoCollection<RegistrationMongo>>(provider =>
                 provider.GetRequiredService<IMongoDatabase>()
-                    .GetCollection<Registration>(MongoConstants.Collections.Registrations.Name)
+                    .GetCollection<RegistrationMongo>(MongoConstants.Collections.Registrations.Name)
             );
 
             services.AddTransient<IChatBotRepository, ChatBotRepository>();
             services.AddTransient<IUserRegistrationRepository, UserRegistrationRepository>();
 
             Initializer.RegisterClassMaps();
-
-            return services;
         }
     }
 }

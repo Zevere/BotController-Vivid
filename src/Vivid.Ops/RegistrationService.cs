@@ -68,7 +68,7 @@ namespace Vivid.Ops
                 catch (DuplicateKeyException e)
                 {
                     _logger?.LogInformation(e, "Bot {0} has already registered user {1}.", botName, username);
-                    error = new Error(ErrorCode.RegistrationExists);
+                    error = new Error(ErrorCode.RegistrationExists, "Bot has already registered this user.");
                 }
             }
 

@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
@@ -13,13 +14,13 @@ namespace Vivid.Web.Models
         /// <summary>
         /// ID of the Zevere user account
         /// </summary>
-        [JsonProperty(Required = Required.Always)]
+        [Required(ErrorMessage = "Username must have a value.")]
         public string Username { get; set; }
 
         /// <summary>
         /// Unique identifier of the user on the chat platform
         /// </summary>
-        [JsonProperty(Required = Required.Always)]
+        [Required(ErrorMessage = "User id in the chat must have a value.")]
         public string ChatUserId { get; set; }
     }
 }

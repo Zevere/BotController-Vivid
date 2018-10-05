@@ -86,6 +86,7 @@ namespace Vivid.Web.Middlewares.BasicAuth
                         new[]
                         {
                             new Claim("token", token),
+                            new Claim("platform", bot.Platform),
                         }
                     ),
                 }),
