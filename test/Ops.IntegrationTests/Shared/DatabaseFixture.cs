@@ -32,23 +32,16 @@ namespace Ops.IntegrationTests.Shared
             _mongoDatabase = InitializeDatabase().GetAwaiter().GetResult();
         }
 
+        /// <summary>
+        /// Initializes the MongoDB database. Recreates the database, if exists, and creates its schema
+        /// </summary>
         private static async Task<IMongoDatabase> InitializeDatabase()
         {
             var settings = new Settings();
             var connectionString = new ConnectionString(settings.Connection);
 
             var clientSettings = MongoClientSettings.FromConnectionString(settings.Connection);
-            clientSettings.ClusterConfigurator = cb =>
-            {
-                var traceSource = new TraceSource("mongodb-tests", SourceLevels.Warning);
-                traceSource.Listeners.Clear();
-                var listener = new TextWriterTraceListener(Console.Out)
-                {
-                    TraceOutputOptions = TraceOptions.DateTime,
-                };
-                traceSource.Listeners.Add(listener);
-                cb.TraceWith(traceSource);
-            };
+            clientSettings.ClusterConfigurator = ClientSettingsClusterConfigurator;
 
             var client = new MongoClient(clientSettings);
 
@@ -58,6 +51,18 @@ namespace Ops.IntegrationTests.Shared
             await Initializer.CreateSchemaAsync(db);
 
             return db;
+        }
+
+        /// <summary>
+        /// Configures a MongoDB client to write its logs to the standard output
+        /// </summary>
+        private static void ClientSettingsClusterConfigurator(ClusterBuilder cb)
+        {
+            var traceSource = new TraceSource("~~ MongoDB ~~", SourceLevels.Warning);
+            traceSource.Listeners.Clear();
+            var listener = new TextWriterTraceListener(Console.Out) { TraceOutputOptions = TraceOptions.DateTime, };
+            traceSource.Listeners.Add(listener);
+            cb.TraceWith(traceSource);
         }
     }
 }

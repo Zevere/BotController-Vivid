@@ -16,8 +16,8 @@ install:
 script:
   - docker build --tag vivid:debug --target solution-build --no-cache .
   - docker build --tag botops-vivid --target final .
-  # - docker build --target unit-tests .
-  # - node scripts/build && node scripts/test
+  - docker run --rm --detach --name vivid-mongo-tests mongo
+  - docker run --rm --tty --link vivid-mongo-tests --env VIVID_TEST_SETTINGS='{"Connection":"mongodb://vivid-mongo-tests:27017/ops"}' --workdir /project/test/Ops.IntegrationTests/ vivid:debug dotnet test --no-build --verbosity normal
 
 deploy:
   - provider: script
@@ -43,11 +43,11 @@ env:
 #   {
 #     "Staging": [
 #       { "type": "docker",
-#         "options": { "source": "foo:edge", "target": "foo/bar:latest", "user": "foo", "pass": "PASS" } 
+#         "options": { "source": "foo:edge", "target": "foo/bar:latest", "user": "foo", "pass": "PASS" }
 #       },
-#       { "type": "heroku", 
-#         "options": { 
-#           "app": "foo-staging", "source": "foo:latest", "dyno": "web", "user": "foo@example.org", "token": "TOKEN" 
+#       { "type": "heroku",
+#         "options": {
+#           "app": "foo-staging", "source": "foo:latest", "dyno": "web", "user": "foo@example.org", "token": "TOKEN"
 #         }
 #       }
 #     ],
