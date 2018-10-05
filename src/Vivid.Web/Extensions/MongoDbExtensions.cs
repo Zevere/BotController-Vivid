@@ -39,7 +39,13 @@ namespace Vivid.Web.Extensions
                     .GetCollection<ChatBot>(MongoConstants.Collections.Bots.Name)
             );
 
+            services.AddTransient<IMongoCollection<Registration>>(provider =>
+                provider.GetRequiredService<IMongoDatabase>()
+                    .GetCollection<Registration>(MongoConstants.Collections.Registrations.Name)
+            );
+
             services.AddTransient<IChatBotRepository, ChatBotRepository>();
+            services.AddTransient<IUserRegistrationRepository, UserRegistrationRepository>();
 
             Initializer.RegisterClassMaps();
 

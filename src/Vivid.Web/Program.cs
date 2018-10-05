@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Vivid.Web
 {
-    public class Program
+    internal static class Program
     {
         public static void Main(string[] args) =>
             WebHost.CreateDefaultBuilder(args)

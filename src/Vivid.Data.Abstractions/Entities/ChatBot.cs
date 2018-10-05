@@ -5,7 +5,6 @@ namespace Vivid.Data.Abstractions.Entities
 {
     public class ChatBot
     {
-        [Required]
         public string Id { get; set; }
 
         [Required]

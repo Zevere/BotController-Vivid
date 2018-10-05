@@ -4,6 +4,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Driver;
 using Vivid.Data.Abstractions.Entities;
+using Vivid.Data.Mongo.Entities;
 
 namespace Vivid.Data.Mongo
 {
@@ -15,9 +16,9 @@ namespace Vivid.Data.Mongo
         )
         {
             {
-                // "bots" Collection
+                // "bots" collection
                 await database
-                    .CreateCollectionAsync(MongoConstants.Collections.Bots.Name, null, cancellationToken)
+                    .CreateCollectionAsync(MongoConstants.Collections.Bots.Name, cancellationToken: cancellationToken)
                     .ConfigureAwait(false);
                 var botsCollection = database.GetCollection<ChatBot>(MongoConstants.Collections.Bots.Name);
 
@@ -27,6 +28,29 @@ namespace Vivid.Data.Mongo
                         key,
                         new CreateIndexOptions
                             { Name = MongoConstants.Collections.Bots.Indexes.BotId, Unique = true }),
+                    cancellationToken: cancellationToken
+                ).ConfigureAwait(false);
+            }
+
+            {
+                // "registrations" collection
+                await database.CreateCollectionAsync(
+                    MongoConstants.Collections.Registrations.Name,
+                    cancellationToken: cancellationToken
+                ).ConfigureAwait(false);
+                var regsCollection =
+                    database.GetCollection<RegistrationMongo>(MongoConstants.Collections.Registrations.Name);
+
+                // create unique index "bot_username" on the fields "bot" and "username"
+                var indexBuilder = Builders<RegistrationMongo>.IndexKeys;
+                var key = indexBuilder.Combine(
+                    indexBuilder.Ascending(tl => tl.ChatBotDbRef.Id),
+                    indexBuilder.Ascending(tl => tl.Username)
+                );
+                await regsCollection.Indexes.CreateOneAsync(new CreateIndexModel<RegistrationMongo>(
+                        key,
+                        new CreateIndexOptions
+                            { Name = MongoConstants.Collections.Registrations.Indexes.BotUsername, Unique = true }),
                     cancellationToken: cancellationToken
                 ).ConfigureAwait(false);
             }
@@ -43,7 +67,22 @@ namespace Vivid.Data.Mongo
                     map.MapProperty(u => u.Platform).SetElementName("platform");
                     map.MapProperty(u => u.Url).SetElementName("url");
                     map.MapProperty(u => u.Token).SetElementName("token");
-                    map.MapProperty(u => u.JoinedAt).SetElementName("joined");
+                    map.MapProperty(u => u.JoinedAt).SetElementName("created_at");
+                });
+            }
+
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Registration)))
+            {
+                BsonClassMap.RegisterClassMap<Registration>(map =>
+                {
+                    map.MapIdProperty(reg => reg.Id).SetIdGenerator(new StringObjectIdGenerator());
+                    map.MapProperty(reg => reg.Username).SetElementName("username").SetOrder(1);
+                    map.MapProperty(reg => reg.ChatUserId).SetIsRequired(true).SetElementName("user_id");
+                    map.MapProperty(tl => tl.RegisteredAt).SetElementName("created_at");
+                });
+                BsonClassMap.RegisterClassMap<RegistrationMongo>(map =>
+                {
+                    map.MapProperty(tl => tl.ChatBotDbRef).SetIsRequired(true).SetElementName("bot");
                 });
             }
         }

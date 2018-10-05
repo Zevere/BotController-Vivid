@@ -37,8 +37,8 @@ namespace Vivid.Web.Controllers
         [HttpGet("{username}")]
         [Produces(Constants.JsonContentType)]
         [ProducesResponseType(typeof(UserRegistrationsResponse), 200)]
-        [ProducesResponseType(typeof(ErrorResponse), 400)]
-        [ProducesResponseType(typeof(ErrorResponse), 404)]
+        [ProducesResponseType(typeof(Error), 400)]
+        [ProducesResponseType(typeof(Error), 404)]
         public async Task<IActionResult> Get([FromRoute] string username)
         {
             var a = User.Identity.Name;
@@ -95,7 +95,7 @@ namespace Vivid.Web.Controllers
         [HttpPost]
         [Consumes(Constants.JsonContentType)]
         [ProducesResponseType(typeof(UserRegistration), 201)]
-        [ProducesResponseType(typeof(ErrorResponse), 400)]
+        [ProducesResponseType(typeof(Error), 400)]
         public async Task<IActionResult> Post([FromBody] NewUserRegistration model)
         {
             throw new NotImplementedException();
@@ -195,8 +195,8 @@ namespace Vivid.Web.Controllers
         /// <response code="400">User ID is invalid or does not exist</response>
         /// <response code="404">User has not registered with any of the Zevere chat bots</response>
         [HttpDelete("{username}")]
-        [ProducesResponseType(typeof(ErrorResponse), 400)]
-        [ProducesResponseType(typeof(ErrorResponse), 404)]
+        [ProducesResponseType(typeof(Error), 400)]
+        [ProducesResponseType(typeof(Error), 404)]
 //        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] string username)
         {

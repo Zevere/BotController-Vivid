@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Vivid.Tests.Framework
+namespace Framework.Assertions
 {
     public class NullableDateTimeEqualityComparer : IEqualityComparer<DateTime?>
     {

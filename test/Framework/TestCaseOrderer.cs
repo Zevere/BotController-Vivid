@@ -5,7 +5,7 @@ using System.Reflection;
 using Xunit.Abstractions;
 using Xunit.Sdk;
 
-namespace Vivid.Tests.Framework
+namespace Framework
 {
     public class TestCaseOrderer : ITestCaseOrderer
     {

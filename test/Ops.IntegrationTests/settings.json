@@ -1,0 +1,3 @@
+{
+  "Connection": "mongodb://localhost:27017/vivid-tests-ops"
+}
