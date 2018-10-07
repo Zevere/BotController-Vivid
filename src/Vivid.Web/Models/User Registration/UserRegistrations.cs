@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Vivid.Data.Abstractions.Entities;
 
 // ReSharper disable once CheckNamespace
 namespace Vivid.Web.Models
@@ -19,12 +20,6 @@ namespace Vivid.Web.Models
         public string Platform { get; set; }
 
         /// <summary>
-        /// Name of the Zevere user account
-        /// </summary>
-        [Required]
-        public string Username { get; set; }
-
-        /// <summary>
         /// Unique identifier of the bot that registered that user
         /// </summary>
         [Required]
@@ -35,5 +30,16 @@ namespace Vivid.Web.Models
         /// </summary>
         [Required]
         public string ChatUserId { get; set; }
+
+        /// <summary>
+        /// Convert from a tuple of Registration and ChatBot
+        /// </summary>
+        public static explicit operator UserRegistration((Registration Reg, ChatBot Bot) tuple) =>
+            new UserRegistration
+            {
+                Platform = tuple.Bot.Platform,
+                ChatUserId = tuple.Reg.ChatUserId,
+                BotId = tuple.Bot.Name,
+            };
     }
 }

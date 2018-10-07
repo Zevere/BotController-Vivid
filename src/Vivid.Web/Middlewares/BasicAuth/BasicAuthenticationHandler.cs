@@ -64,19 +64,16 @@ namespace Vivid.Web.Middlewares.BasicAuth
                 return AuthenticateResult.Fail(noToken);
             }
 
-            ChatBot bot;
-            try
-            {
-                bot = await _botsRepo.GetByTokenAsync(token);
-            }
-            catch (EntityNotFoundException)
+            // ToDo catch all
+            ChatBot bot = await _botsRepo.GetByTokenAsync(token)
+                .ConfigureAwait(false);
+            if (bot == null)
             {
                 // ToDo
                 const string message = "invalid token";
                 Logger.LogInformation(message);
                 return AuthenticateResult.Fail(message);
             }
-            // ToDo catch all
 
             var ticket = new AuthenticationTicket(
                 new ClaimsPrincipal(new[]

@@ -40,9 +40,31 @@ namespace Vivid.Web.Controllers
         [ProducesResponseType(typeof(UserRegistrationsResponse), 200)]
         [ProducesResponseType(typeof(Error), 400)]
         [ProducesResponseType(typeof(Error), 404)]
-        public Task<IActionResult> Get([FromRoute] string username)
+        public async Task<IActionResult> Get([FromRoute] string username)
         {
-            throw new NotImplementedException();
+            var operationResult = await _registrationService.GetUserRegistrationsAsync(
+                username,
+                HttpContext.RequestAborted
+            ).ConfigureAwait(false);
+
+            if (operationResult.Error != null)
+            {
+                int statusCode = 400;
+                // ToDo check for 404 username cases
+                if (operationResult.Error.Code == Ops.ErrorCode.RegistrationNotFound)
+                    statusCode = 404;
+                return StatusCode(statusCode, (Error) operationResult.Error);
+            }
+
+            var result = new UserRegistrationsResponse
+            {
+                Username = username,
+                Registrations = operationResult.Registrations
+                    .Select(r => (UserRegistration) r)
+                    .ToArray()
+            };
+
+            return StatusCode(200, result);
         }
 
         /// <summary>
@@ -83,7 +105,8 @@ namespace Vivid.Web.Controllers
             var operationError = await _registrationService.RegisterUserAsync(
                 User.Identity.Name,
                 newReg.Username,
-                newReg.ChatUserId
+                newReg.ChatUserId,
+                HttpContext.RequestAborted
             ).ConfigureAwait(false);
 
             if (operationError != null)
@@ -95,7 +118,6 @@ namespace Vivid.Web.Controllers
             var result = new UserRegistration
             {
                 Platform = chatPlatform,
-                Username = newReg.Username,
                 BotId = User.Identity.Name,
                 ChatUserId = newReg.ChatUserId,
             };

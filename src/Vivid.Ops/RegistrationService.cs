@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -35,22 +38,17 @@ namespace Vivid.Ops
             CancellationToken cancellationToken = default
         )
         {
-            Error error = default;
+            Error error;
 
-            ChatBot bot;
-            try
+            var bot = await _botsRepo.GetByNameAsync(botName, cancellationToken)
+                .ConfigureAwait(false);
+
+            if (bot == null)
             {
-                bot = await _botsRepo.GetByNameAsync(botName, cancellationToken)
-                    .ConfigureAwait(false);
-            }
-            catch (EntityNotFoundException e)
-            {
-                _logger?.LogInformation(e, "Chat bot {0} doesn't exists.", botName);
+                _logger?.LogInformation("Chat bot {0} doesn't exists.", botName);
                 error = new Error(ErrorCode.BotNotFound);
-                bot = null;
             }
-
-            if (bot != null)
+            else
             {
                 // ToDo: ensure username exists with Zevere GraphQL API
                 // ToDo:  if (error == default)
@@ -64,6 +62,8 @@ namespace Vivid.Ops
                             ChatUserId = userId
                         }, cancellationToken
                     ).ConfigureAwait(false);
+
+                    error = null;
                 }
                 catch (DuplicateKeyException e)
                 {
@@ -73,6 +73,40 @@ namespace Vivid.Ops
             }
 
             return error;
+        }
+
+        /// <inheritdoc />
+        public async Task<(IEnumerable<(Registration, ChatBot)> Registrations, Error Error)> GetUserRegistrationsAsync(
+            string username,
+            CancellationToken cancellationToken = default
+        )
+        {
+            // ToDo return "not found" error if username doesn't exist
+
+            var regs = (
+                await _regsRepo.GetAllForUserAsync(username, cancellationToken)
+                    .ConfigureAwait(false)
+            ).ToArray();
+
+            if (!regs.Any())
+            {
+                return (null, new Error(ErrorCode.RegistrationNotFound));
+            }
+
+            // ToDo maybe use mongodb functions for this aggregation
+            var getBotTasks = regs
+                .Select(r => r.ChatBotId)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .Select(botId => _botsRepo.GetByIdAsync(botId, cancellationToken));
+
+            var bots = await Task.WhenAll(getBotTasks)
+                .ConfigureAwait(false);
+
+            var aggregatedRegs = regs
+                .Select(r => (r, bots.Single(b => b.Id == r.ChatBotId)))
+                .ToArray();
+
+            return (aggregatedRegs, null);
         }
     }
 }

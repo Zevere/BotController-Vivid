@@ -8,6 +8,7 @@ using Vivid.Data.Abstractions.Entities;
 
 namespace Vivid.Data.Mongo
 {
+    /// <inheritdoc />
     public class ChatBotRepository : IChatBotRepository
     {
         private readonly IMongoCollection<ChatBot> _collection;
@@ -21,7 +22,8 @@ namespace Vivid.Data.Mongo
             _collection = collection;
         }
 
-        public async Task<ChatBot> AddAsync(
+        /// <inheritdoc />
+        public async Task AddAsync(
             ChatBot bot,
             CancellationToken cancellationToken = default
         )
@@ -39,10 +41,25 @@ namespace Vivid.Data.Mongo
             {
                 throw new DuplicateKeyException(nameof(ChatBot.Name));
             }
+        }
+
+        /// <inheritdoc />
+        public async Task<ChatBot> GetByIdAsync(
+            string id,
+            CancellationToken cancellationToken = default
+        )
+        {
+            var filter = Filter.Eq(_ => _.Id, id);
+
+            ChatBot bot = await _collection
+                .Find(filter)
+                .SingleOrDefaultAsync(cancellationToken)
+                .ConfigureAwait(false);
 
             return bot;
         }
 
+        /// <inheritdoc />
         public async Task<ChatBot> GetByNameAsync(
             string name,
             CancellationToken cancellationToken = default
@@ -56,14 +73,10 @@ namespace Vivid.Data.Mongo
                 .SingleOrDefaultAsync(cancellationToken)
                 .ConfigureAwait(false);
 
-            if (bot is null)
-            {
-                throw new EntityNotFoundException(nameof(ChatBot.Name), name);
-            }
-
             return bot;
         }
 
+        /// <inheritdoc />
         public async Task<ChatBot> GetByTokenAsync(
             string token,
             CancellationToken cancellationToken = default
@@ -73,11 +86,6 @@ namespace Vivid.Data.Mongo
             var bot = await _collection.Find(filter)
                 .SingleOrDefaultAsync(cancellationToken)
                 .ConfigureAwait(false);
-
-            if (bot is null)
-            {
-                throw new EntityNotFoundException(nameof(ChatBot.Token), token);
-            }
 
             return bot;
         }

@@ -22,7 +22,6 @@ namespace Vivid.Web.Models
         /// </summary>
         [JsonProperty(Required = Required.Always)]
         [MinLength(1)]
-        [System.ComponentModel.DataAnnotations.Key]
         public UserRegistration[] Registrations { get; set; }
     }
 }

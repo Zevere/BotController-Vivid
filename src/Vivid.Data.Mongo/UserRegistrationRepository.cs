@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Vivid.Data.Abstractions;
 using Vivid.Data.Abstractions.Entities;
@@ -9,8 +10,11 @@ using Vivid.Data.Mongo.Entities;
 
 namespace Vivid.Data.Mongo
 {
+    /// <inheritdoc />
     public class UserRegistrationRepository : IUserRegistrationRepository
     {
+        private FilterDefinitionBuilder<RegistrationMongo> Filter => Builders<RegistrationMongo>.Filter;
+
         private readonly IMongoCollection<RegistrationMongo> _collection;
 
         public UserRegistrationRepository(
@@ -20,7 +24,8 @@ namespace Vivid.Data.Mongo
             _collection = collection;
         }
 
-        public async Task<Registration> AddAsync(
+        /// <inheritdoc />
+        public async Task AddAsync(
             Registration registration,
             CancellationToken cancellationToken = default
         )
@@ -40,16 +45,24 @@ namespace Vivid.Data.Mongo
             {
                 throw new DuplicateKeyException(nameof(Registration.ChatBotId), nameof(Registration.Username));
             }
-
-            return entity;
         }
 
-        public Task<IEnumerable<Registration>> GetAllForUserAsync(
+        /// <inheritdoc />
+        public async Task<IEnumerable<Registration>> GetAllForUserAsync(
             string username,
             CancellationToken cancellationToken = default
         )
         {
-            throw new NotImplementedException();
+            username = Regex.Unescape(username);
+
+            var filter = Filter.Regex(reg => reg.Username, new BsonRegularExpression($"^{username}$", "i"));
+
+            IList<RegistrationMongo> registrations = await _collection
+                .Find(filter)
+                .ToListAsync(cancellationToken)
+                .ConfigureAwait(false);
+
+            return registrations;
         }
     }
 }
