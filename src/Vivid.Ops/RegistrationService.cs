@@ -108,5 +108,43 @@ namespace Vivid.Ops
 
             return (aggregatedRegs, null);
         }
+
+        /// <inheritdoc />
+        public async Task<Error> DeleteUserRegistrationAsync(
+            string botName,
+            string username,
+            CancellationToken cancellationToken = default
+        )
+        {
+            Error error;
+
+            var bot = await _botsRepo.GetByNameAsync(botName, cancellationToken)
+                .ConfigureAwait(false);
+
+            if (bot == null)
+            {
+                _logger?.LogInformation("Chat bot {0} doesn't exists.", botName);
+                error = new Error(ErrorCode.BotNotFound);
+            }
+            else
+            {
+                var registration = await _regsRepo.GetSingleAsync(bot.Id, username, cancellationToken)
+                    .ConfigureAwait(false);
+
+                if (registration == null)
+                {
+                    _logger?.LogInformation("No registration exists for bot {0} and user {1}.", botName, username);
+                    error = new Error(ErrorCode.RegistrationNotFound);
+                }
+                else
+                {
+                    await _regsRepo.DeleteAsync(registration, cancellationToken)
+                        .ConfigureAwait(false);
+                    error = null;
+                }
+            }
+
+            return error;
+        }
     }
 }

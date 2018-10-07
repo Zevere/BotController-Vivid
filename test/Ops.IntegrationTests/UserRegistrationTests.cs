@@ -42,7 +42,7 @@ namespace Ops.IntegrationTests
             );
 
             Error error = await registrationService.RegisterUserAsync(
-                bot: "awesome-test-bot",
+                botName: "awesome-test-bot",
                 username: "jsmith",
                 chatUserId: "john_smith1"
             );
@@ -107,7 +107,7 @@ namespace Ops.IntegrationTests
             );
 
             Error error = await registrationService.RegisterUserAsync(
-                bot: "awesome-test-bot",
+                botName: "awesome-test-bot",
                 username: "jsmith",
                 chatUserId: "john_smith1"
             );
@@ -116,6 +116,22 @@ namespace Ops.IntegrationTests
             Assert.Equal("Bot has already registered this user.", error.Message);
             Assert.Equal(ErrorCode.RegistrationExists, error.Code);
             Assert.Null(error.Hint);
+        }
+
+        [OrderedFact(DisplayName = "Should delete registration for user 'jsmith' and bot 'awesome-test-bot'")]
+        public async Task Should_Delete_Registration()
+        {
+            IRegistrationService registrationService = new RegistrationService(
+                _userRegistrationRepo,
+                _botsRepo
+            );
+
+            Error error = await registrationService.DeleteUserRegistrationAsync(
+                botName: "awesome-test-bot",
+                username: "jsmith"
+            );
+
+            Assert.Null(error);
         }
     }
 }
