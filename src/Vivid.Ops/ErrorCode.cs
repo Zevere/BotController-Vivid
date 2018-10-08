@@ -13,6 +13,12 @@ namespace Vivid.Ops
         Default,
 
         /// <summary>
+        /// Zevere user account doesn't exist
+        /// </summary>
+        [EnumMember(Value = "e.users.not_found")]
+        UserNotFound,
+
+        /// <summary>
         /// Bot not found
         /// </summary>
         [EnumMember(Value = "e.bots.not_found")]

@@ -8,6 +8,7 @@ using Vivid.Data;
 using Vivid.Data.Entities;
 using Vivid.Ops;
 using Xunit;
+using Zevere.Client;
 
 namespace Ops.IntegrationTests
 {
@@ -17,10 +18,14 @@ namespace Ops.IntegrationTests
 
         private readonly IUserRegistrationRepository _userRegistrationRepo;
 
+        private readonly IZevereClient _zevereClient;
+
         public UserRegistrationTests(DatabaseFixture fixture)
         {
             _botsRepo = new ChatBotRepository(fixture.ChatBotsCollection);
             _userRegistrationRepo = new UserRegistrationRepository(fixture.RegistrationsCollection);
+            // ToDo use Docker Compose to run test dependencies
+            _zevereClient = new ZevereClient("https://zevere-staging.herokuapp.com/zv/GraphQL");
         }
 
         [OrderedFact(DisplayName = "Should register a user successfully")]
@@ -37,7 +42,8 @@ namespace Ops.IntegrationTests
 
             IRegistrationService registrationService = new RegistrationService(
                 _userRegistrationRepo,
-                _botsRepo
+                _botsRepo,
+                _zevereClient
             );
 
             Error error = await registrationService.RegisterUserAsync(
@@ -54,7 +60,8 @@ namespace Ops.IntegrationTests
         {
             IRegistrationService registrationService = new RegistrationService(
                 _userRegistrationRepo,
-                _botsRepo
+                _botsRepo,
+                _zevereClient
             );
 
             (IEnumerable<(Registration, ChatBot)> Registrations, Error Error) result =
@@ -102,7 +109,8 @@ namespace Ops.IntegrationTests
         {
             IRegistrationService registrationService = new RegistrationService(
                 _userRegistrationRepo,
-                _botsRepo
+                _botsRepo,
+                _zevereClient
             );
 
             Error error = await registrationService.RegisterUserAsync(
@@ -122,7 +130,8 @@ namespace Ops.IntegrationTests
         {
             IRegistrationService registrationService = new RegistrationService(
                 _userRegistrationRepo,
-                _botsRepo
+                _botsRepo,
+                _zevereClient
             );
 
             Error error = await registrationService.DeleteUserRegistrationAsync(

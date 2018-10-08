@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using Vivid.Data;
 using Vivid.Data.Entities;
+using Zevere.Client;
 
 namespace Vivid.Ops
 {
@@ -17,17 +18,21 @@ namespace Vivid.Ops
 
         private readonly IChatBotRepository _botsRepo;
 
+        private readonly IZevereClient _zvClient;
+
         private readonly ILogger _logger;
 
         /// <inheritdoc />
         public RegistrationService(
             IUserRegistrationRepository regsRepo,
             IChatBotRepository botsRepo,
+            IZevereClient zvClient,
             ILogger logger = default
         )
         {
             _regsRepo = regsRepo;
             _botsRepo = botsRepo;
+            _zvClient = zvClient;
             _logger = logger;
         }
 
@@ -51,25 +56,32 @@ namespace Vivid.Ops
             }
             else
             {
-                // ToDo: ensure username exists with Zevere GraphQL API
-                // ToDo:  if (error == default)
+                bool usernameExists = await _zvClient.UserExists(username, cancellationToken)
+                    .ConfigureAwait(false);
 
-                try
+                if (usernameExists)
                 {
-                    await _regsRepo.AddAsync(new Registration
-                        {
-                            ChatBotDbRef = new MongoDBRef(MongoConstants.Collections.Bots.Name, bot.Id),
-                            Username = username,
-                            ChatUserId = userId
-                        }, cancellationToken
-                    ).ConfigureAwait(false);
+                    try
+                    {
+                        await _regsRepo.AddAsync(new Registration
+                            {
+                                ChatBotDbRef = new MongoDBRef(MongoConstants.Collections.Bots.Name, bot.Id),
+                                Username = username,
+                                ChatUserId = userId
+                            }, cancellationToken
+                        ).ConfigureAwait(false);
 
-                    error = null;
+                        error = null;
+                    }
+                    catch (DuplicateKeyException e)
+                    {
+                        _logger?.LogInformation(e, "Bot {0} has already registered user {1}.", botName, username);
+                        error = new Error(ErrorCode.RegistrationExists, "Bot has already registered this user.");
+                    }
                 }
-                catch (DuplicateKeyException e)
+                else
                 {
-                    _logger?.LogInformation(e, "Bot {0} has already registered user {1}.", botName, username);
-                    error = new Error(ErrorCode.RegistrationExists, "Bot has already registered this user.");
+                    error = new Error(ErrorCode.UserNotFound);
                 }
             }
 
@@ -82,32 +94,46 @@ namespace Vivid.Ops
             CancellationToken cancellationToken = default
         )
         {
-            // ToDo return "not found" error if username doesn't exist
+            (IEnumerable<(Registration, ChatBot)> Registrations, Error Error) result;
 
-            var regs = (
-                await _regsRepo.GetAllForUserAsync(username, cancellationToken)
-                    .ConfigureAwait(false)
-            ).ToArray();
-
-            if (!regs.Any())
-            {
-                return (null, new Error(ErrorCode.RegistrationNotFound));
-            }
-
-            // ToDo maybe use mongodb functions for this aggregation
-            var getBotTasks = regs
-                .Select(r => r.ChatBotDbRef.Id.ToString())
-                .Distinct(StringComparer.OrdinalIgnoreCase)
-                .Select(botId => _botsRepo.GetByIdAsync(botId, cancellationToken));
-
-            var bots = await Task.WhenAll(getBotTasks)
+            bool usernameExists = await _zvClient.UserExists(username, cancellationToken)
                 .ConfigureAwait(false);
 
-            var aggregatedRegs = regs
-                .Select(r => (r, bots.Single(b => b.Id == r.ChatBotDbRef.Id.ToString())))
-                .ToArray();
+            if (usernameExists)
+            {
+                var regs = (
+                    await _regsRepo.GetAllForUserAsync(username, cancellationToken)
+                        .ConfigureAwait(false)
+                ).ToArray();
 
-            return (aggregatedRegs, null);
+                if (regs.Any())
+                {
+                    // ToDo maybe use mongodb functions for this aggregation
+                    var getBotTasks = regs
+                        .Select(r => r.ChatBotDbRef.Id.ToString())
+                        .Distinct(StringComparer.OrdinalIgnoreCase)
+                        .Select(botId => _botsRepo.GetByIdAsync(botId, cancellationToken));
+
+                    var bots = await Task.WhenAll(getBotTasks)
+                        .ConfigureAwait(false);
+
+                    var aggregatedRegs = regs
+                        .Select(r => (r, bots.Single(b => b.Id == r.ChatBotDbRef.Id.ToString())))
+                        .ToArray();
+
+                    result = (aggregatedRegs, null);
+                }
+                else
+                {
+                    result = (null, new Error(ErrorCode.RegistrationNotFound));
+                }
+            }
+            else
+            {
+                result = (null, new Error(ErrorCode.UserNotFound));
+            }
+
+            return result;
         }
 
         /// <inheritdoc />
