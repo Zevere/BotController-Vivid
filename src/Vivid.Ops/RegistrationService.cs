@@ -96,41 +96,31 @@ namespace Vivid.Ops
         {
             (IEnumerable<(Registration, ChatBot)> Registrations, Error Error) result;
 
-            bool usernameExists = await _zvClient.UserExists(username, cancellationToken)
-                .ConfigureAwait(false);
+            var regs = (
+                await _regsRepo.GetAllForUserAsync(username, cancellationToken)
+                    .ConfigureAwait(false)
+            ).ToArray();
 
-            if (usernameExists)
+            if (regs.Any())
             {
-                var regs = (
-                    await _regsRepo.GetAllForUserAsync(username, cancellationToken)
-                        .ConfigureAwait(false)
-                ).ToArray();
+                // ToDo maybe use mongodb functions for this aggregation
+                var getBotTasks = regs
+                    .Select(r => r.ChatBotDbRef.Id.ToString())
+                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .Select(botId => _botsRepo.GetByIdAsync(botId, cancellationToken));
 
-                if (regs.Any())
-                {
-                    // ToDo maybe use mongodb functions for this aggregation
-                    var getBotTasks = regs
-                        .Select(r => r.ChatBotDbRef.Id.ToString())
-                        .Distinct(StringComparer.OrdinalIgnoreCase)
-                        .Select(botId => _botsRepo.GetByIdAsync(botId, cancellationToken));
+                var bots = await Task.WhenAll(getBotTasks)
+                    .ConfigureAwait(false);
 
-                    var bots = await Task.WhenAll(getBotTasks)
-                        .ConfigureAwait(false);
+                var aggregatedRegs = regs
+                    .Select(r => (r, bots.Single(b => b.Id == r.ChatBotDbRef.Id.ToString())))
+                    .ToArray();
 
-                    var aggregatedRegs = regs
-                        .Select(r => (r, bots.Single(b => b.Id == r.ChatBotDbRef.Id.ToString())))
-                        .ToArray();
-
-                    result = (aggregatedRegs, null);
-                }
-                else
-                {
-                    result = (null, new Error(ErrorCode.RegistrationNotFound));
-                }
+                result = (aggregatedRegs, null);
             }
             else
             {
-                result = (null, new Error(ErrorCode.UserNotFound));
+                result = (null, new Error(ErrorCode.RegistrationNotFound));
             }
 
             return result;

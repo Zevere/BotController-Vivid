@@ -12,6 +12,7 @@ using Zevere.Client;
 
 namespace Ops.IntegrationTests
 {
+    [Collection("user registration")]
     public class UserRegistrationTests : IClassFixture<DatabaseFixture>
     {
         private readonly IChatBotRepository _botsRepo;

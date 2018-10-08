@@ -48,7 +48,6 @@ namespace Vivid.Web.Controllers
 
             if (operationResult.Error != null)
             {
-                // ToDo check for 404 username cases
                 var statusCode = operationResult.Error.Code == Ops.ErrorCode.RegistrationNotFound ? 404 : 400;
                 return StatusCode(statusCode, (Error) operationResult.Error);
             }
@@ -144,9 +143,7 @@ namespace Vivid.Web.Controllers
 
             if (operationError != null)
             {
-                // ignore "bot not found" error case because bot is already authenticated in this web app
                 int statusCode = operationError.Code == Ops.ErrorCode.RegistrationNotFound ? 404 : 400;
-                // ToDo check for "user not found" error case
                 return StatusCode(statusCode, (Error) operationError);
             }
 
