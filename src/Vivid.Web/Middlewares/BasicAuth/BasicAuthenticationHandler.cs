@@ -42,10 +42,10 @@ namespace Vivid.Web.Middlewares.BasicAuth
                 return AuthenticateResult.NoResult();
             }
 
-            string token;
+            string authValue;
             try
             {
-                token = Encoding.UTF8.GetString(
+                authValue = Encoding.UTF8.GetString(
                     Convert.FromBase64String(authorizationHeader.Substring(Scheme.Length + 1))
                 );
             }
@@ -56,7 +56,7 @@ namespace Vivid.Web.Middlewares.BasicAuth
             }
             // ToDo catch (Exception e)
 
-            if (string.IsNullOrEmpty(token))
+            if (string.IsNullOrEmpty(authValue))
             {
                 // ToDo
                 const string noToken = "No token";
@@ -64,12 +64,36 @@ namespace Vivid.Web.Middlewares.BasicAuth
                 return AuthenticateResult.Fail(noToken);
             }
 
+            int separatorIndex = authValue.IndexOf(":", StringComparison.Ordinal);
+            if (separatorIndex < 1)
+            {
+                Logger.LogInformation("Invalid token format");
+                return AuthenticateResult.Fail("invalid");
+            }
+
+            string botName = authValue.Substring(0, separatorIndex);
+            if (authValue.Length < botName.Length + 2)
+            {
+                // too short for the token value
+                Logger.LogInformation("Invalid token format");
+                return AuthenticateResult.Fail("invalid");
+            }
+
+            string botToken = authValue.Substring(separatorIndex + 1);
+
             // ToDo catch all
-            ChatBot bot = await _botsRepo.GetByTokenAsync(token)
+            ChatBot bot = await _botsRepo.GetByNameAsync(botName)
                 .ConfigureAwait(false);
             if (bot == null)
             {
                 // ToDo
+                const string message = "invalid token";
+                Logger.LogInformation(message);
+                return AuthenticateResult.Fail(message);
+            }
+
+            if (bot.Token != botToken)
+            {
                 const string message = "invalid token";
                 Logger.LogInformation(message);
                 return AuthenticateResult.Fail(message);
@@ -83,7 +107,7 @@ namespace Vivid.Web.Middlewares.BasicAuth
                         new[]
                         {
                             new Claim("id", bot.Id),
-                            new Claim("token", token),
+                            new Claim("token", authValue),
                             new Claim("platform", bot.Platform),
                         }
                     ),
