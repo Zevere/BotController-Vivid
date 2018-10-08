@@ -34,7 +34,7 @@ namespace Vivid.Web
 
             services.AddMvc();
 
-            services.AddOpenAPIDocs();
+            services.AddSwaggerDocs();
 
             services.AddCors();
         }

@@ -14,13 +14,12 @@ namespace Vivid.Web.Extensions
 {
     internal static class DataSeederExtensions
     {
-        public static IApplicationBuilder SeedData(this IApplicationBuilder app)
+        public static void SeedData(this IApplicationBuilder app)
         {
-            var options = app.ApplicationServices.GetRequiredService<IOptions<DataOptions>>().Value;
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 var logger = scope.ServiceProvider.GetRequiredService<ILogger<Startup>>();
-                logger.LogInformation("Initializing MongoDB instance.");
+                logger.LogInformation("Initializing MongoDB instance...");
 
                 var db = scope.ServiceProvider.GetRequiredService<IMongoDatabase>();
                 bool dbInitialized = InitMongoDbAsync(db).GetAwaiter().GetResult();
@@ -31,8 +30,6 @@ namespace Vivid.Web.Extensions
                 bool seeded = SeedData(botRepo).GetAwaiter().GetResult();
                 logger.LogInformation($"Database is{(seeded ? "" : " NOT")} seeded.");
             }
-
-            return app;
         }
 
         private static async Task<bool> SeedData(IChatBotRepository botRepo)
@@ -49,14 +46,14 @@ namespace Vivid.Web.Extensions
                     Name = "tg-bot",
                     Platform = "telegram",
                     Url = "https://localhsot:5001/tg-bot",
-                    Token = "TestingToken1=For_tg-bot",
+                    Token = "foo:bar",
                 },
                 new ChatBot
                 {
                     Name = "zvOnSlack",
                     Platform = "slack",
                     Url = "https://localhsot:5001/zvOnSlack",
-                    Token = "aT0k3nFoRzvOnSlack",
+                    Token = "aT0k3nFoR:zvOnSlack",
                 },
             };
 
@@ -70,18 +67,9 @@ namespace Vivid.Web.Extensions
 
         private static async Task<bool> IsAlreadySeeded(IChatBotRepository botRepo)
         {
-            bool userExists;
-            try
-            {
-                await botRepo.GetByNameAsync("tg-bot");
-                userExists = true;
-            }
-            catch (EntityNotFoundException)
-            {
-                userExists = false;
-            }
-
-            return userExists;
+            var bot = await botRepo.GetByNameAsync("tg-bot");
+            bool botExists = bot != null;
+            return botExists;
         }
 
         private static async Task<bool> InitMongoDbAsync(IMongoDatabase db)
