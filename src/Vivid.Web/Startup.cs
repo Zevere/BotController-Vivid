@@ -28,6 +28,8 @@ namespace Vivid.Web
         {
             services.AddMongoDb(Configuration.GetSection("Data"));
 
+            services.AddZevereClient(Configuration.GetSection("Zevere"));
+
             services.AddOperationServices();
 
             services.AddAuth();
