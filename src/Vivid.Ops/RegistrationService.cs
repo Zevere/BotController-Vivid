@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Vivid.Data.Abstractions;
-using Vivid.Data.Abstractions.Entities;
+using MongoDB.Driver;
+using Vivid.Data;
+using Vivid.Data.Entities;
 
 namespace Vivid.Ops
 {
@@ -57,7 +58,7 @@ namespace Vivid.Ops
                 {
                     await _regsRepo.AddAsync(new Registration
                         {
-                            ChatBotId = bot.Id,
+                            ChatBotDbRef = new MongoDBRef(MongoConstants.Collections.Bots.Name, bot.Id),
                             Username = username,
                             ChatUserId = userId
                         }, cancellationToken
@@ -95,7 +96,7 @@ namespace Vivid.Ops
 
             // ToDo maybe use mongodb functions for this aggregation
             var getBotTasks = regs
-                .Select(r => r.ChatBotId)
+                .Select(r => r.ChatBotDbRef.Id.ToString())
                 .Distinct(StringComparer.OrdinalIgnoreCase)
                 .Select(botId => _botsRepo.GetByIdAsync(botId, cancellationToken));
 
@@ -103,7 +104,7 @@ namespace Vivid.Ops
                 .ConfigureAwait(false);
 
             var aggregatedRegs = regs
-                .Select(r => (r, bots.Single(b => b.Id == r.ChatBotId)))
+                .Select(r => (r, bots.Single(b => b.Id == r.ChatBotDbRef.Id.ToString())))
                 .ToArray();
 
             return (aggregatedRegs, null);

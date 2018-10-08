@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Vivid.Data.Abstractions;
-using Vivid.Data.Abstractions.Entities;
+using Vivid.Data;
+using Vivid.Data.Entities;
 
 namespace Vivid.Web.Middlewares.BasicAuth
 {

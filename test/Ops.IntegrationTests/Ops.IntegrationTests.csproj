@@ -14,10 +14,9 @@
     <PackageReference Include="xunit.runner.console" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="..\..\deps\EnvJson\src\Extensions.Configuration.JsonEnvVar\Extensions.Configuration.JsonEnvVar.csproj" />
-    <ProjectReference Include="..\..\src\Vivid.Data.Mongo\Vivid.Data.Mongo.csproj" />
     <ProjectReference Include="..\..\src\Vivid.Ops\Vivid.Ops.csproj" />
     <ProjectReference Include="..\Framework\Framework.csproj" />
   </ItemGroup>
@@ -27,5 +26,5 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  
+
 </Project>

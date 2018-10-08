@@ -1,6 +1,6 @@
 ﻿// ReSharper disable once CheckNamespace
 
-namespace Vivid.Data.Abstractions
+namespace Vivid.Data
 {
     public class EntityNotFoundException : RepositoryException
     {

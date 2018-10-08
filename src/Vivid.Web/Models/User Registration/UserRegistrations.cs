@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Vivid.Data.Abstractions.Entities;
+using Vivid.Data.Entities;
 
 // ReSharper disable once CheckNamespace
 namespace Vivid.Web.Models

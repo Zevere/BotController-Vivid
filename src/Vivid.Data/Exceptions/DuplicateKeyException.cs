@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 // ReSharper disable once CheckNamespace
-namespace Vivid.Data.Abstractions
+namespace Vivid.Data
 {
     public class DuplicateKeyException : RepositoryException
     {

@@ -1,4 +1,4 @@
-﻿namespace Vivid.Data.Mongo
+﻿namespace Vivid.Data
 {
     public static class MongoConstants
     {

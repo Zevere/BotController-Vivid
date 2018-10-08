@@ -3,10 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Configuration;
-using Vivid.Data.Abstractions;
-using Vivid.Data.Abstractions.Entities;
-using Vivid.Data.Mongo;
-using Vivid.Data.Mongo.Entities;
+using Vivid.Data;
+using Vivid.Data.Entities;
 using Vivid.Web.Options;
 
 namespace Vivid.Web.Extensions
@@ -40,9 +38,9 @@ namespace Vivid.Web.Extensions
                     .GetCollection<ChatBot>(MongoConstants.Collections.Bots.Name)
             );
 
-            services.AddTransient<IMongoCollection<RegistrationMongo>>(provider =>
+            services.AddTransient<IMongoCollection<Registration>>(provider =>
                 provider.GetRequiredService<IMongoDatabase>()
-                    .GetCollection<RegistrationMongo>(MongoConstants.Collections.Registrations.Name)
+                    .GetCollection<Registration>(MongoConstants.Collections.Registrations.Name)
             );
 
             services.AddTransient<IChatBotRepository, ChatBotRepository>();

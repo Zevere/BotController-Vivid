@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Vivid.Data.Abstractions.Entities
+namespace Vivid.Data.Entities
 {
     public class ChatBot
     {

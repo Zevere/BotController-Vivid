@@ -4,21 +4,20 @@ using System.Threading;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using Vivid.Data.Abstractions;
-using Vivid.Data.Abstractions.Entities;
-using Vivid.Data.Mongo.Entities;
+using Vivid.Data.Entities;
 
-namespace Vivid.Data.Mongo
+namespace Vivid.Data
 {
     /// <inheritdoc />
     public class UserRegistrationRepository : IUserRegistrationRepository
     {
-        private FilterDefinitionBuilder<RegistrationMongo> Filter => Builders<RegistrationMongo>.Filter;
+        private FilterDefinitionBuilder<Registration> Filter => Builders<Registration>.Filter;
 
-        private readonly IMongoCollection<RegistrationMongo> _collection;
+        private readonly IMongoCollection<Registration> _collection;
 
+        /// <inheritdoc />
         public UserRegistrationRepository(
-            IMongoCollection<RegistrationMongo> collection
+            IMongoCollection<Registration> collection
         )
         {
             _collection = collection;
@@ -30,11 +29,9 @@ namespace Vivid.Data.Mongo
             CancellationToken cancellationToken = default
         )
         {
-            var entity = RegistrationMongo.Clone(registration);
-
             try
             {
-                await _collection.InsertOneAsync(entity, cancellationToken: cancellationToken)
+                await _collection.InsertOneAsync(registration, cancellationToken: cancellationToken)
                     .ConfigureAwait(false);
             }
             catch (MongoWriteException e)
@@ -43,7 +40,7 @@ namespace Vivid.Data.Mongo
                           .Contains($" index: {MongoConstants.Collections.Registrations.Indexes.BotUsername} ")
                 )
             {
-                throw new DuplicateKeyException(nameof(Registration.ChatBotId), nameof(Registration.Username));
+                throw new DuplicateKeyException("bot", nameof(Registration.Username));
             }
         }
 
@@ -79,7 +76,7 @@ namespace Vivid.Data.Mongo
 
             var filter = Filter.Regex(reg => reg.Username, new BsonRegularExpression($"^{username}$", "i"));
 
-            IList<RegistrationMongo> registrations = await _collection
+            IList<Registration> registrations = await _collection
                 .Find(filter)
                 .ToListAsync(cancellationToken)
                 .ConfigureAwait(false);

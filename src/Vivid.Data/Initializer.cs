@@ -3,10 +3,9 @@ using System.Threading.Tasks;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Driver;
-using Vivid.Data.Abstractions.Entities;
-using Vivid.Data.Mongo.Entities;
+using Vivid.Data.Entities;
 
-namespace Vivid.Data.Mongo
+namespace Vivid.Data
 {
     public static class Initializer
     {
@@ -39,15 +38,15 @@ namespace Vivid.Data.Mongo
                     cancellationToken: cancellationToken
                 ).ConfigureAwait(false);
                 var regsCollection =
-                    database.GetCollection<RegistrationMongo>(MongoConstants.Collections.Registrations.Name);
+                    database.GetCollection<Registration>(MongoConstants.Collections.Registrations.Name);
 
                 // create unique index "bot_username" on the fields "bot" and "username"
-                var indexBuilder = Builders<RegistrationMongo>.IndexKeys;
+                var indexBuilder = Builders<Registration>.IndexKeys;
                 var key = indexBuilder.Combine(
                     indexBuilder.Ascending(tl => tl.ChatBotDbRef.Id),
                     indexBuilder.Ascending(tl => tl.Username)
                 );
-                await regsCollection.Indexes.CreateOneAsync(new CreateIndexModel<RegistrationMongo>(
+                await regsCollection.Indexes.CreateOneAsync(new CreateIndexModel<Registration>(
                         key,
                         new CreateIndexOptions
                             { Name = MongoConstants.Collections.Registrations.Indexes.BotUsername, Unique = true }),
@@ -79,9 +78,6 @@ namespace Vivid.Data.Mongo
                     map.MapProperty(reg => reg.Username).SetElementName("username").SetOrder(1);
                     map.MapProperty(reg => reg.ChatUserId).SetIsRequired(true).SetElementName("user_id");
                     map.MapProperty(tl => tl.RegisteredAt).SetElementName("created_at");
-                });
-                BsonClassMap.RegisterClassMap<RegistrationMongo>(map =>
-                {
                     map.MapProperty(tl => tl.ChatBotDbRef).SetIsRequired(true).SetElementName("bot");
                 });
             }

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using MongoDB.Driver;
 
-namespace Vivid.Data.Abstractions.Entities
+namespace Vivid.Data.Entities
 {
     public class Registration
     {
@@ -15,9 +16,9 @@ namespace Vivid.Data.Abstractions.Entities
         public string ChatUserId { get; set; }
 
         [Required]
-        public string ChatBotId { get; set; }
+        public DateTime RegisteredAt { get; set; } = DateTime.UtcNow;
 
         [Required]
-        public DateTime RegisteredAt { get; set; } = DateTime.UtcNow;
+        public MongoDBRef ChatBotDbRef { get; set; }
     }
 }

@@ -2,19 +2,17 @@
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deps", "deps", "{2B67815E-A9C8-4AA7-9288-51BC7FBE0E40}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions.Configuration.JsonEnvVar", "deps\EnvJson\src\Extensions.Configuration.JsonEnvVar\Extensions.Configuration.JsonEnvVar.csproj", "{8824D4CC-751E-4A0F-BCD5-F6F20E84FF8C}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B6495E16-57C5-4AF8-A5CB-8E03DC24A674}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivid.Data.Abstractions", "src\Vivid.Data.Abstractions\Vivid.Data.Abstractions.csproj", "{DC301BFC-D34A-44E8-8B1D-71EE52205CE9}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivid.Data.Mongo", "src\Vivid.Data.Mongo\Vivid.Data.Mongo.csproj", "{ECAD558B-EB3B-4EFB-8D9E-4D8916FADE82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivid.Data", "src\Vivid.Data\Vivid.Data.csproj", "{ECAD558B-EB3B-4EFB-8D9E-4D8916FADE82}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivid.Ops", "src\Vivid.Ops\Vivid.Ops.csproj", "{87D33427-1A66-450A-9D01-82A601C54D20}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivid.Web", "src\Vivid.Web\Vivid.Web.csproj", "{869E9A44-6733-4394-BB67-A647477186BC}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deps", "deps", "{2B67815E-A9C8-4AA7-9288-51BC7FBE0E40}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions.Configuration.JsonEnvVar", "deps\EnvJson\src\Extensions.Configuration.JsonEnvVar\Extensions.Configuration.JsonEnvVar.csproj", "{8824D4CC-751E-4A0F-BCD5-F6F20E84FF8C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{DEA41BD3-2785-473C-9F07-326B705546EA}"
 EndProject
@@ -28,10 +26,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DC301BFC-D34A-44E8-8B1D-71EE52205CE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DC301BFC-D34A-44E8-8B1D-71EE52205CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DC301BFC-D34A-44E8-8B1D-71EE52205CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DC301BFC-D34A-44E8-8B1D-71EE52205CE9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ECAD558B-EB3B-4EFB-8D9E-4D8916FADE82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ECAD558B-EB3B-4EFB-8D9E-4D8916FADE82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECAD558B-EB3B-4EFB-8D9E-4D8916FADE82}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -61,7 +55,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{DC301BFC-D34A-44E8-8B1D-71EE52205CE9} = {B6495E16-57C5-4AF8-A5CB-8E03DC24A674}
 		{ECAD558B-EB3B-4EFB-8D9E-4D8916FADE82} = {B6495E16-57C5-4AF8-A5CB-8E03DC24A674}
 		{87D33427-1A66-450A-9D01-82A601C54D20} = {B6495E16-57C5-4AF8-A5CB-8E03DC24A674}
 		{869E9A44-6733-4394-BB67-A647477186BC} = {B6495E16-57C5-4AF8-A5CB-8E03DC24A674}

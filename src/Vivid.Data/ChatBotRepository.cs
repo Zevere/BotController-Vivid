@@ -3,10 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using Vivid.Data.Abstractions;
-using Vivid.Data.Abstractions.Entities;
+using Vivid.Data.Entities;
 
-namespace Vivid.Data.Mongo
+namespace Vivid.Data
 {
     /// <inheritdoc />
     public class ChatBotRepository : IChatBotRepository

@@ -11,6 +11,6 @@
     <ItemGroup>
         <ProjectReference Include="..\..\deps\EnvJson\src\Extensions.Configuration.JsonEnvVar\Extensions.Configuration.JsonEnvVar.csproj" />
         <ProjectReference Include="..\Vivid.Ops\Vivid.Ops.csproj" />
-        <ProjectReference Include="..\Vivid.Data.Mongo\Vivid.Data.Mongo.csproj" />
+        <ProjectReference Include="..\Vivid.Data\Vivid.Data.csproj" />
     </ItemGroup>
 </Project>

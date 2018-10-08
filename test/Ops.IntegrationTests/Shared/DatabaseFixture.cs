@@ -3,9 +3,8 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Configuration;
-using Vivid.Data.Abstractions.Entities;
-using Vivid.Data.Mongo;
-using Vivid.Data.Mongo.Entities;
+using Vivid.Data;
+using Vivid.Data.Entities;
 
 namespace Ops.IntegrationTests.Shared
 {
@@ -14,8 +13,8 @@ namespace Ops.IntegrationTests.Shared
         public IMongoCollection<ChatBot> ChatBotsCollection =>
             _mongoDatabase.GetCollection<ChatBot>("bots");
 
-        public IMongoCollection<RegistrationMongo> RegistrationsCollection =>
-            _mongoDatabase.GetCollection<RegistrationMongo>("registrations");
+        public IMongoCollection<Registration> RegistrationsCollection =>
+            _mongoDatabase.GetCollection<Registration>("registrations");
 
         private readonly IMongoDatabase _mongoDatabase;
 

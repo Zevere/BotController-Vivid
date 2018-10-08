@@ -4,9 +4,8 @@ using System.Threading.Tasks;
 using Framework;
 using MongoDB.Bson;
 using Ops.IntegrationTests.Shared;
-using Vivid.Data.Abstractions;
-using Vivid.Data.Abstractions.Entities;
-using Vivid.Data.Mongo;
+using Vivid.Data;
+using Vivid.Data.Entities;
 using Vivid.Ops;
 using Xunit;
 
@@ -89,7 +88,7 @@ namespace Ops.IntegrationTests
             Assert.NotEmpty(item.reg.Id);
             Assert.True(ObjectId.TryParse(item.reg.Id, out _));
             Assert.Equal("jsmith", item.reg.Username);
-            Assert.Equal(chatBotId, item.reg.ChatBotId);
+            Assert.Equal(chatBotId, item.reg.ChatBotDbRef.Id);
             Assert.Equal("john_smith1", item.reg.ChatUserId);
             Assert.InRange(
                 item.reg.RegisteredAt.Ticks,

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Vivid.Data.Abstractions.Entities;
+using Vivid.Data.Entities;
 
-namespace Vivid.Data.Abstractions
+namespace Vivid.Data
 {
     /// <summary>
     /// Contains operations to work with a user registration collection

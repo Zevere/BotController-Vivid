@@ -3,12 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using Vivid.Data.Abstractions;
-using Vivid.Data.Abstractions.Entities;
-using Vivid.Data.Mongo;
-using Vivid.Web.Options;
+using Vivid.Data;
+using Vivid.Data.Entities;
 
 namespace Vivid.Web.Extensions
 {
