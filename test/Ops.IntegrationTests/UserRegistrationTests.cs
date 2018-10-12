@@ -26,7 +26,7 @@ namespace Ops.IntegrationTests
             _botsRepo = new ChatBotRepository(fixture.ChatBotsCollection);
             _userRegistrationRepo = new UserRegistrationRepository(fixture.RegistrationsCollection);
             // ToDo use Docker Compose to run test dependencies
-            _zevereClient = new ZevereClient("https://zevere-staging.herokuapp.com/zv/GraphQL");
+            _zevereClient = new ZevereClient("https://zv-s-webapi-borzoo.herokuapp.com/zv/GraphQL");
         }
 
         [OrderedFact(DisplayName = "Should register a user successfully")]
