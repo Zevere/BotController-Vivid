@@ -10,8 +10,6 @@ notifications:
   email: false
 services:
   - docker
-install:
-  - cd scripts && npm ci && cd ..
 
 
 jobs:
@@ -19,6 +17,7 @@ jobs:
 
     - stage: "Test"                # naming the Tests stage
       name: "Vivid Operations"            # names the first Tests stage job
+      install: cd scripts && npm ci && cd ..
       script: cd scripts && npm ci
     - script: cd scripts && npm ci && node build
       name: "Integration Tests"     # names the second Tests stage job
