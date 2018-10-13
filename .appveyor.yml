@@ -14,7 +14,7 @@ build:
   project: Vivid.sln
 
 before_test:
-  - choco install docker-compose
+  - choco upgrade docker-compose
   - docker version
   - docker-compose version
 
