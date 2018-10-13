@@ -1,36 +1,36 @@
-version: '2'
+# version: '2'
 
-services:
+# services:
 
-  borzoo:
-    image: zevere/webapi-borzoo:edge
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development # to make sure mongodb gets initialized
-      - BORZOO_SETTINGS={"data":{"use":"mongo","mongo":{"connection":"mongodb://mongo:27017/borzoo"}}}
-    depends_on:
-      - mongo
-    ports:
-      - 5005:80
-    networks:
-      - borzoo-network
+borzoo:
+  image: zevere/webapi-borzoo:edge
+  environment:
+    - ASPNETCORE_ENVIRONMENT=Development # to make sure mongodb gets initialized
+    - BORZOO_SETTINGS={"data":{"use":"mongo","mongo":{"connection":"mongodb://mongo:27017/borzoo"}}}
+  # depends_on:
+    # - mongo
+  ports:
+    - 5005:80
+  # networks:
+    # - borzoo-network
 
-  mongo:
-    image: mongo
-    ports:
-      - 27017:27017
-    networks:
-      - borzoo-network
+mongo:
+  image: mongo
+  ports:
+    - 27017:27017
+  # networks:
+    # - borzoo-network
 
-  mongo-script:
-    image: mongo
-    depends_on:
-      - borzoo
-    command: mongo --nodb /app/mongo.js
-    volumes:
-      - ./mongo.js:/app/mongo.js:ro
-    networks:
-      - borzoo-network
+mongo-script:
+  image: mongo
+  # depends_on:
+    # - borzoo
+  command: mongo --nodb /app/mongo.js
+  volumes:
+    - ./mongo.js:/app/mongo.js:ro
+  # networks:
+    # - borzoo-network
 
-networks:
-  borzoo-network:
-    driver: bridge
+# networks:
+#   borzoo-network:
+#     driver: bridge
