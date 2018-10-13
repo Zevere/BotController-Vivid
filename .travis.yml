@@ -22,7 +22,9 @@ jobs:
       install: cd scripts && npm ci && cd ..
       script: echo ToDo
     - name: "Vivid Operations - Systems Integration Tests"
-      install: cd scripts && npm ci && cd ..
+      install:
+        - cd scripts && npm ci && cd ..
+        - docker pull zevere/botops-vivid:unstable-solution
       env:
         - image_tag=zevere/botops-vivid:unstable-solution
       script: node scripts/test/ops.integration.test.js
