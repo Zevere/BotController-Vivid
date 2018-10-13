@@ -11,23 +11,32 @@ notifications:
 services:
   - docker
 install:
-  - cd scripts && npm install && cd ..
+  - cd scripts && npm ci && cd ..
 
-script:
-  - node scripts/build
-  - node scripts/test
 
-deploy:
-  - provider: script
-    skip_cleanup: true
-    script: node scripts/deploy Staging
-    on:
-      branch: develop
-  - provider: script
-    skip_cleanup: true
-    script: node scripts/deploy Production
-    on:
-      branch: master
+jobs:
+  include:
+    - stage: "Test"                # naming the Tests stage
+      name: "Vivid Operations"            # names the first Tests stage job
+      script: cd scripts && npm ci
+    - script: cd scripts && npm ci && node build
+      name: "Integration Tests"     # names the second Tests stage job
+    - stage: deploy
+      name: "Deploy to GCP"
+      script: cd scripts && npm ci
+
+
+# deploy:
+#   - provider: script
+#     skip_cleanup: true
+#     script: node scripts/deploy Staging
+#     on:
+#       branch: develop
+#   - provider: script
+#     skip_cleanup: true
+#     script: node scripts/deploy Production
+#     on:
+#       branch: master
 
 env:
   # DEPLOY_SETTINGS_JSON='{"Staging":[ /* ... */ ]}'
