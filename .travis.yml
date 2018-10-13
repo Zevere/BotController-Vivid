@@ -16,10 +16,6 @@ install:
 script:
   - node scripts/build
   - node scripts/test
-  # - docker build --tag vivid:debug --target solution-build --no-cache .
-  # - docker build --tag botops-vivid --target final .
-  # - docker run --rm --detach --name vivid-mongo-tests mongo
-  # - docker run --rm --tty --link vivid-mongo-tests --env VIVID_TEST_SETTINGS='{"Connection":"mongodb://vivid-mongo-tests:27017/ops"}' --workdir /project/test/Ops.IntegrationTests/ vivid:debug dotnet test --no-build --verbosity normal
 
 deploy:
   - provider: script

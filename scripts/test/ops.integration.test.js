@@ -5,6 +5,7 @@ require('../logging')
 $.config.fatal = true
 const root = path.resolve(`${__dirname}/../..`)
 
+
 console.info(`running Vivid Operations systems integration tests`)
 try {
     console.debug('starting test dependencies. docker-compose project: "ops"')
