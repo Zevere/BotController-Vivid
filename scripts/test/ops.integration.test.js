@@ -27,7 +27,7 @@ try {
             `--env "VIVID_TEST_SETTINGS=${settings}" ` +
             `--network ops_borzoo-network ` +
             `"${image}" ` +
-            `dotnet test --no-build --verbosity normal`
+            `dotnet test --no-build --configuration Release --verbosity normal`
         )
     } finally {
         console.debug('removing test dependency containers via docker-compose')
