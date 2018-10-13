@@ -11,8 +11,6 @@ notifications:
 services:
   - docker
 
-script: cd scripts && npm ci && cd ..
-
 jobs:
   include:
 
