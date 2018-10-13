@@ -11,16 +11,22 @@ notifications:
 services:
   - docker
 
+script: cd scripts && npm ci && cd ..
 
 jobs:
   include:
 
-    - stage: "Test"                # naming the Tests stage
-      name: "Vivid Operations"            # names the first Tests stage job
+    - stage: Build
+      install: cd scripts && npm ci && cd ..
+      script: node scripts/build
+
+    - stage: Test
+      name: "Vivid Operations - Systems Integration Tests"
       install: cd scripts && npm ci && cd ..
       script: cd scripts && npm ci
     - script: cd scripts && npm ci && node build
       name: "Integration Tests"     # names the second Tests stage job
+      install: cd scripts && npm ci && cd ..
 
     - stage: Deploy
       script: skip
