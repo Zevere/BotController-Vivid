@@ -13,32 +13,31 @@ services:
 
 jobs:
   include:
-
     - stage: Build
       install: cd scripts && npm ci && cd ..
       script: node scripts/build
 
-    - stage: Test
-      name: "Vivid tests"
-      install: cd scripts && npm ci && cd ..
-      script: node scripts/test/ops.integration.test.js
-    - name: "Vivid Operations - Systems Integration Tests"
-      install: cd scripts && npm ci && cd ..
-      script: node scripts/test
+    # - stage: Test
+    #   name: "Vivid tests"
+    #   install: cd scripts && npm ci && cd ..
+    #   script: node scripts/test/ops.integration.test.js
+    # - name: "Vivid Operations - Systems Integration Tests"
+    #   install: cd scripts && npm ci && cd ..
+    #   script: node scripts/test
 
-    - stage: Deploy
-      script: skip
-      deploy:
-        - provider: script
-          skip_cleanup: true
-          script: node scripts/deploy Staging
-          on:
-            branch: develop
-        - provider: script
-          skip_cleanup: true
-          script: node scripts/deploy Production
-          on:
-            branch: master
+    # - stage: Deploy
+    #   script: skip
+    #   deploy:
+    #     - provider: script
+    #       skip_cleanup: true
+    #       script: node scripts/deploy Staging
+    #       on:
+    #         branch: develop
+    #     - provider: script
+    #       skip_cleanup: true
+    #       script: node scripts/deploy Production
+    #       on:
+    #         branch: master
 
 
 env:
