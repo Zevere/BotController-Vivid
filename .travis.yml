@@ -10,8 +10,8 @@ notifications:
   email: false
 services:
   - docker
-install:
-  - cd scripts && npm ci && cd ..
+# install:
+#   - cd scripts && npm ci && cd ..
 
 
 jobs:
