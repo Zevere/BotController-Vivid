@@ -32,7 +32,7 @@ try {
 
     console.debug('building the solution with "Release" configuration and "vivid:solution" tag')
     $.exec(
-        `docker build --tag botops-vivid:solution --no-cache --target solution-build --build-arg configuration=Release .`
+        `docker build --tag botops-vivid:solution --no-cache --target solution-build --build-arg "configuration=Release" .`
     )
 
     console.debug('building the final web app with "botops-vivid:latest" tag')
