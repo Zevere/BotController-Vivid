@@ -33,6 +33,7 @@ jobs:
       script: skip
       env:
         - image_tag=zevere/botops-vivid:unstable
+      install: cd scripts && npm ci && cd ..
       deploy:
         - provider: script
           skip_cleanup: true
