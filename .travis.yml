@@ -31,6 +31,8 @@ jobs:
     - stage: Deploy
       name: "Deploy"
       script: skip
+      env:
+        - image_tag=zevere/botops-vivid:unstable
       deploy:
         - provider: script
           skip_cleanup: true
