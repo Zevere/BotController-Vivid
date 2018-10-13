@@ -2,15 +2,19 @@ image: Visual Studio 2017
 
 install:
   - git submodule update --init --recursive
+  - cd scripts && npm ci && cd ..
 
-before_build:
-  - nuget restore Borzoo.sln
+# before_build:
+#   - nuget restore Borzoo.sln
 
-configuration:
-  - Debug
-  - Release
+# configuration:
+#   - Debug
+#   - Release
 
-build:
-  project: Borzoo.sln
+# build:
+#   project: Borzoo.sln
+
+build_script:
+  - node scripts/build
 
 test: off
