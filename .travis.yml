@@ -13,18 +13,18 @@ services:
 
 jobs:
   include:
-    - stage: Build
+    - stage: "Build"
       name: "Buid Docker images"
       install: cd scripts && npm ci && cd ..
       script: node scripts/build
-    - stage: Test
+    - stage: "Test"
       name: "Vivid tests"
       install: cd scripts && npm ci && cd ..
       script: node scripts/test && sleep 10 && exit -1
     - name: "Vivid Operations - Systems Integration Tests"
       install: cd scripts && npm ci && cd ..
       script: node scripts/test/ops.integration.test.js
-    - stage: Deploy
+    - stage: "Deploy"
       name: "Deploy"
       script: skip
       deploy:
@@ -38,7 +38,7 @@ jobs:
           script: node scripts/deploy Production
           on:
             branch: master
-    - stage: PIV
+    - stage: "PIV"
       name: "PIV Checks"
       script: echo ToDo
 
