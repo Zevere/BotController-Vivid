@@ -13,6 +13,11 @@ configuration:
 build:
   project: Vivid.sln
 
+before_test:
+  - choco install docker-compose
+  - docker version
+  - docker-compose version
+
 test_script:
   - cd test/Ops.IntegrationTests/
   - docker-compose up -d
