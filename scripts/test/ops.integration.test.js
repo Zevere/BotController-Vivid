@@ -2,38 +2,33 @@ const $ = require('shelljs');
 const path = require('path');
 require('../logging')
 
-const root = path.resolve(`${__dirname}/../..`)
 $.config.fatal = true
+const root = path.resolve(`${__dirname}/../..`)
 
 
-console.info(`running Ops integration tests`)
+console.info(`running Vivid Operations systems integration tests`)
 
-console.debug('starting a Docker container for MongoDB')
-const container_id = $.exec(
-    `docker run --rm --detach --publish 27017:27017 --name borzoo-mongo-test mongo`
-).stdout.trim()
+console.debug('starting test dependencies. docker-compose project: "ops"')
+$.cd(`${root}/test/Ops.IntegrationTests`)
+$.exec(`docker-compose --project-name ops up -d --force-recreate --remove-orphans`)
 
-console.info('done')
+try {
+    console.debug('running tests')
 
-// const commands = [
-//         `dotnet build`,
-//         `dotnet xunit -configuration Release -stoponfail -verbose --fx-version 2.1.4`
-//     ]
-//     .reduce((prev, curr) => `${prev} && ${curr}`, 'echo')
+    const settings = JSON.stringify(JSON.stringify({
+        MongoConnection: "mongodb://mongo/vivid-tests-ops",
+        ZevereApiEndpoint: "http://borzoo/zv/GraphQL"
+    }))
 
-// `docker run --rm --tty webapi-borzoo:solution-debug`
-
-// try {
-//     $.exec(
-//         `docker run --rm --tty ` +
-//         `--volume "${root}:/project" ` +
-//         `--workdir /project/test/Borzoo.Data.Tests.Mongo/ ` +
-//         `--link borzoo-mongo-test ` +
-//         `--env "MONGO_CONNECTION=mongodb://borzoo-mongo-test:27017/borzoo-test" ` +
-//         `microsoft/dotnet:2.1.402-sdk ` +
-//         `sh -c "${commands}"`
-//     )
-// } finally {
-//     console.debug(`removing the Mongo container`)
-//     $.exec(`docker rm --volumes --force "${container_id}"`)
-// }
+    $.exec(
+        `docker run --rm --tty ` +
+        `--workdir /project/test/Ops.IntegrationTests/ ` +
+        `--env "VIVID_TEST_SETTINGS=${settings}" ` +
+        `--network ops_borzoo-network ` +
+        `vivid:debug ` +
+        `dotnet test --no-build --verbosity normal`
+    )
+} finally {
+    console.debug('removing test containers via docker-compose')
+    $.exec(`docker-compose --project-name ops rm -fv`)
+}

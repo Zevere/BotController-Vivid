@@ -3,7 +3,8 @@ const path = require('path')
 require('../logging')
 
 $.config.fatal = true
-const root = path.join(__dirname, '..', '..')
+const root = path.resolve(`${__dirname}/../..`)
+
 
 try {
     console.info(`building Docker images`)
