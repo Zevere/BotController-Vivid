@@ -4,19 +4,20 @@ require('../logging')
 
 $.config.fatal = true
 const root = path.join(__dirname, '..', '..')
-const dist_dir = path.join(root, 'dist')
-
-const publish_script = require('./build_web_api')
-const docker_script = require('./build_docker_image')
 
 try {
-    publish_script.clear()
-    publish_script.build_asp_net_core_app()
+    console.info(`building Docker images`)
 
-    docker_script.build_image()
+    $.cd(root)
+
+    console.debug('building the solution with "Debug" configuration and "vivid:debug" tag')
+    $.exec(`docker build --tag vivid:debug --no-cache --target solution-build  .`)
+
+    console.debug('building the final web app with "botops-vivid:latest" tag')
+    $.exec(`docker build --tag botops-vivid --target final .`)
 } catch (e) {
     console.error(e)
     process.exit(1)
 }
 
-console.info(`Build succeeded: "${path.join(dist_dir, 'app')}"`)
+console.info(`✅ Build succeeded`)

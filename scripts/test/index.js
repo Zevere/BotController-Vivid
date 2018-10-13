@@ -4,16 +4,19 @@ require('../logging')
 $.config.fatal = true
 
 try {
-    const data_integration_tests = require('./test.integration.data')
-    data_integration_tests.run_sqlite_data_tests()
-    data_integration_tests.run_mongo_data_tests()
+    require('./ops.integration.test')
 
-    const unit_tests = require('./test.unit')
-    unit_tests.run_borzoo_unit_tests()
 
-    const integration_tests = require('./test.integration')
-    integration_tests.run_integration_tests_using_sqlite()
-    integration_tests.run_integration_tests_using_mongo()
+    // const data_integration_tests = require('./test.integration.data')
+    // data_integration_tests.run_sqlite_data_tests()
+    // data_integration_tests.run_mongo_data_tests()
+
+    // const unit_tests = require('./test.unit')
+    // unit_tests.run_borzoo_unit_tests()
+
+    // const integration_tests = require('./test.integration')
+    // integration_tests.run_integration_tests_using_sqlite()
+    // integration_tests.run_integration_tests_using_mongo()
 } catch (e) {
     console.error(e)
     process.exit(1)
