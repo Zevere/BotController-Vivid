@@ -20,9 +20,9 @@ jobs:
       name: "Vivid tests"
       install: cd scripts && npm ci && cd ..
       script: node scripts/test/ops.integration.test.js
-    # - name: "Vivid Operations - Systems Integration Tests"
-    #   install: cd scripts && npm ci && cd ..
-    #   script: node scripts/test
+    - name: "Vivid Operations - Systems Integration Tests"
+      install: cd scripts && npm ci && cd ..
+      script: node scripts/test
 
     # - stage: Deploy
     #   script: skip
