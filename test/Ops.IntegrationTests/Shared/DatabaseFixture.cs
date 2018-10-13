@@ -37,9 +37,9 @@ namespace Ops.IntegrationTests.Shared
         private static async Task<IMongoDatabase> InitializeDatabase()
         {
             var settings = new Settings();
-            var connectionString = new ConnectionString(settings.Connection);
+            var connectionString = new ConnectionString(settings.MongoConnection);
 
-            var clientSettings = MongoClientSettings.FromConnectionString(settings.Connection);
+            var clientSettings = MongoClientSettings.FromConnectionString(settings.MongoConnection);
             clientSettings.ClusterConfigurator = ClientSettingsClusterConfigurator;
 
             var client = new MongoClient(clientSettings);

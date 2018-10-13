@@ -5,7 +5,9 @@ namespace Ops.IntegrationTests.Shared
 {
     public class Settings
     {
-        public string Connection { get; }
+        public string MongoConnection { get; }
+
+        public string ZevereApiEndpoint { get; }
 
         public Settings()
         {
@@ -15,7 +17,8 @@ namespace Ops.IntegrationTests.Shared
                 .AddJsonEnvVar("VIVID_TEST_SETTINGS", optional: true)
                 .Build();
 
-            Connection = configuration[nameof(Connection)];
+            MongoConnection = configuration[nameof(MongoConnection)];
+            ZevereApiEndpoint = configuration[nameof(ZevereApiEndpoint)];
         }
     }
 }
