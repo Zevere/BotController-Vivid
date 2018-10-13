@@ -38,7 +38,8 @@ jobs:
           script: node scripts/deploy Production
           on:
             branch: master
-    - name: "PIV Checks"
+    - stage: PIV
+      name: "PIV Checks"
       script: echo ToDo
 
 
