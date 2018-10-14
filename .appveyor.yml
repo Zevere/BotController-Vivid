@@ -13,14 +13,14 @@ configuration:
 build:
   project: Vivid.sln
 
-before_test:
-  - docker version
-  - pip install docker-compose
-  - docker-compose version
+# before_test:
+#   - docker version
+#   - pip install docker-compose
+#   - docker-compose version
 
-test_script:
-  - cd test/Ops.IntegrationTests/
-  - docker-compose up -d
-  - dotnet test --no-build --configuration Release
+# test_script:
+#   - cd test/Ops.IntegrationTests/
+#   - docker-compose up -d
+#   - dotnet test --no-build --configuration Release
 
-# test: off
+test: off
