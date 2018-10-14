@@ -23,4 +23,4 @@ test_script:
   - docker-compose up -d
   - dotnet test --no-build --configuration Release
 
-test: off
+# test: off
