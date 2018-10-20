@@ -56,7 +56,7 @@ namespace Vivid.Ops
             }
             else
             {
-                bool usernameExists = await _zvClient.UserExists(username, cancellationToken)
+                bool usernameExists = await _zvClient.UserExistsAsync(username, cancellationToken)
                     .ConfigureAwait(false);
 
                 if (usernameExists)

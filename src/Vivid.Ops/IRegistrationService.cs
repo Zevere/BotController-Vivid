@@ -42,7 +42,7 @@ namespace Vivid.Ops
         /// <param name="botName">Name of the bot</param>
         /// <param name="username">Name of the user</param>
         /// <param name="cancellationToken">The cancellation token to cancel operation</param>
-        /// <returns>Null on success or an error, if one occurs</returns>
+        /// <returns><code>null</code> on success or an error, if one occurs</returns>
         Task<Error> DeleteUserRegistrationAsync(
             string botName,
             string username,

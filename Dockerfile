@@ -5,7 +5,6 @@ WORKDIR /app/
 FROM microsoft/dotnet:2.1-sdk AS web-app-build
 ARG configuration=Debug
 WORKDIR /project/
-COPY deps deps
 COPY src src
 RUN dotnet build src/Vivid.Web/Vivid.Web.csproj --configuration ${configuration}
 
