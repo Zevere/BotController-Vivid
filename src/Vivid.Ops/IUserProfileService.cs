@@ -10,11 +10,11 @@ namespace Vivid.Ops
     public interface IUserProfileService
     {
         /// <summary>
-        /// Gets all registrations for a user by his username
+        /// Get a user by name
         /// </summary>
-        /// <param name="username">Username to search for.</param>
+        /// <param name="username">Name of user</param>
         /// <param name="cancellationToken">The cancellation token to cancel operation</param>
-        /// <returns>A tuple containing user registrations and possible error</returns>
+        /// <returns>User or an error, if occured</returns>
         Task<(User User, Error Error)> GetUserAsync(
             string username,
             CancellationToken cancellationToken = default

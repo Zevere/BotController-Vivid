@@ -37,6 +37,19 @@ namespace Vivid.Ops
         );
 
         /// <summary>
+        /// Gets a single registration for bot and user, if available.
+        /// </summary>
+        /// <param name="botName">Name of the bot</param>
+        /// <param name="username">Username to search for</param>
+        /// <param name="cancellationToken">The cancellation token to cancel operation</param>
+        /// <returns>The registration, if available, or an error</returns>
+        Task<(Registration Registration, Error Error)> GetUserRegistrationForBotAsync(
+            string botName,
+            string username,
+            CancellationToken cancellationToken = default
+        );
+
+        /// <summary>
         /// Deletes registration of a user with the bot
         /// </summary>
         /// <param name="botName">Name of the bot</param>

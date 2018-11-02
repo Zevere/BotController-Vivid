@@ -127,6 +127,40 @@ namespace Vivid.Ops
         }
 
         /// <inheritdoc />
+        public async Task<(Registration Registration, Error Error)> GetUserRegistrationForBotAsync(
+            string botName,
+            string username,
+            CancellationToken cancellationToken = default
+        )
+        {
+            (Registration Registration, Error Error) result;
+
+            var bot = await _botsRepo.GetByNameAsync(botName, cancellationToken)
+                .ConfigureAwait(false);
+
+            if (bot != null)
+            {
+                var reg = await _regsRepo.GetSingleAsync(bot.Id, username, cancellationToken)
+                    .ConfigureAwait(false);
+
+                if (reg != null)
+                {
+                    result = (reg, null);
+                }
+                else
+                {
+                    result = (default, new Error(ErrorCode.RegistrationNotFound));
+                }
+            }
+            else
+            {
+                result = (default, new Error(ErrorCode.BotNotFound));
+            }
+
+            return result;
+        }
+
+        /// <inheritdoc />
         public async Task<Error> DeleteUserRegistrationAsync(
             string botName,
             string username,
