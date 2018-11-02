@@ -37,9 +37,9 @@ jobs:
         only:
           - develop
       script: skip
-        install:
-          - cd scripts && npm ci && cd ..
-          - docker pull zevere/botops-vivid:unstable
+      install:
+        - cd scripts && npm ci && cd ..
+        - docker pull zevere/botops-vivid:unstable
       env:
         # DEPLOY_SETTINGS_JSON='{"Staging":[
         #   {"type":"docker","options":{"source":"zevere/botops-vivid:unstable","target":"zevere/botops-vivid:edge","user":"","pass":""}},
