@@ -54,6 +54,10 @@ jobs:
             branch: develop
     - stage: PIV
       name: "PIV Checks"
+      branches:
+        only:
+          - master
+          - develop
       script: echo ToDo
 
 # Disable "Build pushed pull requests"
