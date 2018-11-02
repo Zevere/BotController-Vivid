@@ -35,7 +35,7 @@ namespace Vivid.Web.Controllers
         /// <param name="username">ID of the Zevere user</param>
         /// <response code="200">User profile found</response>
         /// <response code="400">Username is invalid or does not exist</response>
-        /// <response code="403">User has not registered with any of the Zevere chat bots</response>
+        /// <response code="403">User is not registered with this chat bot</response>
         [HttpGet]
         [Produces(Constants.JsonContentType)]
         [ProducesResponseType(typeof(UserProfile), 200)]
