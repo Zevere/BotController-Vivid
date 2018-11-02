@@ -30,7 +30,7 @@ namespace Zevere.Client
         /// Get a user profile by his username
         /// </summary>
         /// <param name="client">Instance of Zevere client</param>
-        /// <param name="username">Username to look for</param>
+        /// <param name="username">Username to query for</param>
         /// <param name="cancellationToken">The cancellation token to cancel operation</param>
         /// <returns>User profile</returns>
         public static Task<Response> GetUserAsync(
@@ -41,7 +41,8 @@ namespace Zevere.Client
             client.MakeRequestAsync(
                 new Request
                 {
-                    Query = "query($u: String!) { user(userId: $u) { id firstName lastName } }",
+                    Query = "query($u: String!) { user(userId: $u) " +
+                            "{ id firstName lastName token daysJoined joinedAt } }",
                     Variables = new { u = username }
                 },
                 cancellationToken

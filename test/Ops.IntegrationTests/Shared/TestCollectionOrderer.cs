@@ -8,6 +8,7 @@ namespace Ops.IntegrationTests.Shared
         {
             "user registration",
             "user registration errors",
+            "user profile",
         };
 
         public TestCollectionOrderer()

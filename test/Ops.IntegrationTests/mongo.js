@@ -24,6 +24,10 @@ const db = conn.getDB("borzoo");
     throw `## ERROR: database is not initialized`
 })();
 
+function daysAgo(numberOfDays) {
+    const now = new Date()
+    return new Date(now.setDate(now.getDate() - numberOfDays))
+}
 
 print('## inserting new user "jsmith"...');
 let result = db.users.insertOne({
@@ -31,7 +35,7 @@ let result = db.users.insertOne({
     pass: 'password',
     fname: 'John',
     token: '11TOKEN11',
-    joined: new Date()
+    joined: daysAgo(5)
 });
 
 
