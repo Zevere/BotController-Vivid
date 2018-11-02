@@ -73,5 +73,22 @@ namespace Ops.IntegrationTests
             Assert.InRange(user.JoinedAt, DateTime.Today.AddDays(-5), DateTime.Today.AddDays(-4));
             Assert.Null(user.LastName);
         }
+
+        [OrderedFact(DisplayName = "Should fail when getting a non-existing user profile")]
+        public async Task Should_Fail_Get_NonExisting_Profile()
+        {
+            IUserProfileService userProfileService = new UserProfileService(
+                _zevereClient
+            );
+
+            (User User, Error Error) result = await userProfileService.GetUserAsync(
+                username: "iNoUser"
+            );
+
+            Assert.NotNull(result.Error);
+            Assert.Equal(ErrorCode.UserNotFound, result.Error.Code);
+            Assert.Null(result.Error.Message);
+            Assert.Null(result.Error.Hint);
+        }
     }
 }

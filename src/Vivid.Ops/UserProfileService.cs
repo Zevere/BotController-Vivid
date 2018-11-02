@@ -36,8 +36,15 @@ namespace Vivid.Ops
 
             if (resp.HasErrors)
             {
-                // ToDo
-                result = (null, new Error(ErrorCode.UserNotFound));
+                var firstError = resp.Errors[0];
+                if (firstError.Message?.Equals("not found") == true)
+                {
+                    result = (null, new Error(ErrorCode.UserNotFound));
+                }
+                else
+                {
+                    result = (null, (Error) firstError);
+                }
             }
             else
             {

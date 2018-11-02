@@ -35,5 +35,11 @@ namespace Vivid.Ops
         /// </summary>
         [EnumMember(Value = "e.registrations.not_found")]
         RegistrationNotFound,
+
+        /// <summary>
+        /// Zevere GraphQL error
+        /// </summary>
+        [EnumMember(Value = "e.zv")]
+        ZevereApi,
     }
 }
