@@ -19,7 +19,7 @@ jobs:
       script: node scripts/build
       env:
         # DEPLOY_SETTINGS_JSON='{"CI":[{"type":"docker","options":{"user":"","pass":""}}]}'
-        - secure: ezT09UzTu6ZryUiLCUipZPkvRTZfNuUEOxPdBMbkGwfeFgeSLJtJCSp+udFBxg7NCnq9bAFP16YcBrOl3gzps5SVY2bwx8FOPQ44owpj+Wjbw85b6pJXAZ21KpxVorg0YrcpC1ycNVFg8iZAIFz7c2/JPkpWQEsrr6qVSfetjkaLub8+KdHZnalnRGj3DEbsamfT+VUlFwygjoWj9hbh8Utn9oG6svcWEN4YOJ4rAxIvpcAXWyN2dn97mv4c14Maqr3FCKtCWfLioAP0NLiF9R9KK4Eao5v/cNdAgqeainoO3i22E/6n2XgurBBDnE8uMMkF6TnUPRvMKGzj7DiC60fcEAb3+oV29tIFZc4JJ5caoUIXwFPMgh2xSLwkWIslrBv1wfRCgYcziyBav4WTGrs3jDBuihQpcY18VeYyRJ6tD31NiOFedoKnIoEsocrCnR08ce8wE/mJNfi3b7NpX4RNowwXfWvJ/H8K4PI1279LhTWXdhDzCGj23o/cThBzqXPq2L+YJBDhf7+kH82Xj7MTQtwlGbbGNK3aGeoSEQy9IKvRYwB3yozufJj1CaLFz9FwzgNBz/WXWu3H428QXLKCFfcp+0BQhLxAnnQu1pewuxfxtUAMVaJX3VtUKXUXZr1uROvY9WY3sHHvyGTXnW5IlHAmoii7+lkj30q/kpU=
+        - secure: fc+QsZTHuoHvmTko3cKCKlL+W28mVX3GHI56YJ1TsWXMJcgm5NidlrHKrcE6VW1dkT6VFyCNNNS+N2t218tvJJAHHpjHh6RD1m/8njYqdKaxEl11kJ8pEIzOlfF/0yBSn2Aync0CxJGSdJoirScI/fmSefrtLxWqT7sLJuuFrPHiGLw9uzrBlB9jbaR1VIs90ALMEvH0Pr0dkkG4VkiFWy7HTtkFP8D0NcPn9m9+xa+UEZpJg6/nBBSjnBM6wzVNZPblAPmwalliwyi5y7OPu87K2QopxNBXOZZxbWGdQurUDSyMFtFbour+AeS+OyAnEO+6GeJDqwX5xmUcxhCnHrwLUmeqWGIlR1GzndFTD8LqU35SJ9dPtsSuFjyTMjkptvhrPXqcu7+SZ95L0x55R/fmLRla+sE8LT9xh1G+rkvPRJ04zsulpH5Z9un7Gt3BugainB95quNSJ6mDyiO2Z5NpUsd9tnrqducf/I0M1UHirJSv2ZdKgXtpYUPwVLKzmqv0s2sxmbG5Dpeg5pLDFElKHyEs26fiJ7HH5WYa3WOSf2OG05jJ+/oaJ6JavaKxNvdKsTHkJyn6nuU629PbgGD1av+WvltvhpypFDDJhKiv6wnvGgls/FOamWt2Nd3n0OwQJAJyuQZV/pXwsnNZYaHexuyommVNlkG/skhnnu8=
     - stage: Test
       name: "Vivid tests"
       install: cd scripts && npm ci && cd ..
@@ -52,5 +52,6 @@ jobs:
     - stage: PIV
       name: "PIV Checks"
       script: echo ToDo
+
 
 # Disable "Build pushed pull requests"

@@ -53,7 +53,7 @@ try {
             'botops-vivid:latest', 'zevere/botops-vivid:unstable', docker_options.user, docker_options.pass
         )
     } else {
-        console.debug('Docker deployment options not found. skipping Docker image push...')
+        console.warn('Docker deployment options not found. skipping Docker image push...')
     }
 } catch (e) {
     console.error(e)
