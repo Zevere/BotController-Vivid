@@ -33,9 +33,6 @@ jobs:
       script: node scripts/test/ops.integration.test.js
     - stage: Deploy
       name: "Deploy"
-      branches:
-        only:
-          - develop
       script: skip
       install:
         - cd scripts && npm ci && cd ..
@@ -54,10 +51,6 @@ jobs:
             branch: develop
     - stage: PIV
       name: "PIV Checks"
-      branches:
-        only:
-          - master
-          - develop
       script: echo ToDo
 
 # Disable "Build pushed pull requests"
