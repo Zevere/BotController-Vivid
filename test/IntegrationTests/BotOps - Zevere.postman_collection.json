@@ -1,0 +1,626 @@
+{
+	"info": {
+		"_postman_id": "c59babcd-c93e-4b40-be9d-df7bfa2dad78",
+		"name": "BotOps - Zevere",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "[Bot01] Create User Registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "941055ed-6f02-49a7-befb-69a6d5a7c46f",
+						"exec": [
+							"pm.test(\"User registration was successfully completed\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "3Dfpq4mBUbC9hK3C97Am",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "testBot01",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"test1\",\n  \"chatUserId\": \"chatx\"\n}"
+				},
+				"url": {
+					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/user-registrations",
+					"protocol": "https",
+					"host": [
+						"zv-s-botops-vivid",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user-registrations"
+					]
+				},
+				"description": "Create user with all fields"
+			},
+			"response": []
+		},
+		{
+			"name": "[Bot01] Create User Registration Without Authorization",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "941055ed-6f02-49a7-befb-69a6d5a7c46f",
+						"exec": [
+							"pm.test(\"The user is not authourized\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"test1\",\n  \"chatUserId\": \"chatx\"\n}"
+				},
+				"url": {
+					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/user-registrations",
+					"protocol": "https",
+					"host": [
+						"zv-s-botops-vivid",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user-registrations"
+					]
+				},
+				"description": "Create user with all fields"
+			},
+			"response": []
+		},
+		{
+			"name": "[Bot01] Get User Registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9e3f1cce-e0d0-420f-9951-049ab7b2e6d8",
+						"exec": [
+							"pm.test(\"User registration was found\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Registered user with first name 'foo'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"firstName\\\":\\\"foo\\\"\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "3Dfpq4mBUbC9hK3C97Am",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "testBot01",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/operations/getUserProfile?username=test1",
+					"protocol": "https",
+					"host": [
+						"zv-s-botops-vivid",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"operations",
+						"getUserProfile"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "test1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Bot01] Create Duplicate User Registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "941055ed-6f02-49a7-befb-69a6d5a7c46f",
+						"exec": [
+							"pm.test(\"The user registration was alredy created\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "3Dfpq4mBUbC9hK3C97Am",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "testBot01",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"test1\",\n  \"chatUserId\": \"chatx\"\n}"
+				},
+				"url": {
+					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/user-registrations",
+					"protocol": "https",
+					"host": [
+						"zv-s-botops-vivid",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user-registrations"
+					]
+				},
+				"description": "Create user with all fields"
+			},
+			"response": []
+		},
+		{
+			"name": "[Bot01] Delete User Registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "08f1916f-5bfb-49b6-b4fb-d5e74c849008",
+						"exec": [
+							"pm.test(\"User registration was successfully deleted\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "3Dfpq4mBUbC9hK3C97Am",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "TestBot01",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/user-registrations/test1",
+					"protocol": "https",
+					"host": [
+						"zv-s-botops-vivid",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user-registrations",
+						"test1"
+					]
+				},
+				"description": "Delete User registration with the bot"
+			},
+			"response": []
+		},
+		{
+			"name": "[Bot01] Get User Without Registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9e3f1cce-e0d0-420f-9951-049ab7b2e6d8",
+						"exec": [
+							"pm.test(\"User registration was not found\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "3Dfpq4mBUbC9hK3C97Am",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "testBot01",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/operations/getUserProfile?username=test1",
+					"protocol": "https",
+					"host": [
+						"zv-s-botops-vivid",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"operations",
+						"getUserProfile"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "test1"
+						}
+					]
+				},
+				"description": "Try to get the user without registration. The request should not be successful since the user has to be registered with the bot first."
+			},
+			"response": []
+		},
+		{
+			"name": "[Bot01] Delete User Without Registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "08f1916f-5bfb-49b6-b4fb-d5e74c849008",
+						"exec": [
+							"pm.test(\"User registration was not found and cannot be deleted\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "3Dfpq4mBUbC9hK3C97Am",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "TestBot01",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/user-registrations/test1",
+					"protocol": "https",
+					"host": [
+						"zv-s-botops-vivid",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user-registrations",
+						"test1"
+					]
+				},
+				"description": "Delete User without registration to see if the request return appropriate error."
+			},
+			"response": []
+		},
+		{
+			"name": "[Bot02] Create User Registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "84cae14b-8a01-4ab0-b491-0f7468d79fca",
+						"exec": [
+							"pm.test(\"User registration was successfully completed\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "gXLhZB4dr3CJJTy4dVL8",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "otherTestBot",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"test\",\n  \"chatUserId\": \"testChat\"\n}"
+				},
+				"url": {
+					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/user-registrations",
+					"protocol": "https",
+					"host": [
+						"zv-s-botops-vivid",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user-registrations"
+					]
+				},
+				"description": "Create user with all fields"
+			},
+			"response": []
+		},
+		{
+			"name": "[Bot02] Get User Registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "45de8b6e-1419-4f82-a5e7-63773001bcee",
+						"exec": [
+							"pm.test(\"User registration was found\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Registered user with first name 'test'\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"firstName\\\":\\\"test\\\"\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "gXLhZB4dr3CJJTy4dVL8",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "otherTestBot",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/operations/getUserProfile?username=test",
+					"protocol": "https",
+					"host": [
+						"zv-s-botops-vivid",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"operations",
+						"getUserProfile"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "test"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Bot02] Delete User Registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b4d04bb9-c35c-430b-a635-37a6be85fcba",
+						"exec": [
+							"pm.test(\"User registration was successfully deleted\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "gXLhZB4dr3CJJTy4dVL8",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "otherTestBot",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/user-registrations/test",
+					"protocol": "https",
+					"host": [
+						"zv-s-botops-vivid",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user-registrations",
+						"test"
+					]
+				},
+				"description": "Delete User registration with the bot"
+			},
+			"response": []
+		}
+	]
+}
