@@ -31,6 +31,9 @@ jobs:
       env:
         - image_tag=zevere/botops-vivid:unstable-solution
       script: node scripts/test/ops.integration.test.js
+    - name: "Vivid - Postman Tests"
+      install: cd scripts && npm ci && cd ..
+      script: node scripts/test/postman.test.js
     - stage: Deploy
       name: "Deploy"
       script: skip
