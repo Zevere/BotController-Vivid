@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -40,9 +39,28 @@ namespace Vivid.Web.Controllers
         [ProducesResponseType(typeof(UserRegistrationsResponse), 200)]
         [ProducesResponseType(typeof(Error), 400)]
         [ProducesResponseType(typeof(Error), 404)]
-        public Task<IActionResult> Get([FromRoute] string username)
+        public async Task<IActionResult> Get([FromRoute] string username)
         {
-            throw new NotImplementedException();
+            var operationResult = await _registrationService.GetUserRegistrationsAsync(
+                username,
+                HttpContext.RequestAborted
+            ).ConfigureAwait(false);
+
+            if (operationResult.Error != null)
+            {
+                var statusCode = operationResult.Error.Code == Ops.ErrorCode.RegistrationNotFound ? 404 : 400;
+                return StatusCode(statusCode, (Error) operationResult.Error);
+            }
+
+            var result = new UserRegistrationsResponse
+            {
+                Username = username,
+                Registrations = operationResult.Registrations
+                    .Select(r => (UserRegistration) r)
+                    .ToArray()
+            };
+
+            return StatusCode(200, result);
         }
 
         /// <summary>
@@ -83,7 +101,8 @@ namespace Vivid.Web.Controllers
             var operationError = await _registrationService.RegisterUserAsync(
                 User.Identity.Name,
                 newReg.Username,
-                newReg.ChatUserId
+                newReg.ChatUserId,
+                HttpContext.RequestAborted
             ).ConfigureAwait(false);
 
             if (operationError != null)
@@ -95,7 +114,6 @@ namespace Vivid.Web.Controllers
             var result = new UserRegistration
             {
                 Platform = chatPlatform,
-                Username = newReg.Username,
                 BotId = User.Identity.Name,
                 ChatUserId = newReg.ChatUserId,
             };
@@ -110,15 +128,26 @@ namespace Vivid.Web.Controllers
         /// This operations retrieves the associations of an existing Zevere user to the Zevere chat bots.
         /// </remarks>
         /// <param name="username">ID of the Zevere user</param>
-        /// <response code="204">Registration is removed</response>
+        /// <response code="204">Registration is deleted</response>
         /// <response code="400">User ID is invalid or does not exist</response>
         /// <response code="404">User has not registered with any of the Zevere chat bots</response>
         [HttpDelete("{username}")]
         [ProducesResponseType(typeof(Error), 400)]
         [ProducesResponseType(typeof(Error), 404)]
-        public Task<IActionResult> Delete([FromRoute] string username)
+        public async Task<IActionResult> Delete([FromRoute] string username)
         {
-            throw new NotImplementedException();
+            string botName = User.Identity.Name;
+            var operationError = await _registrationService
+                .DeleteUserRegistrationAsync(botName, username, HttpContext.RequestAborted)
+                .ConfigureAwait(false);
+
+            if (operationError != null)
+            {
+                int statusCode = operationError.Code == Ops.ErrorCode.RegistrationNotFound ? 404 : 400;
+                return StatusCode(statusCode, (Error) operationError);
+            }
+
+            return StatusCode(204);
         }
     }
 }

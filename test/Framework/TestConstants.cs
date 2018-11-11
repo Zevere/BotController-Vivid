@@ -4,6 +4,6 @@
     {
         public const string AssemblyName = nameof(Framework);
 
-        public const string TestCaseOrderer = AssemblyName + "." + nameof(TestCaseOrderer);
+        public const string TestCaseOrderer = AssemblyName + "." + nameof(Framework.TestCaseOrderer);
     }
 }

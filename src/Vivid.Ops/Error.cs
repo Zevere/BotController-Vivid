@@ -35,5 +35,13 @@ namespace Vivid.Ops
             Message = message;
             Hint = hint;
         }
+
+        /// <summary>
+        /// Convert a GraphQL error to an operation error instance
+        /// </summary>
+        public static explicit operator Error(Zevere.Client.GraphQL.Error error) =>
+            error == null
+                ? null
+                : new Error(ErrorCode.ZevereApi, error.Message);
     }
 }

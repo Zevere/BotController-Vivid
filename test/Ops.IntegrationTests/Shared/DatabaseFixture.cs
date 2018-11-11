@@ -3,9 +3,8 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using MongoDB.Driver.Core.Configuration;
-using Vivid.Data.Abstractions.Entities;
-using Vivid.Data.Mongo;
-using Vivid.Data.Mongo.Entities;
+using Vivid.Data;
+using Vivid.Data.Entities;
 
 namespace Ops.IntegrationTests.Shared
 {
@@ -14,8 +13,8 @@ namespace Ops.IntegrationTests.Shared
         public IMongoCollection<ChatBot> ChatBotsCollection =>
             _mongoDatabase.GetCollection<ChatBot>("bots");
 
-        public IMongoCollection<RegistrationMongo> RegistrationsCollection =>
-            _mongoDatabase.GetCollection<RegistrationMongo>("registrations");
+        public IMongoCollection<Registration> RegistrationsCollection =>
+            _mongoDatabase.GetCollection<Registration>("registrations");
 
         private readonly IMongoDatabase _mongoDatabase;
 
@@ -38,9 +37,9 @@ namespace Ops.IntegrationTests.Shared
         private static async Task<IMongoDatabase> InitializeDatabase()
         {
             var settings = new Settings();
-            var connectionString = new ConnectionString(settings.Connection);
+            var connectionString = new ConnectionString(settings.MongoConnection);
 
-            var clientSettings = MongoClientSettings.FromConnectionString(settings.Connection);
+            var clientSettings = MongoClientSettings.FromConnectionString(settings.MongoConnection);
             clientSettings.ClusterConfigurator = ClientSettingsClusterConfigurator;
 
             var client = new MongoClient(clientSettings);

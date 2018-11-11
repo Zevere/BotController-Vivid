@@ -1,16 +1,23 @@
 image: Visual Studio 2017
 
-install:
-  - git submodule update --init --recursive
-
 before_build:
-  - nuget restore Borzoo.sln
+  - nuget restore Vivid.sln
 
 configuration:
-  - Debug
+  # - Debug
   - Release
 
 build:
-  project: Borzoo.sln
+  project: Vivid.sln
+
+# before_test:
+#   - docker version
+#   - pip install docker-compose
+#   - docker-compose version
+
+# test_script:
+#   - cd test/Ops.IntegrationTests/
+#   - docker-compose up -d
+#   - dotnet test --no-build --configuration Release
 
 test: off

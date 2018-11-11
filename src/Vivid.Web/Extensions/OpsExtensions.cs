@@ -13,6 +13,7 @@ namespace Vivid.Web.Extensions
         )
         {
             services.AddScoped<IRegistrationService, RegistrationService>();
+            services.AddScoped<IUserProfileService, UserProfileService>();
         }
     }
 }
