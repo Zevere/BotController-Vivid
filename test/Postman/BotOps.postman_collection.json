@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "c59babcd-c93e-4b40-be9d-df7bfa2dad78",
-		"name": "BotOps - Zevere",
+		"_postman_id": "6f3e81ba-8d51-41f8-aa68-b54ed4f64970",
+		"name": "BotOps",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -27,12 +27,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "3Dfpq4mBUbC9hK3C97Am",
+							"value": "{{BOT1_PASS}}",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "testBot01",
+							"value": "{{BOT1_USER}}",
 							"type": "string"
 						}
 					]
@@ -41,9 +41,7 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+						"value": "application/json"
 					}
 				],
 				"body": {
@@ -51,12 +49,9 @@
 					"raw": "{\n  \"username\": \"test1\",\n  \"chatUserId\": \"chatx\"\n}"
 				},
 				"url": {
-					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/user-registrations",
-					"protocol": "https",
+					"raw": "{{APP_URL}}/api/v1/user-registrations",
 					"host": [
-						"zv-s-botops-vivid",
-						"herokuapp",
-						"com"
+						"{{APP_URL}}"
 					],
 					"path": [
 						"api",
@@ -104,8 +99,6 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
 						"value": "application/json"
 					}
 				],
@@ -114,12 +107,9 @@
 					"raw": "{\n  \"username\": \"test1\",\n  \"chatUserId\": \"chatx\"\n}"
 				},
 				"url": {
-					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/user-registrations",
-					"protocol": "https",
+					"raw": "{{APP_URL}}/api/v1/user-registrations",
 					"host": [
-						"zv-s-botops-vivid",
-						"herokuapp",
-						"com"
+						"{{APP_URL}}"
 					],
 					"path": [
 						"api",
@@ -156,12 +146,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "3Dfpq4mBUbC9hK3C97Am",
+							"value": "{{BOT1_PASS}}",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "testBot01",
+							"value": "{{BOT1_USER}}",
 							"type": "string"
 						}
 					]
@@ -173,12 +163,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/operations/getUserProfile?username=test1",
-					"protocol": "https",
+					"raw": "{{APP_URL}}/api/v1/operations/getUserProfile?username=test1",
 					"host": [
-						"zv-s-botops-vivid",
-						"herokuapp",
-						"com"
+						"{{APP_URL}}"
 					],
 					"path": [
 						"api",
@@ -202,13 +189,18 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "941055ed-6f02-49a7-befb-69a6d5a7c46f",
+						"id": "adb08154-f5bc-40ad-864c-2ab544e406d5",
+						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"The user registration was alredy created\", function () {",
-							"    pm.response.to.have.status(500);",
+							"pm.test(\"The user registration was already created\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Should have the error code for duplicate registration\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(\"e.registrations.duplicate\");",
 							"});"
-						],
-						"type": "text/javascript"
+						]
 					}
 				}
 			],
@@ -218,12 +210,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "3Dfpq4mBUbC9hK3C97Am",
+							"value": "{{BOT1_PASS}}",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "testBot01",
+							"value": "{{BOT1_USER}}",
 							"type": "string"
 						}
 					]
@@ -232,8 +224,6 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
 						"value": "application/json"
 					}
 				],
@@ -242,12 +232,9 @@
 					"raw": "{\n  \"username\": \"test1\",\n  \"chatUserId\": \"chatx\"\n}"
 				},
 				"url": {
-					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/user-registrations",
-					"protocol": "https",
+					"raw": "{{APP_URL}}/api/v1/user-registrations",
 					"host": [
-						"zv-s-botops-vivid",
-						"herokuapp",
-						"com"
+						"{{APP_URL}}"
 					],
 					"path": [
 						"api",
@@ -281,12 +268,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "3Dfpq4mBUbC9hK3C97Am",
+							"value": "{{BOT1_PASS}}",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "TestBot01",
+							"value": "{{BOT1_USER}}",
 							"type": "string"
 						}
 					]
@@ -298,12 +285,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/user-registrations/test1",
-					"protocol": "https",
+					"raw": "{{APP_URL}}/api/v1/user-registrations/test1",
 					"host": [
-						"zv-s-botops-vivid",
-						"herokuapp",
-						"com"
+						"{{APP_URL}}"
 					],
 					"path": [
 						"api",
@@ -339,12 +323,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "3Dfpq4mBUbC9hK3C97Am",
+							"value": "{{BOT1_PASS}}",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "testBot01",
+							"value": "{{BOT1_USER}}",
 							"type": "string"
 						}
 					]
@@ -356,12 +340,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/operations/getUserProfile?username=test1",
-					"protocol": "https",
+					"raw": "{{APP_URL}}/api/v1/operations/getUserProfile?username=test1",
 					"host": [
-						"zv-s-botops-vivid",
-						"herokuapp",
-						"com"
+						"{{APP_URL}}"
 					],
 					"path": [
 						"api",
@@ -402,12 +383,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "3Dfpq4mBUbC9hK3C97Am",
+							"value": "{{BOT1_PASS}}",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "TestBot01",
+							"value": "{{BOT1_USER}}",
 							"type": "string"
 						}
 					]
@@ -419,12 +400,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/user-registrations/test1",
-					"protocol": "https",
+					"raw": "{{APP_URL}}/api/v1/user-registrations/test1",
 					"host": [
-						"zv-s-botops-vivid",
-						"herokuapp",
-						"com"
+						"{{APP_URL}}"
 					],
 					"path": [
 						"api",
@@ -459,12 +437,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "gXLhZB4dr3CJJTy4dVL8",
+							"value": "{{BOT2_PASS}}",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "otherTestBot",
+							"value": "{{BOT2_USER}}",
 							"type": "string"
 						}
 					]
@@ -473,8 +451,6 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
 						"value": "application/json"
 					}
 				],
@@ -483,12 +459,9 @@
 					"raw": "{\n  \"username\": \"test\",\n  \"chatUserId\": \"testChat\"\n}"
 				},
 				"url": {
-					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/user-registrations",
-					"protocol": "https",
+					"raw": "{{APP_URL}}/api/v1/user-registrations",
 					"host": [
-						"zv-s-botops-vivid",
-						"herokuapp",
-						"com"
+						"{{APP_URL}}"
 					],
 					"path": [
 						"api",
@@ -525,12 +498,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "gXLhZB4dr3CJJTy4dVL8",
+							"value": "{{BOT2_PASS}}",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "otherTestBot",
+							"value": "{{BOT2_USER}}",
 							"type": "string"
 						}
 					]
@@ -542,12 +515,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/operations/getUserProfile?username=test",
-					"protocol": "https",
+					"raw": "{{APP_URL}}/api/v1/operations/getUserProfile?username=test",
 					"host": [
-						"zv-s-botops-vivid",
-						"herokuapp",
-						"com"
+						"{{APP_URL}}"
 					],
 					"path": [
 						"api",
@@ -587,12 +557,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "gXLhZB4dr3CJJTy4dVL8",
+							"value": "{{BOT2_PASS}}",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "otherTestBot",
+							"value": "{{BOT2_USER}}",
 							"type": "string"
 						}
 					]
@@ -604,12 +574,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://zv-s-botops-vivid.herokuapp.com/api/v1/user-registrations/test",
-					"protocol": "https",
+					"raw": "{{APP_URL}}/api/v1/user-registrations/test",
 					"host": [
-						"zv-s-botops-vivid",
-						"herokuapp",
-						"com"
+						"{{APP_URL}}"
 					],
 					"path": [
 						"api",
@@ -621,6 +588,65 @@
 				"description": "Delete User registration with the bot"
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "74fbad08-2ab0-42ea-810d-852dfebc1e56",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "db7a725a-ae9c-40cc-9c0c-aa6808a515e8",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "1daef266-c74a-4679-95f4-54c761df9f8a",
+			"key": "APP_URL",
+			"value": "https://zv-s-botops-vivid.herokuapp.com",
+			"type": "string",
+			"description": ""
+		},
+		{
+			"id": "f4dcdace-7b0f-4e2c-ace1-0f3b9783a301",
+			"key": "BOT1_USER",
+			"value": "testBot01",
+			"type": "string",
+			"description": ""
+		},
+		{
+			"id": "c25685e6-ef61-4ecb-bff0-f045255348fe",
+			"key": "BOT1_PASS",
+			"value": "3Dfpq4mBUbC9hK3C97Am",
+			"type": "string",
+			"description": ""
+		},
+		{
+			"id": "9322d7c6-1128-4d08-9dee-7e7d077ae49c",
+			"key": "BOT2_USER",
+			"value": "otherTestBot",
+			"type": "string",
+			"description": ""
+		},
+		{
+			"id": "e181a90b-9e62-491f-82ae-87e849a60290",
+			"key": "BOT2_PASS",
+			"value": "gXLhZB4dr3CJJTy4dVL8",
+			"type": "string",
+			"description": ""
 		}
 	]
 }

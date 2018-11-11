@@ -1,0 +1,45 @@
+version: '2'
+
+services:
+
+  vivid:
+    image: zevere/botops-vivid:unstable
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development # to make sure mongodb gets initialized
+      - VIVID_SETTINGS={"Data":{"Connection":"mongodb://mongo:27017/vivid"},"Zevere":{"Endpoint":"http://borzoo/zv/GraphQL"}}
+    ports:
+      - 5000:80
+    depends_on:
+      - mongo
+      - borzoo
+    networks:
+      - vivid-network
+
+  borzoo:
+    image: zevere/webapi-borzoo:edge
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development # to make sure mongodb gets initialized
+      - BORZOO_SETTINGS={"data":{"use":"mongo","mongo":{"connection":"mongodb://mongo:27017/borzoo"}}}
+    depends_on:
+      - mongo
+    networks:
+      - vivid-network
+
+  mongo:
+    image: mongo
+    networks:
+      - vivid-network
+
+  mongo-script:
+    image: mongo
+    depends_on:
+      - borzoo
+    command: mongo --nodb /app/mongo.js
+    volumes:
+      - ./mongo.js:/app/mongo.js:ro
+    networks:
+      - vivid-network
+
+networks:
+  vivid-network:
+    driver: bridge
