@@ -38,9 +38,9 @@ jobs:
         - cd scripts && npm ci && cd ..
         - docker pull zevere/botops-vivid:unstable
       env:
-        # DEPLOY_SETTINGS_JSON='{"Staging":[
-        #   {"type":"docker","options":{"source":"zevere/botops-vivid:unstable","target":"zevere/botops-vivid:edge","user":"","pass":""}},
-        #   {"type":"heroku","options":{"app":"zv-s-botops-vivid","source":"zevere/botops-vivid:edge","dyno":"web","user":"","token":""}}
+        # DEPLOY_SETTINGS_JSON='{"Production":[
+        #   {"type":"docker","options":{"source":"zevere/botops-vivid:unstable","target":"zevere/botops-vivid","user":"","pass":""}},
+        #   {"type":"heroku","options":{"app":"zv-botops-vivid","source":"zevere/botops-vivid","dyno":"web","user":"","token":""}}
         # ]}'
         - secure: ZvcauqdSpS+g3706oT0CuVurvLBERvr5f8dGEKS3BKaNNQmlLaPqIz7Bok2GPQRkApnmerBLwA39zXaNAITpT61ZgRNtUpbWGpK9Wg+bUkPTvwZfubsqel7Lzg5HpBcA7f4bZl1gtJ2weYwXPNSPusijaxYqAoq/XN3YsawW2BfhTKDXWkMQo1cJbolTzbUTqMVfV3Rj8/0amgoOyxvYSadqlWPRhs8mk0yiszMq0hKbQtM8a5jnMyBin2P+mc93EMwL0+2GxCyWGvmwHQHftKS/fSO5DzSnzkonQkBXkSoeahdASkdOItWITXaP+HjO0HzGKEntnjBC+hPG5kbr3IGesSClzDleB2DldHdjFkh9zKTNNpf9xTiUjPLus5BfldaCr7agDK6KGvc3TxJwwnxXjXaq9h2uQokdXwK0bQkh2WtR01JVLKZsBcMPRKYEQo5Aqu8Y7doZFNfPdAqiWtSvbCyrI1Fr7FjxwbAV05GzWGUqnYVQ0egZYgjh1MoMaWCeDORN57nEq/3YeZnJAnh4JC/WFrQTsaPdX074aNRwj+Gf6w4lJG28QvGCt36Qr8KQLOViPb8V/l1ouTcYzrwRAECzPt4xRxZ9sMSoi5t4a5exRPb4ESizrLrpXMRRgEZsvUgXMZjhh0gdiFZmOYz03fYU8GE2AFfc/JSDU78=
       deploy:
