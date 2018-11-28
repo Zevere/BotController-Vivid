@@ -34,6 +34,7 @@ try {
         $.exec(`docker-compose --project-name ops rm -fv`)
     }
 } catch (e) {
+    console.error(`❎ AN UNEXPECTED ERROR OCURRED`)
     console.error(e)
     process.exit(1)
 }
