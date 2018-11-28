@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6f3e81ba-8d51-41f8-aa68-b54ed4f64970",
+		"_postman_id": "52a2ee27-b0b5-4023-a51c-c19d729c382f",
 		"name": "BotOps",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -15,6 +15,11 @@
 						"exec": [
 							"pm.test(\"User registration was successfully completed\", function () {",
 							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"User registration is created for the correct bot ID\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.botId).to.eql(pm.environment.get(\"BOT2_USER\"));",
 							"});"
 						],
 						"type": "text/javascript"
@@ -27,12 +32,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "{{BOT1_PASS}}",
+							"value": "{{BOT2_PASS}}",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "{{BOT1_USER}}",
+							"value": "{{BOT2_USER}}",
 							"type": "string"
 						}
 					]
@@ -46,7 +51,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"username\": \"test1\",\n  \"chatUserId\": \"chatx\"\n}"
+					"raw": "{\n  \"username\": \"test1\",\n  \"chatUserId\": \"chatR\"\n}"
 				},
 				"url": {
 					"raw": "{{APP_URL}}/api/v1/user-registrations",
@@ -122,7 +127,7 @@
 			"response": []
 		},
 		{
-			"name": "[Bot01] Get User Registration",
+			"name": "[Bot01] Get User Profile",
 			"event": [
 				{
 					"listen": "test",
@@ -133,7 +138,13 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"pm.test(\"Registered user with first name 'foo'\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"\\\"firstName\\\":\\\"foo\\\"\");",
+							"   var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.firstName).to.eql(\"foo\");",
+							"});",
+							"",
+							"pm.test(\"Registered user for the username 'test1'\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.eql(\"test1\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -145,13 +156,13 @@
 					"type": "basic",
 					"basic": [
 						{
-							"key": "password",
-							"value": "{{BOT1_PASS}}",
+							"key": "username",
+							"value": "{{BOT2_USER}}",
 							"type": "string"
 						},
 						{
-							"key": "username",
-							"value": "{{BOT1_USER}}",
+							"key": "password",
+							"value": "{{BOT2_PASS}}",
 							"type": "string"
 						}
 					]
@@ -190,7 +201,6 @@
 					"listen": "test",
 					"script": {
 						"id": "adb08154-f5bc-40ad-864c-2ab544e406d5",
-						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"The user registration was already created\", function () {",
 							"    pm.response.to.have.status(400);",
@@ -200,7 +210,8 @@
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.code).to.eql(\"e.registrations.duplicate\");",
 							"});"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -210,12 +221,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "{{BOT1_PASS}}",
+							"value": "{{BOT2_PASS}}",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "{{BOT1_USER}}",
+							"value": "{{BOT2_USER}}",
 							"type": "string"
 						}
 					]
@@ -268,12 +279,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "{{BOT1_PASS}}",
+							"value": "{{BOT2_PASS}}",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "{{BOT1_USER}}",
+							"value": "{{BOT2_USER}}",
 							"type": "string"
 						}
 					]
@@ -301,17 +312,21 @@
 			"response": []
 		},
 		{
-			"name": "[Bot01] Get User Without Registration",
+			"name": "[Bot01] Get User Profile Without Registration",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "9e3f1cce-e0d0-420f-9951-049ab7b2e6d8",
 						"exec": [
-							"pm.test(\"User registration was not found\", function () {",
+							"pm.test(\"User profile was not found\", function () {",
 							"    pm.response.to.have.status(403);",
 							"});",
-							""
+							"",
+							"pm.test(\"Proper hint was provided\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.hint).to.eql(\"Register the user with this bot first.\");",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -323,12 +338,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "{{BOT1_PASS}}",
+							"value": "{{BOT2_PASS}}",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "{{BOT1_USER}}",
+							"value": "{{BOT2_USER}}",
 							"type": "string"
 						}
 					]
@@ -371,6 +386,11 @@
 						"exec": [
 							"pm.test(\"User registration was not found and cannot be deleted\", function () {",
 							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Should have the error code for registration not found\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(\"e.registrations.not_found\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -383,12 +403,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "{{BOT1_PASS}}",
+							"value": "{{BOT2_PASS}}",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "{{BOT1_USER}}",
+							"value": "{{BOT2_USER}}",
 							"type": "string"
 						}
 					]
@@ -425,6 +445,11 @@
 						"exec": [
 							"pm.test(\"User registration was successfully completed\", function () {",
 							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"User registration is created for the correct bot ID\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.botId).to.eql(pm.environment.get(\"BOT2_USER\"));",
 							"});"
 						],
 						"type": "text/javascript"
@@ -474,6 +499,73 @@
 			"response": []
 		},
 		{
+			"name": "[Bot02] Create User Registration Without ChatUserID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "84cae14b-8a01-4ab0-b491-0f7468d79fca",
+						"exec": [
+							"pm.test(\"User registration was successfully completed\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Proper error code is shown\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(\"err.req.validations\");",
+							"});",
+							"pm.test(\"Proper error message is shown\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"User id in the chat must have a value.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{BOT2_PASS}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{BOT2_USER}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"test\",\n  \"chatUserId\": \"\"\n}"
+				},
+				"url": {
+					"raw": "{{APP_URL}}/api/v1/user-registrations",
+					"host": [
+						"{{APP_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user-registrations"
+					]
+				},
+				"description": "Create user with all fields"
+			},
+			"response": []
+		},
+		{
 			"name": "[Bot02] Get User Registration",
 			"event": [
 				{
@@ -484,8 +576,14 @@
 							"pm.test(\"User registration was found\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
-							"pm.test(\"Registered user with first name 'test'\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"\\\"firstName\\\":\\\"test\\\"\");",
+							"",
+							"pm.test(\"Registration with specified bot ID was found\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"BOT2_USER\"));",
+							"});",
+							"",
+							"pm.test(\"User Registrations are listed\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.registrations.length).to.gt(0);",
 							"});"
 						],
 						"type": "text/javascript"
@@ -515,7 +613,70 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{APP_URL}}/api/v1/operations/getUserProfile?username=test",
+					"raw": "{{APP_URL}}/api/v1/user-registrations/test",
+					"host": [
+						"{{APP_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user-registrations",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Bot02] Get User Registration Without Registration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "45de8b6e-1419-4f82-a5e7-63773001bcee",
+						"exec": [
+							"pm.test(\"User registration was not found\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"pm.test(\"Proper error code is shown\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(\"e.registrations.not_found\");",
+							"});",
+							"",
+							"pm.test(\"Proper hint was provided\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.hint).to.eql(\"Register the user with this bot first.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{BOT2_PASS}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{BOT2_USER}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{APP_URL}}/api/v1/operations/getUserProfile?username=foo",
 					"host": [
 						"{{APP_URL}}"
 					],
@@ -528,7 +689,74 @@
 					"query": [
 						{
 							"key": "username",
-							"value": "test"
+							"value": "foo"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[Bot02] Get User Registration With Empty Value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "45de8b6e-1419-4f82-a5e7-63773001bcee",
+						"exec": [
+							"pm.test(\"User registration was found\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"pm.test(\"Proper error message is shown in the response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.message).to.eql(\"Username cannot be empty\");",
+							"});",
+							"pm.test(\"Proper error code is shown\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(\"err.req.validations\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{BOT2_PASS}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{BOT2_USER}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{APP_URL}}/api/v1/operations/getUserProfile?username=",
+					"host": [
+						"{{APP_URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"operations",
+						"getUserProfile"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": ""
 						}
 					]
 				}
@@ -617,36 +845,31 @@
 			"id": "1daef266-c74a-4679-95f4-54c761df9f8a",
 			"key": "APP_URL",
 			"value": "https://zv-s-botops-vivid.herokuapp.com",
-			"type": "string",
-			"description": ""
+			"type": "string"
 		},
 		{
 			"id": "f4dcdace-7b0f-4e2c-ace1-0f3b9783a301",
 			"key": "BOT1_USER",
 			"value": "testBot01",
-			"type": "string",
-			"description": ""
+			"type": "string"
 		},
 		{
 			"id": "c25685e6-ef61-4ecb-bff0-f045255348fe",
 			"key": "BOT1_PASS",
 			"value": "3Dfpq4mBUbC9hK3C97Am",
-			"type": "string",
-			"description": ""
+			"type": "string"
 		},
 		{
 			"id": "9322d7c6-1128-4d08-9dee-7e7d077ae49c",
 			"key": "BOT2_USER",
 			"value": "otherTestBot",
-			"type": "string",
-			"description": ""
+			"type": "string"
 		},
 		{
 			"id": "e181a90b-9e62-491f-82ae-87e849a60290",
 			"key": "BOT2_PASS",
 			"value": "gXLhZB4dr3CJJTy4dVL8",
-			"type": "string",
-			"description": ""
+			"type": "string"
 		}
 	]
 }
