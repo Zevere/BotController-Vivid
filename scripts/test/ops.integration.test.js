@@ -31,7 +31,7 @@ try {
         )
     } finally {
         console.debug('removing test dependency containers via docker-compose')
-        $.exec(`docker-compose --project-name ops rm -fv`)
+        $.exec(`docker-compose --project-name ops rm --stop -fv`)
     }
 } catch (e) {
     console.error(`❎ AN UNEXPECTED ERROR OCURRED`)
