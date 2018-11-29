@@ -20,10 +20,7 @@ jobs:
         # DEPLOY_SETTINGS_JSON='{"CI":[{"type":"docker","options":{"user":"","pass":""}}]}'
         - secure: fc+QsZTHuoHvmTko3cKCKlL+W28mVX3GHI56YJ1TsWXMJcgm5NidlrHKrcE6VW1dkT6VFyCNNNS+N2t218tvJJAHHpjHh6RD1m/8njYqdKaxEl11kJ8pEIzOlfF/0yBSn2Aync0CxJGSdJoirScI/fmSefrtLxWqT7sLJuuFrPHiGLw9uzrBlB9jbaR1VIs90ALMEvH0Pr0dkkG4VkiFWy7HTtkFP8D0NcPn9m9+xa+UEZpJg6/nBBSjnBM6wzVNZPblAPmwalliwyi5y7OPu87K2QopxNBXOZZxbWGdQurUDSyMFtFbour+AeS+OyAnEO+6GeJDqwX5xmUcxhCnHrwLUmeqWGIlR1GzndFTD8LqU35SJ9dPtsSuFjyTMjkptvhrPXqcu7+SZ95L0x55R/fmLRla+sE8LT9xh1G+rkvPRJ04zsulpH5Z9un7Gt3BugainB95quNSJ6mDyiO2Z5NpUsd9tnrqducf/I0M1UHirJSv2ZdKgXtpYUPwVLKzmqv0s2sxmbG5Dpeg5pLDFElKHyEs26fiJ7HH5WYa3WOSf2OG05jJ+/oaJ6JavaKxNvdKsTHkJyn6nuU629PbgGD1av+WvltvhpypFDDJhKiv6wnvGgls/FOamWt2Nd3n0OwQJAJyuQZV/pXwsnNZYaHexuyommVNlkG/skhnnu8=
     - stage: Test
-      name: "Vivid tests"
-      install: cd scripts && npm ci && cd ..
-      script: echo ToDo
-    - name: "Vivid Operations - Systems Integration Tests"
+      name: "Vivid Operations - Systems Integration Tests"
       install:
         - cd scripts && npm ci && cd ..
         - docker pull zevere/botops-vivid:unstable-solution
