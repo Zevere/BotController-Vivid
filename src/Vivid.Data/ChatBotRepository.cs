@@ -14,6 +14,7 @@ namespace Vivid.Data
 
         private FilterDefinitionBuilder<ChatBot> Filter => Builders<ChatBot>.Filter;
 
+        /// <inheritdoc />
         public ChatBotRepository(
             IMongoCollection<ChatBot> collection
         )
