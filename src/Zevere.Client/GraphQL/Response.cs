@@ -20,6 +20,9 @@ namespace Zevere.Client.GraphQL
         /// </summary>
         public Error[] Errors { get; set; }
 
+        /// <summary>
+        /// <code>true</code> there are any errors, otherwise <code>false</code>
+        /// </summary>
         public bool HasErrors => Errors?.Length > 0;
     }
 }
