@@ -9,6 +9,13 @@ namespace Zevere.Client
     /// </summary>
     public static class UserExtensions
     {
+        /// <summary>
+        /// Checks whether the user account exists by username
+        /// </summary>
+        /// <param name="client"><see cref="IZevereClient"/> instance</param>
+        /// <param name="username">Username</param>
+        /// <param name="cancellationToken">The cancellation token to cancel operation</param>
+        /// <returns>True if the user exists, otherwise false.</returns>
         public static Task<bool> UserExistsAsync(
             this IZevereClient client,
             string username,
@@ -27,10 +34,10 @@ namespace Zevere.Client
             );
 
         /// <summary>
-        /// Get a user profile by his username
+        /// Get a user profile by username
         /// </summary>
-        /// <param name="client">Instance of Zevere client</param>
-        /// <param name="username">Username to query for</param>
+        /// <param name="client"><see cref="IZevereClient"/> instance</param>
+        /// <param name="username">Username</param>
         /// <param name="cancellationToken">The cancellation token to cancel operation</param>
         /// <returns>User profile</returns>
         public static Task<Response> GetUserAsync(

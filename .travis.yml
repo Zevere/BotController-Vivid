@@ -1,4 +1,3 @@
-dist: trusty
 sudo: required
 language: node_js
 node_js:
@@ -41,20 +40,17 @@ jobs:
         - cd scripts && npm ci && cd ..
         - docker pull zevere/botops-vivid:unstable
       env:
-        # DEPLOY_SETTINGS_JSON='{"Staging":[
-        #   {"type":"docker","options":{"source":"zevere/botops-vivid:unstable","target":"zevere/botops-vivid:edge","user":"","pass":""}},
-        #   {"type":"heroku","options":{"app":"zv-s-botops-vivid","source":"zevere/botops-vivid:edge","dyno":"web","user":"","token":""}}
+        # DEPLOY_SETTINGS_JSON='{"Production":[
+        #   {"type":"docker","options":{"source":"zevere/botops-vivid:unstable","target":"zevere/botops-vivid","user":"","pass":""}},
+        #   {"type":"heroku","options":{"app":"zv-botops-vivid","source":"zevere/botops-vivid","dyno":"web","user":"","token":""}}
         # ]}'
-        - secure: ZvcauqdSpS+g3706oT0CuVurvLBERvr5f8dGEKS3BKaNNQmlLaPqIz7Bok2GPQRkApnmerBLwA39zXaNAITpT61ZgRNtUpbWGpK9Wg+bUkPTvwZfubsqel7Lzg5HpBcA7f4bZl1gtJ2weYwXPNSPusijaxYqAoq/XN3YsawW2BfhTKDXWkMQo1cJbolTzbUTqMVfV3Rj8/0amgoOyxvYSadqlWPRhs8mk0yiszMq0hKbQtM8a5jnMyBin2P+mc93EMwL0+2GxCyWGvmwHQHftKS/fSO5DzSnzkonQkBXkSoeahdASkdOItWITXaP+HjO0HzGKEntnjBC+hPG5kbr3IGesSClzDleB2DldHdjFkh9zKTNNpf9xTiUjPLus5BfldaCr7agDK6KGvc3TxJwwnxXjXaq9h2uQokdXwK0bQkh2WtR01JVLKZsBcMPRKYEQo5Aqu8Y7doZFNfPdAqiWtSvbCyrI1Fr7FjxwbAV05GzWGUqnYVQ0egZYgjh1MoMaWCeDORN57nEq/3YeZnJAnh4JC/WFrQTsaPdX074aNRwj+Gf6w4lJG28QvGCt36Qr8KQLOViPb8V/l1ouTcYzrwRAECzPt4xRxZ9sMSoi5t4a5exRPb4ESizrLrpXMRRgEZsvUgXMZjhh0gdiFZmOYz03fYU8GE2AFfc/JSDU78=
+        - secure: ENWRyvYSci0wJhiM8krfNG2uNVHulTQqi3gxSg1/Itw8B2knfwxCXSXcMPXOl60I7bz4RuduSpA4mejrarzzpbpdpJPAbhG2LbbQruPZM1qyLwpQHxZoDgwmgT0CIWN0NX1AU87isNXNBN2Ja+1RazzPKYIhnCR6a0OYsKnm19vi9CnAXpN+SVbHUOlVZk54S/13OBG+t1jjECy0G7KRnfDKI/glTxdV0jzXpFr0837X6azVmV27xt8xRoV1amADpnuXfpnUc8igjQ2i4ghmgDVzOwRoShbyPk02dSN06BKdxg764btgsxN2ZsKd852Gg20VW7ChpSqab6u0R8IOgI0a5HGNKbUoa34xc/AeJSWmot3Io724yf1XFHmqvb5pi8XQzeLlQbdr51jNvppkNada3HE5FQeU/l3LuoiHn6Kn31wEv6y7A2VNVE4EncCeyxIJ5rkMQpfobUvYXT+MB0dA647+y8iXu0EzSCZFq3rH/O6tfWP2YPlCRnFNle0FElEUbNaDfzhRNtObBGsMyKHwPjeJm7AAZZ3gTEi22/cYGFR7zCnS+95k7PJ6DyZNdsFcLKNuNUuD65SiotUdMq8tYv9NR9KrGAf/+b53HfS/+XfRIhGsLJTpQvqMO7xq7ImXwDxuztIAPQXKlU0VwfsZaw9BowaKC6VjWiOtlfE=
       deploy:
         - provider: script
           skip_cleanup: true
-          script: node scripts/deploy Staging
+          script: node scripts/deploy Production
           on:
-            branch: develop
-    - stage: PIV
-      name: "PIV Checks"
-      script: echo ToDo
+            branch: master
 
 
 # Disable "Build pushed pull requests"

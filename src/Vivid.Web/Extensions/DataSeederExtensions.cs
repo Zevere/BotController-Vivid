@@ -11,6 +11,10 @@ namespace Vivid.Web.Extensions
 {
     internal static class DataSeederExtensions
     {
+        /// <summary>
+        /// Seeds the database during the application startup
+        /// </summary>
+        /// <param name="app"></param>
         public static void SeedData(this IApplicationBuilder app)
         {
             using (var scope = app.ApplicationServices.CreateScope())

@@ -11,6 +11,9 @@ using Vivid.Data.Entities;
 
 namespace Vivid.Web.Middlewares.BasicAuth
 {
+    /// <summary>
+    /// Authentication middleware to handle "Basic" scheme
+    /// </summary>
     class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         private new const string Scheme = "Basic";

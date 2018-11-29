@@ -1,17 +1,19 @@
-﻿// ReSharper disable once CheckNamespace
+﻿using System;
 
+// ReSharper disable once CheckNamespace
 namespace Vivid.Data
 {
-    public class EntityNotFoundException : RepositoryException
+    /// <summary>
+    /// Entity not found error
+    /// </summary>
+    public class EntityNotFoundException : Exception
     {
+        /// <inheritdoc />
         public EntityNotFoundException(string id)
-            : base($"Entity with id of \"{id}\" does not exist.")
-        {
-        }
+            : base($"Entity with id of \"{id}\" does not exist.") { }
 
+        /// <inheritdoc />
         public EntityNotFoundException(string field, string value)
-            : base($"Entity with \"{field}\" of \"{value}\" does not exist.")
-        {
-        }
+            : base($"Entity with \"{field}\" of \"{value}\" does not exist.") { }
     }
 }

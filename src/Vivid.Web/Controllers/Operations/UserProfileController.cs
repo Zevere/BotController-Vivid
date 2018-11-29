@@ -37,7 +37,7 @@ namespace Vivid.Web.Controllers
         /// <response code="400">Username is invalid or does not exist</response>
         /// <response code="403">User is not registered with this chat bot</response>
         [HttpGet]
-        [Produces(Constants.JsonContentType)]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(UserProfile), 200)]
         [ProducesResponseType(typeof(Error), 400)]
         [ProducesResponseType(typeof(Error), 403)]

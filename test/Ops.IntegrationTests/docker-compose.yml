@@ -3,10 +3,10 @@ version: '2'
 services:
 
   borzoo:
-    image: zevere/webapi-borzoo:edge
+    image: zevere/webapi-borzoo
     environment:
       - ASPNETCORE_ENVIRONMENT=Development # to make sure mongodb gets initialized
-      - BORZOO_SETTINGS={"data":{"use":"mongo","mongo":{"connection":"mongodb://mongo:27017/borzoo"}}}
+      - BORZOO_SETTINGS={"Mongo":{"ConnectionString":"mongodb://mongo:27017/borzoo"}}
     depends_on:
       - mongo
     ports:

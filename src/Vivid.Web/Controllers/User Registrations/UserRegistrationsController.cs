@@ -35,7 +35,7 @@ namespace Vivid.Web.Controllers
         /// <response code="400">User ID is invalid or does not exist</response>
         /// <response code="404">User has not registered with any of the Zevere chat bots</response>
         [HttpGet("{username}")]
-        [Produces(Constants.JsonContentType)]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(UserRegistrationsResponse), 200)]
         [ProducesResponseType(typeof(Error), 400)]
         [ProducesResponseType(typeof(Error), 404)]
@@ -74,8 +74,8 @@ namespace Vivid.Web.Controllers
         /// <response code="201">User registration is complete</response>
         /// <response code="400">There are invalid fields or the username does not exist on Zevere</response>
         [HttpPost]
-        [Consumes(Constants.JsonContentType)]
-        [Produces(Constants.JsonContentType)]
+        [Consumes("application/json")]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(UserRegistration), 201)]
         [ProducesResponseType(typeof(Error), 400)]
         public async Task<IActionResult> Post([FromBody] NewUserRegistration newReg)

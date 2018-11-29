@@ -1,6 +1,6 @@
 # Vivid
 
-Web API for chat bot operations(BotOps) in Zevere
+Web API for chatbot operations(BotOps) in Zevere
 
 ## Getting Started
 
@@ -13,9 +13,6 @@ This project requires [.NET Core] SDK 2.1 and a [MongoDB] instance.
 
     # Switch to the project directory
     cd BotOps-Vivid
-
-    # Clone dependency projects
-    git submodule update --init --recursive
     ```
 1. Run a MongoDB instance. For example, using Docker:
     ```sh
